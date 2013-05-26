@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantilla/siteThm.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <ui:define name="content">
+        <h:form>
+            <h:outputLabel value="Gestion de Departamentos" class="h1"/>
+
+            <h:panelGrid columns="2" rendered="${!departamentoBean.form}">
+                <h:commandButton value="Nuevo Departamento" actionListener="${departamentoBean.verFormNuevo(true)}"/>
+            </h:panelGrid>
+
+
+            <p:panel rendered="${departamentoBean.form}" header="Informacion del departamento" style="width: 100%">
+                <h:panelGrid columns="3" >
+                    <h:outputLabel value="Codigo" />
+                    <h:inputText id="codDept" disabled="${departamentoBean.edit}" value="${departamentoBean.objeto.idDepartamento}" required="true" requiredMessage="Por favor digita un codigo valido"/>
+                    <p:message for="codDept"/>
+
+                    <h:outputLabel value="Nombre"/>
+                    <h:inputTextarea rows="5" cols="70" id="nomDept" value="${departamentoBean.objeto.depNombre}" required="true" requiredMessage="Por favor digita un nombre valido"/>
+                    <p:message for="nomDept"/>
+
+                    <h:commandButton value="Aceptar" action="${departamentoBean.aceptar()}"/>
+                    <h:commandButton value="Cancelar" immediate="true" action="${departamentoBean.reglaNavegacion()}"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:dataTable rendered="${!departamentoBean.form}" style="width: 100%" value="#{departamentoBean.listado}" var="item" emptyMessage="No hay registros">
+                <p:column style="width: 10%" headerText="Codigo" filterBy="${item.idDepartamento}" filterMatchMode="contains" styleClass="styleColumn">
+                    <p:outputLabel value="${item.idDepartamento}"/>
+                </p:column>
+                <p:column headerText="Nombre" styleClass="styleColumn" filterBy="${item.depNombre}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.depNombre}"/>
+                </p:column>
+                <p:column width="7%">
+                    <h:commandButton image="/imagenes/edit.png" actionListener="${beanOperador.renderizarItem(item, true)}"/>
+                    <h:commandLink  onclick="pnl${item.depNombre}.show();"  >
+                        <h:graphicImage url="/imagenes/delete.png"/>
+                      
+                    </h:commandLink>
+                    <p:dialog widgetVar="pnl${item.depNombre}" closable="false"  header="Desea eliminar este Item ?" visible="false"  resizable="false">
+
+                            <h:panelGrid columns="2" >
+                                <p:commandButton value="Eliminar"  partialSubmit="true"  actionListener="${departamentoBean.eliminarItem(item)}"/>
+                                <p:commandButton value="Cancelar" onclick="pnl${item.depNombre}.hide();"/>
+                            </h:panelGrid>
+
+                    </p:dialog>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

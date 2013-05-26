@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="buscador" required="true" type="com.invte.component.rentavoz.buscador.Buscador"/>
+        <cc:attribute name="mostrarLimpiar" default="false"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        
+         <!--appendToBody="true"-->
+        <p:dialog
+           
+            modal="false"
+            rendered="#{cc.attrs.buscador.mostrarPopup}"
+            visible="#{cc.attrs.buscador.mostrarPopup}"
+
+            >
+            <!--            <f:facet name="header">
+                            <h:commandButton value="Cerrar"
+                                             immediate="true"
+                                             actionListener="{cc.attrs.buscador.cerrar}"/>
+                        </f:facet>-->
+
+            <h:panelGrid>
+                <h:panelGrid columns="3">
+                    <!--<h:outputLabel value="Criterio :"/>-->
+
+                                       
+                </h:panelGrid>
+              
+                     
+                            <p:dataTable var="item"
+                
+                                         style="width: 400px;"
+                                         value="#{cc.attrs.buscador.items}"
+                                         rows="10"
+                                         paginator="true"
+                                         widgetVar="tblBuscador"
+                                         paginatorPosition="top"
+                                         id="tblBuscador">
+                              
+                
+                                <p:column  style="width: 16px">
+                
+                                    <h:commandButton value="s"
+                                                     immediate="true"
+                                                     image="/imagenes/select.png"
+                                                     type="image"
+                                                     actionListener="#{cc.attrs.buscador.seleccionar(item.obj)}">
+                                        <f:attribute name="item" value="#{item.obj}"/>
+                                        <f:param name="item" value="#{item.obj}"/>
+                
+                                    </h:commandButton>
+                                </p:column>
+                                <p:column  headerText="Id" style="text-align: left" filterBy="${item.id}">
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column   headerText="Descripción"
+                                            filterBy="${item.descripcion}"
+                                            style=" text-align: left;">
+                                    <h:outputText value="#{item.descripcion}"/>
+                                </p:column>
+                            </p:dataTable>
+
+
+
+
+<!--                <h:commandLink value="Limpiar"
+                               immediate="true"
+
+                               action="{cc.attrs.buscador.limpiar()}"
+                               rendered="{cc.attrs.buscador.mostrarLimpiar || cc.attrs.mostrarLimpiar}">
+
+                </h:commandLink>-->
+
+            </h:panelGrid>
+
+        </p:dialog>
+    </cc:implementation>
+</html>

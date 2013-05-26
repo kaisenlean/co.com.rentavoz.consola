@@ -1,0 +1,46 @@
+body {
+    background-color: #ffffff;
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #000000;  
+    margin: 10px;
+}
+
+.h1 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    border-bottom: 1px solid #AFAFAF; 
+    font-size:  16px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: orangered;
+    margin: 0px;
+    padding: 0px;
+    color: orangered;
+/*    color: #D20005;*/
+}
+
+a:link, a:visited {
+  color: #045491;
+  font-weight : bold;
+  text-decoration: none;
+}
+
+a:link:hover, a:visited:hover  {
+  color: #045491;
+  font-weight : bold;
+  text-decoration : underline;
+}
+
+.linkTabla{
+    font-size: 10px;
+}
+.styleColumn{
+  text-align: left;
+  
+}
+.eliminarIcon {
+    background-image: url(imagenes/delete.png) ;
+}
+.editarIcon {
+    background-image: url(imagenes/edit.png) ;
+}

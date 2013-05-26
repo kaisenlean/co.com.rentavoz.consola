@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Rentavoz 2.0</title>
+    </h:head>
+    <h:body style="margin-left: 30%;font-size: 11px">
+        <h:form>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <p:dialog footer="@Grupo Innovate S.A.S" closable="false" resizable="false" draggable="false" modal="true" appendToBody="true" visible="true" header="Ingreso al sistema" style="width: 600px">
+
+                <h:graphicImage url="/imagenes/logo.png"/>
+                <h:panelGrid columns="2" style="margin-left: 20%">
+                    <h:outputLabel value="Usuario" style="color: orangered;font-weight: bold"/>
+                    <h:inputText style="width: 100%"/>
+
+                    <h:outputLabel value="Contraseña" style="color: orangered;font-weight: bold"/>
+                    <h:inputSecret style="width: 100%"/>
+
+                </h:panelGrid>
+                <p:commandButton style="margin-left: 40%" value="Ingresar" action="/inicio.jsf"/>
+            </p:dialog>
+
+        </h:form>
+
+    </h:body>
+</html>
+

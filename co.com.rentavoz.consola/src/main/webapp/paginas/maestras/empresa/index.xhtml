@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantilla/siteThm.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <ui:define name="content">
+        <h:form>
+            <h:outputLabel value="Gestion de Empresas" class="h1"/>
+
+            <h:panelGrid columns="2" rendered="${!beanEmpresa.form}">
+                <h:commandButton value="Nueva Empresa" actionListener="${beanEmpresa.verFormNuevo(true)}"/>
+            </h:panelGrid>
+
+
+            <p:panel rendered="${beanEmpresa.form}" header="Informacion de la empresa" style="width: 100%">
+                <h:panelGrid columns="3" >
+                    <h:outputLabel value="Codigo" />
+                    <h:inputText id="codDept" disabled="${beanEmpresa.edit}" value="${beanEmpresa.objeto.idEmpresa}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="codDept"/>
+
+                    <h:outputLabel value="Nombre"/>
+                    <h:inputText id="nomDept" value="${beanEmpresa.objeto.empNombre}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="nomDept"/>
+                    
+                    <h:outputLabel value="Alias"/>
+                    <h:inputText id="empAlias" value="${beanEmpresa.objeto.empAlias}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="empAlias"/>
+
+                    <h:outputLabel value="NIT"/>
+                    <h:inputText id="nitEmpr" value="${beanEmpresa.objeto.empNit}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="nitEmpr"/>
+
+                    <h:outputLabel value="Contacto"/>
+                    <h:inputText id="empContacto" value="${beanEmpresa.objeto.empContacto}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="empContacto"/>
+
+                    <h:outputLabel value="Dirección"/>
+                    <h:inputText id="dirEmpresa" value="${beanEmpresa.objeto.empDireccion}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="dirEmpresa"/>
+
+                    <h:outputLabel value="Teléfono"/>
+                    <h:inputText id="telEmpresa" value="${beanEmpresa.objeto.empTelefono}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="telEmpresa"/>
+
+                    <h:commandButton value="Aceptar" action="${beanEmpresa.aceptar()}"/>
+                    <h:commandButton value="Cancelar" immediate="true" action="${beanEmpresa.reglaNavegacion()}"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:dataTable rendered="${!beanEmpresa.form}" style="width: 100%" value="#{beanEmpresa.listado}" var="item" emptyMessage="No hay registros">
+                <p:column style="width: 10%" headerText="Codigo" filterBy="${item.idEmpresa}" filterMatchMode="contains" styleClass="styleColumn">
+                    <p:outputLabel value="${item.idEmpresa}"/>
+                </p:column>
+                <p:column headerText="Nombre" styleClass="styleColumn" filterBy="${item.empNombre}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.empNombre}"/>
+                </p:column>
+                             
+                 <p:column headerText="Nit" styleClass="styleColumn" filterBy="${item.empNit}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.empNit}"/>
+                </p:column>
+                
+                <p:column headerText="Contacto" styleClass="styleColumn" filterBy="${item.empContacto}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.empContacto}"/>
+                </p:column>
+                
+                <p:column width="7%">
+                    <h:commandButton image="/imagenes/edit.png" actionListener="${beanEmpresa.renderizarItem(item, true)}"/>
+                    <h:commandLink  onclick="pnl${item.idEmpresa}.show();"  >
+                        <h:graphicImage url="/imagenes/delete.png"/>
+                      
+                    </h:commandLink>
+                    <p:dialog widgetVar="pnl${item.idEmpresa}" closable="false"  header="Desea eliminar este Item ?" visible="false"  resizable="false">
+
+                            <h:panelGrid columns="2" >
+                                <p:commandButton value="Eliminar"  partialSubmit="true"  actionListener="${beanEmpresa.eliminarItem(item)}"/>
+                                <p:commandButton value="Cancelar" onclick="pnl${item.idEmpresa}.hide();"/>
+                            </h:panelGrid>
+
+                    </p:dialog>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

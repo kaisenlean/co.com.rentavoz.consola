@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://java.sun.com/jsf/core">
+
+    <!--<h:form>-->
+        
+    
+        <p:dataTable  value="#{administradorMenus.menus}" var="menu" style="font-size: 11px;font-weight: bolder;width: 100%">
+            <p:column  style="width: 100%" headerText="Menu Principal">
+                <h:graphicImage url="/imagenes/menu/${menu.icono}"/>
+                <h:commandLink  style="color: #045491 ;font-size: 11px"   action="${menu.direccion()}"  value=" ${menu.label} " />
+            </p:column>
+        </p:dataTable>
+   <!--</h:form>-->
+</f:view>
+
