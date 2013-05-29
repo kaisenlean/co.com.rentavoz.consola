@@ -23,18 +23,21 @@
             <h:inputText value="#{cc.attrs.codValue}"
                            size="10"
                            readonly="true"
-                           id="buscarCriterio"
+                     
                            requiredMessage="${cc.attrs.mensajeRequerido}"
                            required="${cc.attrs.requerido}"/>
             <h:inputText value="#{cc.attrs.displayValue}"
                            size="40"
                            readonly="true"
-                           id="buscarTexto"/>
+                        />
             <h:commandButton  
-                               actionListener="#{cc.attrs.buscarListener}"
+                id="btnBuscar"
+                actionListener="${cc.attrs.buscarListener}"
                                value="#{cc.attrs.etiquetaBoton}"
                                immediate="true"
-                                                             />
+                               >
+                
+            </h:commandButton>
             
         </h:panelGrid>
     </cc:implementation>

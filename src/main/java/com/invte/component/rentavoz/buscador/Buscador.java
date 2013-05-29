@@ -20,7 +20,9 @@ public abstract class Buscador<T> {
     
     private String criterio;
     private T item;
-
+    private  BuscadorListener listener;
+   
+    
     public String getCriterio() {
         return criterio.toUpperCase();
     }
@@ -67,6 +69,13 @@ public abstract class Buscador<T> {
         this.mostrarPopup = false;
         this.items = new ArrayList<BuscadorItem>();
         criterio = "";
+            listener=new BuscadorListener() {
+
+        @Override
+        public void listener() {
+          mostrar();
+        }
+    };
     }
 
     public abstract String buscar();
@@ -107,4 +116,15 @@ public abstract class Buscador<T> {
         getItems().clear();
         setMostrarPopup(false);
     }
+
+    public BuscadorListener getListener() {
+        return listener;
+    }
+
+    public void setListener(BuscadorListener listener) {
+        this.listener = listener;
+    }
+    
+    
+    
 }

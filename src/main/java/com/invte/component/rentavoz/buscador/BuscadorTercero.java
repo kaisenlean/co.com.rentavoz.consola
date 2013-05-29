@@ -8,7 +8,7 @@ package com.invte.component.rentavoz.buscador;
 
 
 import co.com.rentavoz.logica.jpa.entidades.Tercero;
-import co.com.rentavoz.logica.jpa.fachadas.TerceroFacadeImpl;
+import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
 
 import java.util.List;
 import javax.faces.event.ActionEvent;
@@ -19,7 +19,7 @@ import javax.faces.event.ActionEvent;
  */
 public abstract class BuscadorTercero extends Buscador<Tercero> {
 
-    public abstract TerceroFacadeImpl getFacade();
+    public abstract TerceroFacade getFacade();
 
 
     public abstract void selCentrope(Tercero centrope);

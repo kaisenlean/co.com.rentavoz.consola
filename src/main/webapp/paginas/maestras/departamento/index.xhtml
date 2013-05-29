@@ -39,7 +39,7 @@
                     <p:outputLabel value="${item.depNombre}"/>
                 </p:column>
                 <p:column width="7%">
-                    <h:commandButton image="/imagenes/edit.png" actionListener="${beanOperador.renderizarItem(item, true)}"/>
+                    <h:commandButton image="/imagenes/edit.png" actionListener="${departamentoBean.renderizarItem(item, true)}"/>
                     <h:commandLink  onclick="pnl${item.depNombre}.show();"  >
                         <h:graphicImage url="/imagenes/delete.png"/>
                       

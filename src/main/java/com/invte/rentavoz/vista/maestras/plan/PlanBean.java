@@ -10,10 +10,11 @@ import co.com.rentavoz.logica.jpa.entidades.Tercero;
 import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
 import co.com.rentavoz.logica.jpa.fachadas.OperadorFacade;
 import co.com.rentavoz.logica.jpa.fachadas.PlanFacade;
-import co.com.rentavoz.logica.jpa.fachadas.TerceroFacadeImpl;
+import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
 import com.invte.component.rentavoz.buscador.BuscadorOperador;
 import com.invte.component.rentavoz.buscador.BuscadorTercero;
 import com.invte.rentavoz.vista.StandardAbm;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -25,81 +26,116 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class PlanBean extends  StandardAbm<Plan>{
+public class PlanBean extends StandardAbm<Plan> {
 
     @EJB
     private PlanFacade facade;
-    
     @EJB
-    private TerceroFacadeImpl terceroFacade;
-    
+    private TerceroFacade terceroFacade;
     @EJB
     private OperadorFacade operadorFacade;
-    
-    private  BuscadorTercero buscadorTercero;
-    private  BuscadorOperador buscadorOperador;
-    
-    private  Tercero tercero;
+    private BuscadorTercero buscadorTercero;
+    private BuscadorOperador buscadorOperador;
+    private Tercero tercero;
     private Operador operador;
-    
+
     @Override
     public AbstractFacade<Plan> getFacade() {
-       return  facade;
+        return facade;
     }
 
     @Override
     public Plan getInstancia() {
-     return  new Plan();
+        return new Plan();
     }
 
     @Override
     public String reglaNavegacion() {
-       return  "/paginas/maestras/plan/";
+        return "/paginas/maestras/plan/index.jsf";
     }
 
     @Override
     public Plan getObjeto() {
-       return obtenerObjeto();
+        return obtenerObjeto();
     }
 
     @Override
     public List<Plan> getListado() {
-       return obtenerListado();
+        return obtenerListado();
     }
 
     @Override
+    public void postFormNuevo() {
+    getObjeto().setIdPlan(facade.nextCodigo());
+    getObjeto().setFecha(new Date());
+    }
+
+    
+    @Override
     public void initialize() {
-       buscadorOperador=new BuscadorOperador() {
+        buscadorOperador = new BuscadorOperador() {
+            @Override
+            public OperadorFacade getFacade() {
+                return operadorFacade;
+            }
 
-           @Override
-           public OperadorFacade getFacade() {
-              return operadorFacade;
-           }
+            @Override
+            public void selCentrope(Operador centrope) {
+                operador = centrope;
+            }
+        };
+        buscadorTercero = new BuscadorTercero() {
+            @Override
+            public TerceroFacade getFacade() {
+                return terceroFacade;
+            }
 
-           @Override
-           public void selCentrope(Operador centrope) {
-              operador=centrope;
-           }
-       };
-       buscadorTercero=new BuscadorTercero() {
-
-           @Override
-           public TerceroFacadeImpl getFacade() {
-              return terceroFacade;
-           }
-
-           @Override
-           public void selCentrope(Tercero centrope) {
-              tercero=centrope;
-           }
-       };
+            @Override
+            public void selCentrope(Tercero centrope) {
+                tercero = centrope;
+            }
+        };
     }
 
     @Override
     public void buscarrPorCriterio() {
-       
     }
+
+    @Override
+    public boolean preAction() {
         
+        if (facade.find(getObjeto().getIdPlan())==null) {
+            
+       
+        if (operador == null || tercero == null) {
+            StringBuilder builder = new StringBuilder("Por favor selecciona " );
+            if (operador==null) {
+                builder.append(" un  operador ");
+            }
+            if (tercero==null) {
+                builder.append("y un tercero");
+            }
+            builder.append("para poder continuar.");
+            mensaje("Error", builder.toString());
+            return false;
+        } else {
+            getObjeto().setTerceroidTecero(tercero);
+            getObjeto().setOperadoridOperador(operador);
+            return true;
+        }
+         }else{
+        mensaje("Error", "Este codigo de plan ya esta siendo utilizado por favor digita otro");
+        return false;
+        }
+    }
+
+    @Override
+    public void preRenderizarItem() {
+    tercero=getObjeto().getTerceroidTecero();
+    operador=getObjeto().getOperadoridOperador();
+    }
+    
+    
 
     //<editor-fold defaultstate="collapsed" desc="CAPSULAS">
     public BuscadorTercero getBuscadorTercero() {
@@ -133,6 +169,5 @@ public class PlanBean extends  StandardAbm<Plan>{
     public void setOperador(Operador operador) {
         this.operador = operador;
     }
-        //</editor-fold>
-
+    //</editor-fold>
 }
