@@ -7,11 +7,8 @@ package com.invte.component.rentavoz.buscador;
 
 
 
-import co.com.rentavoz.logica.jpa.entidades.Ciudad;
-import co.com.rentavoz.logica.jpa.entidades.Departamento;
-import co.com.rentavoz.logica.jpa.entidades.Operador;
-import co.com.rentavoz.logica.jpa.fachadas.CiudadFacade;
-import co.com.rentavoz.logica.jpa.fachadas.OperadorFacade;
+import co.com.rentavoz.logica.jpa.entidades.Tercero;
+import co.com.rentavoz.logica.jpa.fachadas.TerceroFacadeImpl;
 
 import java.util.List;
 import javax.faces.event.ActionEvent;
@@ -20,43 +17,47 @@ import javax.faces.event.ActionEvent;
  *
  * @author ejody
  */
-public abstract class BuscadorTercero extends Buscador<Operador> {
+public abstract class BuscadorTercero extends Buscador<Tercero> {
 
-    public abstract OperadorFacade getFacade();
+    public abstract TerceroFacadeImpl getFacade();
 
 
-    public abstract void selCentrope(Operador centrope);
+    public abstract void selCentrope(Tercero centrope);
     
     
     @Override
         public String buscar() {
-        List<Operador> result = getFacade().findByCriterio(getCriterio());
+        List<Tercero> result = getFacade().findByCriterio(getCriterio());
 
         getItems().clear();
 
-        for (Operador centrope : result) {
-            getItems().add(new BuscadorItem(centrope.getIdOperador()+"", centrope.getOpeNombre(), centrope));
+        for (Tercero centrope : result) {
+            getItems().add(new BuscadorItem(centrope.getIdTecero()+"", centrope.toString(), centrope));
         }
         return null;
     }
 
     @Override
-    public void asignar(Operador t) {
+    public void asignar(Tercero t) {
         if (t == null) {
-            selCentrope(new Operador());
+            selCentrope(new Tercero());
         } else {
             selCentrope(t);
         }
     }
 
+    /**
+     *
+     * @param evt
+     */
     @Override
     public void mostrar(ActionEvent evt) {
-        List<Operador> result = getFacade().findByCriterio(getCriterio());
+        List<Tercero> result = getFacade().findByCriterio(getCriterio());
 
         getItems().clear();
 
-        for (Operador centrope : result) {
-            getItems().add(new BuscadorItem(centrope.getIdOperador()+"", centrope.getOpeNombre(), centrope));
+        for (Tercero centrope : result) {
+            getItems().add(new BuscadorItem(centrope.getIdTecero()+"", centrope.toString(), centrope));
         }
         super.mostrar(evt);
     }

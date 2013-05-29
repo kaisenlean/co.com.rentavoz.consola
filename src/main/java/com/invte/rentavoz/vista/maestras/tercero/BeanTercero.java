@@ -7,7 +7,7 @@ package com.invte.rentavoz.vista.maestras.tercero;
 
 import co.com.rentavoz.logica.jpa.entidades.Tercero;
 import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
-import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
+import co.com.rentavoz.logica.jpa.fachadas.TerceroFacadeImpl;
 import com.invte.rentavoz.vista.StandardAbm;
 import java.io.Serializable;
 import java.util.List;
@@ -24,7 +24,7 @@ import javax.faces.bean.ViewScoped;
 public class BeanTercero extends StandardAbm<Tercero> implements Serializable {
 
     @EJB
-    private TerceroFacade terceroFacade;
+    private TerceroFacadeImpl terceroFacade;
 
     @Override
     public AbstractFacade<Tercero> getFacade() {

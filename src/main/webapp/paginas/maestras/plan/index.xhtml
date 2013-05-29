@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../../plantilla/siteThm.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:bsi="http://java.sun.com/jsf/composite/bsi"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+    <ui:define name="content">
+        <h:form>
+            <h:outputLabel value="Gestion de Planes" class="h1"/>
+
+            <h:panelGrid columns="2" rendered="${!planBean.form}">
+                <h:commandButton value="Nuevo Plan" actionListener="${planBean.verFormNuevo(true)}"/>
+            </h:panelGrid>
+
+
+            <p:panel rendered="${planBean.form}" header="Informacion del Plan" style="width: 100%">
+                <h:panelGrid columns="3" >
+                    <h:outputLabel value="Codigo" />
+                    <h:inputText id="codDept" disabled="${planBean.edit}" value="${planBean.objeto.idPlan}" required="true" requiredMessage="Por favor digita un codigo valido"/>
+                    <p:message for="codDept"/>
+
+                    <h:outputLabel value="Nombre"/>
+                    <h:inputTextarea rows="5" cols="70" id="nomDept" value="${planBean.objeto.plaNombre}" required="true" requiredMessage="Por favor digita un nombre valido"/>
+                    <p:message for="nomDept"/>
+
+                    <h:outputLabel value="Fecha"/>
+                    <p:calendar id="fechPlan" pattern="dd/MM/yyyy"  value="${planBean.objeto.fecha}" required="true" requiredMessage="Por favor selecciona una fecha"/>
+                    <p:message for="fechPlan"/>
+
+                    <h:outputLabel value="Fecha de Vencimiento"/>
+                    <p:calendar  id="fechaVencimiento" value="${planBean.objeto.plaFechaVenc}" required="true" requiredMessage="Por favor digita una fecha de vencimiento"/>
+                    <p:message for="fechaVencimiento"/>
+
+
+                    <h:outputLabel value="Operador"/>
+                    <bsi:buscar id="buscadorOperador" buscarListener="${planBean.buscadorOperador.mostrar}" codValue="${planBean.operador.idOperador}" displayValue="${planBean.operador.opeNombre}" />
+                    <p:message for="buscadorOperador"/>
+
+
+                    <h:outputLabel value="Cantidad de Minutos"/>
+                    <h:inputText  id="cantMInutos" value="${planBean.objeto.plaCantidadMinutos}" required="true" requiredMessage="Por favor digita una cantida valida"/>
+                    <p:message for="cantMInutos"/>
+
+
+                    <h:outputLabel value="Costo maximo"/>
+                    <h:inputText  id="costoMax" value="${planBean.objeto.plaCostoMax}" required="true" requiredMessage="Por favor digita un costo maximo"/>
+                    <p:message for="costoMax"/>
+
+                    <h:outputLabel value="Costo minimo"/>
+                    <h:inputText  id="costoMinimo" value="${planBean.objeto.plaCostoMin}" required="true" requiredMessage="Por favor digita un costo minimo"/>
+                    <p:message for="costoMinimo"/>
+
+                    <h:outputLabel value="Costo minuto"/>
+                    <h:inputText  id="costoMinuto" value="${planBean.objeto.plaCostoMinuto}" required="true" requiredMessage="Por favor digita un costo minuto"/>
+                    <p:message for="costoMinuto"/>
+
+                    <h:outputLabel value="Tercero"/>
+                    <bsi:buscar id="buscadorTercero" buscarListener="${planBean.buscadorTercero.mostrar}" codValue="${planBean.tercero.idTecero}" displayValue="${planBean.tercero.toString()}" />
+                    <p:message for="buscadorTercero"/>
+
+                    <h:commandButton value="Aceptar" action="${planBean.aceptar()}"/>
+                    <h:commandButton value="Cancelar" immediate="true" action="${planBean.reglaNavegacion()}"/>
+                </h:panelGrid>
+
+            </p:panel>
+            <bsi:pnlBuscador buscador="${planBean.buscadorOperador}"/>
+            <bsi:pnlBuscador buscador="${planBean.buscadorTercero}"/>
+            <p:dataTable rendered="${!planBean.form}" style="width: 100%" value="#{planBean.listado}" var="item" emptyMessage="No hay registros">
+                <p:column style="width: 10%" headerText="Codigo" filterBy="${item.idPlan}" filterMatchMode="contains" styleClass="styleColumn">
+                    <p:outputLabel value="${item.idPlan}"/>
+                </p:column>
+                <p:column headerText="Nombre" styleClass="styleColumn" filterBy="${item.plaNombre}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.plaNombre}"/>
+                </p:column>
+                <p:column headerText="Tercero" styleClass="styleColumn" filterBy="${item.terceroidTecero.toString}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.terceroidTecero.toString}"/>
+                </p:column>
+                <p:column headerText="Fecha Vencimiento" styleClass="styleColumn" >
+                    <p:outputLabel value="${item.plaFechaVenc}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </p:outputLabel>
+                </p:column>
+                <p:column headerText="Operador" sortBy="${item.operadoridOperador.opeNombre}"  styleClass="styleColumn" filterBy="${item.operadoridOperador.opeNombre}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.operadoridOperador.opeNombre}"/>
+                </p:column>
+                <p:column width="7%">
+                    <h:commandButton image="/imagenes/edit.png" actionListener="${beanOperador.renderizarItem(item, true)}"/>
+                    <h:commandLink  onclick="pnl${item.plaNombre}.show();"  >
+                        <h:graphicImage url="/imagenes/delete.png"/>
+
+                    </h:commandLink>
+                    <p:dialog widgetVar="pnl${item.idPlan}" closable="false"  header="Desea eliminar este Item ?" visible="false"  resizable="false">
+
+                        <h:panelGrid columns="2" >
+                            <p:commandButton value="Eliminar"  partialSubmit="true"  actionListener="${departamentoBean.eliminarItem(item)}"/>
+                            <p:commandButton value="Cancelar" onclick="pnl${item.idPlan}.hide();"/>
+                        </h:panelGrid>
+
+                    </p:dialog>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
