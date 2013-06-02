@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet name="default.css" library="css" />
+	<h:outputStylesheet name="tableLayout.css" library="css" />
+
+	<title>Rentavoz 2.0</title>
+</h:head>
+
+<h:body style="font-size: 11px">
+
+	<p:layout fullPage="true" collapseTitle="Modulos">
+
+		<h:form>
+
+			<p:layoutUnit position="center" size="60%">
+			<div style="float: right;">
+			
+			<p:menuButton value="(Nombre Usuario)" ><p:menuitem value="Salir"/></p:menuButton>
+			</div>
+				<p:graphicImage url="/imagenes/logo.png"></p:graphicImage>
+				<h:panelGrid style="margin-left:5%" columns="4" cellspacing="3" cellpadding="3">
+					<p:panel header="Configuracion" style="width:100px">
+						<h:commandLink action="/inicio.jsf">
+							<h:graphicImage style="margin-left:10%"
+								url="/imagenes/dashboard/configuracion.png"></h:graphicImage>
+						</h:commandLink>
+					</p:panel>
+					<p:panel header="Almacen" style="width:100px">
+						<h:graphicImage style="margin-left:10%"
+							url="/imagenes/dashboard/almacen.png"></h:graphicImage>
+					</p:panel>
+
+					<p:panel header="Inventario" style="width:100px">
+						<h:graphicImage style="margin-left:10%"
+							url="/imagenes/dashboard/inventario.png"></h:graphicImage>
+					</p:panel>
+
+					<p:panel header="Reportes" style="width:100px">
+						<h:graphicImage style="margin-left:10%"
+							url="/imagenes/dashboard/reportes.png"></h:graphicImage>
+					</p:panel>
+
+
+					<p:panel header="Contable " style="width:100px">
+						<h:graphicImage style="margin-left:10%"
+							url="/imagenes/dashboard/contable.png"></h:graphicImage>
+					</p:panel>
+
+
+					<p:panel header="Gastos " style="width:100px">
+						<h:graphicImage style="margin-left:10%"
+							url="/imagenes/dashboard/gastos.png"></h:graphicImage>
+					</p:panel>
+
+					<p:panel header="Alarmas" style="width:100px">
+						<h:graphicImage style="margin-left:10%"
+							url="/imagenes/dashboard/alarma.png"></h:graphicImage>
+					</p:panel>
+
+
+				</h:panelGrid>
+
+
+			</p:layoutUnit>
+			<p:layoutUnit position="south" size="40%">
+				<h:outputText value="@Copyright Grupo Innovate" style="font-weight:bolder">/</h:outputText>
+				<div align="right" style="float: right;">
+					<h:graphicImage url="/imagenes/innovateLogo.png" height="70%"
+						width="50%"></h:graphicImage>
+				</div>
+			</p:layoutUnit>
+		</h:form>
+
+	</p:layout>
+
+
+</h:body>
+
+</html>

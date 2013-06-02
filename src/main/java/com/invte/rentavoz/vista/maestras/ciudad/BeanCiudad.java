@@ -4,21 +4,23 @@
  */
 package com.invte.rentavoz.vista.maestras.ciudad;
 
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.servlet.http.HttpSession;
+
 import co.com.rentavoz.logica.jpa.entidades.Ciudad;
 import co.com.rentavoz.logica.jpa.entidades.Departamento;
 import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
 import co.com.rentavoz.logica.jpa.fachadas.CiudadFacade;
 import co.com.rentavoz.logica.jpa.fachadas.DepartamentoFacade;
-import com.invte.component.rentavoz.buscador.BuscadorDepartamento;
 
+import com.invte.component.rentavoz.buscador.BuscadorDepartamento;
 import com.invte.rentavoz.vista.StandardAbm;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,13 +35,16 @@ public class BeanCiudad extends  StandardAbm<Ciudad> implements Serializable{
     @EJB
     private  DepartamentoFacade departamentoFacade;
     
+//    @EJB
+//    private VentaEJBImpl ejb;
+    
     private  BuscadorDepartamento buscadorDepartamento;
     private  Departamento departamento=new Departamento();
     @Override
     public AbstractFacade<Ciudad> getFacade() {
        return ciudadFacade;
     }
-
+ 
     @Override
     public Ciudad getInstancia() {
         return new Ciudad();
@@ -78,6 +83,8 @@ public class BeanCiudad extends  StandardAbm<Ciudad> implements Serializable{
                }
            }
        };
+      
+//       System.out.println(ejb.registrarVenta(null));
     }
 
     
