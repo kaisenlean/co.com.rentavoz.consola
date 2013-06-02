@@ -5,7 +5,7 @@
         xmlns:p="http://primefaces.org/ui"
         xmlns:f="http://java.sun.com/jsf/core">
 
-    <!--<h:form>-->
+    <h:form>
         
     
         <p:dataTable  value="#{administradorMenus.menus}" var="menu" style="font-size: 11px;font-weight: bolder;width: 100%">
@@ -14,6 +14,6 @@
                 <h:commandLink  style="color: #045491 ;font-size: 11px"   action="${menu.direccion()}"  value=" ${menu.label} " />
             </p:column>
         </p:dataTable>
-   <!--</h:form>-->
+   </h:form>
 </f:view>
 

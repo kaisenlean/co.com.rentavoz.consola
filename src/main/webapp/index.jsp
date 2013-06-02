@@ -5,9 +5,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Iniciando Rentavoz</title>
+        <jsp:forward page="index.jsf"></jsp:forward>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Bienvenid@ a Rentavoz</h1>
     </body>
 </html>

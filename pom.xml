@@ -41,33 +41,40 @@
 		<!--themes -->
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
-			<artifactId>cupertino</artifactId>
-			<version>1.0.2</version>
+			<artifactId>sunny</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>co.com.rentavoz</groupId>
+			<artifactId>co.com.rentavoz.model.jpa</artifactId>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 
 
 
 		<!-- dependencias de openfaces -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.openfaces</groupId> -->
-		<!-- <artifactId>openfaces</artifactId> -->
-		<!-- <version>3.0</version> -->
-		<!-- <scope>compile</scope> -->
-		<!-- <dependency> -->
-		<!-- <groupId>commons-collections</groupId> -->
-		<!-- <artifactId>commons-collections</artifactId> -->
-		<!-- <version>3.1</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>jfree</groupId> -->
-		<!-- <artifactId>jcommon</artifactId> -->
-		<!-- <version>1.0.16</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>jfree</groupId> -->
-		<!-- <artifactId>jfreechart</artifactId> -->
-		<!-- <version>1.0.13</version> -->
-		<!-- </dependency> -->
+<!-- 		<dependency> -->
+<!-- 		<groupId>org.openfaces</groupId> -->
+<!-- 		<artifactId>openfaces</artifactId> -->
+<!-- 		<version>3.0</version> -->
+<!-- 		<scope>compile</scope> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 		<groupId>commons-collections</groupId> -->
+<!-- 		<artifactId>commons-collections</artifactId> -->
+<!-- 		<version>3.1</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 		<groupId>jfree</groupId> -->
+<!-- 		<artifactId>jcommon</artifactId> -->
+<!-- 		<version>1.0.16</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 		<groupId>jfree</groupId> -->
+<!-- 		<artifactId>jfreechart</artifactId> -->
+<!-- 		<version>1.0.13</version> -->
+<!-- 		</dependency> -->
 		<!-- fin de dependencias de openfaces -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
@@ -78,7 +85,7 @@
 			<groupId>co.com.rentavoz</groupId>
 			<artifactId>co.com.rentavoz.model.jpa</artifactId>
 			<version>1.0-SNAPSHOT</version>
-		
+
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>
@@ -86,7 +93,7 @@
 			<version>6.0</version>
 			<scope>provided</scope>
 		</dependency>
-	
+
 	</dependencies>
 
 	<build>

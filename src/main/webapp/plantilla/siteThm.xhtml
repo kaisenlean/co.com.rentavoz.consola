@@ -1,58 +1,62 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="default.css" library="css"/>
-        <h:outputStylesheet name="tableLayout.css" library="css"/>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet name="default.css" library="css" />
+	<h:outputStylesheet name="tableLayout.css" library="css" />
 
-        <title>Rentavoz 2.0</title>
-    </h:head>
+	<title>Rentavoz 2.0</title>
+</h:head>
 
-    <h:body style="font-size: 11px">
-
-        <h:form>
-            
-
-        <p:layout fullPage="true" collapseTitle="Modulos">
-
-
-            <p:layoutUnit position="north" size="60" >
-          
-                <h:graphicImage url="/imagenes/logo.png" style="width: 20%;height: 100%;float: left"/>
-                <p:menubar style="float: right;height: 60%">
-                    <p:menuitem title="Nombre del usuario" value="Nombre del usuario"/>
-                    <p:menuitem title="Salir del sistema" value="Salir"/>
-                </p:menubar>
-            </p:layoutUnit>
+<h:body style="font-size: 11px">
 
 
 
-            <p:layoutUnit header="Menu Principal" position="west" size="200" collapsible="true" footer="@Copyright Grupo Innovate">
-          
 
-                <ui:insert name="left">
-                    
-                    <ui:include src="/menu/menuPrincipal.xhtml"/>
-                </ui:insert>
-            </p:layoutUnit>
+	<p:layout fullPage="true" collapseTitle="Modulos">
 
 
+		<p:layoutUnit position="north" size="60">
 
-            <p:layoutUnit position="center"  >
-                <p:growl autoUpdate="true" showDetail="true" sticky="true"/>
-                <ui:insert name="content"> Pagina principal</ui:insert>
+<h:form>
+			<h:graphicImage url="/imagenes/logo.png"
+				style="width: 20%;height: 100%;float: left" />
+			<p:menubar style="float: right;height: 60%">
+				<p:menuitem title="Nombre del usuario" value="Nombre del usuario" />
+				<p:menuitem title="Salir del sistema" value="Salir" />
+			</p:menubar>
+			</h:form>
+		</p:layoutUnit>
 
-            </p:layoutUnit>
 
 
-        </p:layout>
-        </h:form>
+		<p:layoutUnit header="Menu Principal" position="west" size="200"
+			collapsible="true" footer="@Copyright Grupo Innovate">
 
-    </h:body>
+
+			<ui:insert name="left">
+
+				<ui:include src="/menu/menuPrincipal.xhtml" />
+			</ui:insert>
+		</p:layoutUnit>
+
+
+	<h:form>
+		<p:layoutUnit position="center">
+		
+				<p:growl autoUpdate="true" showDetail="true" sticky="true" />
+				<ui:insert name="content"> Pagina principal</ui:insert>
+		</p:layoutUnit>
+		</h:form>
+
+	</p:layout>
+
+
+</h:body>
 
 </html>

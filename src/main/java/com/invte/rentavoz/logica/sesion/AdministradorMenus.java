@@ -20,7 +20,8 @@ import javax.faces.bean.SessionScoped;
  *
  * @author ejody
  */
-@ManagedBean
+@SuppressWarnings("serial")
+@ManagedBean(eager=true)
 @SessionScoped
 public class AdministradorMenus implements Serializable {
 
