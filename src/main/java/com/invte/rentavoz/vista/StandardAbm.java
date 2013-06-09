@@ -111,6 +111,7 @@ public abstract class StandardAbm<T> implements Serializable, StandardInterface<
 //                FacesUtils.mensaje("Se ha realizado la transaccion correctamente !!");
                     System.out.println(reglaNavegacion());
                     mensaje("Hecho", "Se ha editado este objeto");
+                    postAction();
                     return reglaNavegacion();
                 } else {
                     getFacade().create(objeto);
@@ -118,9 +119,10 @@ public abstract class StandardAbm<T> implements Serializable, StandardInterface<
 //                FacesUtils.mensaje("Se ha realizado la transaccion correctamente !!");
                     System.out.println(reglaNavegacion());
                      mensaje("Hecho", "Se ha creado un nuevo objeto");
+                     postAction();
                     return reglaNavegacion();
                 }
-
+                
             } else {
                 return "";
             }
@@ -134,7 +136,16 @@ public abstract class StandardAbm<T> implements Serializable, StandardInterface<
 
     }
 
-    @Override
+    /**
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 3/06/2013
+	*/
+	public void postAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
     public void verFormNuevo(boolean showForm) {
         edit = false;
         try {

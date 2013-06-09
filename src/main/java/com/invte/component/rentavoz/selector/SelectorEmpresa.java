@@ -32,7 +32,7 @@ public class SelectorEmpresa implements SelectorBase<Empresa> {
         }
     }
 
-    @Override
+    
     public List<SelectItem> getItems() {
         return items;
     }

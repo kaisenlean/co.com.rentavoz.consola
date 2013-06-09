@@ -15,7 +15,7 @@ import javax.faces.event.ActionListener;
 public abstract class BuscadorListener implements  ActionListener{
 
     public  abstract void listener();
-    @Override
+   
     public void processAction(ActionEvent event) throws AbortProcessingException {
       listener();
     }

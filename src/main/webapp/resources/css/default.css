@@ -44,3 +44,8 @@ a:link:hover, a:visited:hover  {
 .editarIcon {
     background-image: url(imagenes/edit.png) ;
 }
+
+.imagenBottom{
+	bottom: 100px;
+	
+}

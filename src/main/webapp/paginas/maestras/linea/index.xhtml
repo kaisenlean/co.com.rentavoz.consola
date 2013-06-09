@@ -48,15 +48,16 @@
                         <f:selectItems value="${selectorEstadoLinea.items}"/>
                     </p:selectOneMenu>
                     <p:message for="estadoLinea"/>
-
-                           
-
+                    
+                      <h:outputLabel value="Plan"/>
+                   <bsi:buscar codValue="#{lineaBean.objeto.plan.idPlan}" displayValue="#{lineaBean.objeto.plan.plaNombre}" buscarListener="#{lineaBean.buscadorPlan.mostrar}" ></bsi:buscar>
+                   <bsi:pnlBuscador buscador="#{lineaBean.buscadorPlan}"></bsi:pnlBuscador>
 
                  
                 </h:panelGrid>
                 <h:panelGrid columns="2">
-                       <h:commandButton value="Aceptar" action="${lineaBean.aceptar()}"/>
-                    <h:commandButton value="Cancelar" immediate="true" action="${planBean.reglaNavegacion()}"/>
+                       <h:commandButton value="Aceptar" action="#{lineaBean.aceptar()}"/>
+                    <h:commandButton value="Cancelar" immediate="true" action="#{lineaBean.reglaNavegacion()}"/>
                 </h:panelGrid>
 
             </p:panel>

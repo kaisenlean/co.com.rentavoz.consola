@@ -32,7 +32,7 @@ public class SelectorEstadoLinea implements SelectorBase<EstadoLinea> {
         }
     }
 
-    @Override
+    
     public List<SelectItem> getItems() {
         return items;
     }

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -19,62 +20,94 @@
 
 		<h:form>
 
-			<p:layoutUnit position="center" size="60%">
-			<div style="float: right;">
-			
-			<p:menuButton value="(Nombre Usuario)" ><p:menuitem value="Salir"/></p:menuButton>
-			</div>
+			<p:layoutUnit position="center" size="190">
+				<div style="float: right;">
+
+					<p:menuButton value="(Nombre Usuario)">
+						<p:menuitem value="Salir" />
+					</p:menuButton>
+				</div>
 				<p:graphicImage url="/imagenes/logo.png"></p:graphicImage>
-				<h:panelGrid style="margin-left:5%" columns="4" cellspacing="3" cellpadding="3">
+				<h:panelGrid style="margin-left:5%" columns="4" cellspacing="3"
+					cellpadding="3">
 					<p:panel header="Configuracion" style="width:100px">
 						<h:commandLink action="/inicio.jsf">
 							<h:graphicImage style="margin-left:10%"
 								url="/imagenes/dashboard/configuracion.png"></h:graphicImage>
+                                                    <f:setPropertyActionListener value="config" target="${administradorMenus.padre}"/>
+                                                    <f:actionListener binding="#{administradorMenus.listener}"/>
 						</h:commandLink>
 					</p:panel>
 					<p:panel header="Almacen" style="width:100px">
+                                            <h:commandLink action="/inicio.jsf">
 						<h:graphicImage style="margin-left:10%"
 							url="/imagenes/dashboard/almacen.png"></h:graphicImage>
+                                               <f:setPropertyActionListener value="almacen" target="${administradorMenus.padre}"/>
+                                                    <f:actionListener binding="#{administradorMenus.listener}"/>
+						</h:commandLink>
 					</p:panel>
 
 					<p:panel header="Inventario" style="width:100px">
+                                             <h:commandLink action="/inicio.jsf">
 						<h:graphicImage style="margin-left:10%"
 							url="/imagenes/dashboard/inventario.png"></h:graphicImage>
+                                            <f:setPropertyActionListener value="almacen" target="${administradorMenus.padre}"/>
+                                                    <f:actionListener binding="#{administradorMenus.listener}"/>
+						</h:commandLink>
 					</p:panel>
 
 					<p:panel header="Reportes" style="width:100px">
+                                             <h:commandLink action="/inicio.jsf">
 						<h:graphicImage style="margin-left:10%"
 							url="/imagenes/dashboard/reportes.png"></h:graphicImage>
+                                               <f:setPropertyActionListener value="almacen" target="${administradorMenus.padre}"/>
+                                                    <f:actionListener binding="#{administradorMenus.listener}"/>
+						</h:commandLink>
 					</p:panel>
 
 
 					<p:panel header="Contable " style="width:100px">
+                                             <h:commandLink action="/inicio.jsf">
 						<h:graphicImage style="margin-left:10%"
 							url="/imagenes/dashboard/contable.png"></h:graphicImage>
+                                              <f:setPropertyActionListener value="almacen" target="${administradorMenus.padre}"/>
+                                                    <f:actionListener binding="#{administradorMenus.listener}"/>
+						</h:commandLink>
 					</p:panel>
 
 
 					<p:panel header="Gastos " style="width:100px">
+                                               <h:commandLink action="/inicio.jsf">
 						<h:graphicImage style="margin-left:10%"
 							url="/imagenes/dashboard/gastos.png"></h:graphicImage>
+                                                 <f:setPropertyActionListener value="almacen" target="${administradorMenus.padre}"/>
+                                                    <f:actionListener binding="#{administradorMenus.listener}"/>
+						</h:commandLink>
 					</p:panel>
 
 					<p:panel header="Alarmas" style="width:100px">
+                                             <h:commandLink action="/inicio.jsf">
 						<h:graphicImage style="margin-left:10%"
 							url="/imagenes/dashboard/alarma.png"></h:graphicImage>
+                                                    <f:setPropertyActionListener value="almacen" target="${administradorMenus.padre}"/>
+                                                    <f:actionListener binding="#{administradorMenus.listener}"/>
+						</h:commandLink>
 					</p:panel>
+
 
 
 				</h:panelGrid>
 
 
 			</p:layoutUnit>
-			<p:layoutUnit position="south" size="40%">
-				<h:outputText value="@Copyright Grupo Innovate" style="font-weight:bolder">/</h:outputText>
-				<div align="right" style="float: right;">
-					<h:graphicImage url="/imagenes/innovateLogo.png" height="70%"
-						width="50%"></h:graphicImage>
-				</div>
+			<p:layoutUnit position="south" size="40" resizable="false">
+			 
+				<h:outputLabel value="Desarrollado por @Grupo Innovate"
+					style="font-weight:bolder"></h:outputLabel>
+
+				
+					<p:graphicImage url="/imagenes/innovateLogo.png" style="width:80px;heigth:15px;float:right"></p:graphicImage>
+				
 			</p:layoutUnit>
 		</h:form>
 
