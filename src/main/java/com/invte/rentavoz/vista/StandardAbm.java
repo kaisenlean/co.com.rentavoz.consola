@@ -26,6 +26,11 @@ import org.primefaces.context.RequestContext;
 public abstract class StandardAbm<T> implements Serializable, StandardInterface<T> {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * variable para manipular el formulario y su vista
      */
     private boolean form = false;
@@ -64,7 +69,7 @@ public abstract class StandardAbm<T> implements Serializable, StandardInterface<
     }
 
     @PostConstruct
-    @Override
+    
     public void init() {
         edit = false;
         listado = getFacade().findAll();
@@ -81,12 +86,12 @@ public abstract class StandardAbm<T> implements Serializable, StandardInterface<
     /**
      * form
      */
-    @Override
+    
     public void verForm() {
         form = !form;
     }
 
-    @Override
+    
     public void renderizarItem(T objeto, boolean showForm) {
         edit = true;
         this.objeto = objeto;
@@ -97,7 +102,8 @@ public abstract class StandardAbm<T> implements Serializable, StandardInterface<
 
     }
 
-    @Override
+    
+    
     public String aceptar() {
 
         try {
@@ -145,7 +151,7 @@ public abstract class StandardAbm<T> implements Serializable, StandardInterface<
 		
 	}
 
-	@Override
+	
     public void verFormNuevo(boolean showForm) {
         edit = false;
         try {
@@ -165,7 +171,7 @@ public abstract class StandardAbm<T> implements Serializable, StandardInterface<
         }
     }
 
-    @Override
+    
     public void eliminarItem(T objeto) {
         try {
             System.out.println("ando aca");
@@ -280,4 +286,13 @@ public abstract class StandardAbm<T> implements Serializable, StandardInterface<
     public  void mensaje(String title,String mensaje){
      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(title,  mensaje));
     }
+
+	/**
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 9/06/2013
+	*/
+	public void buscarrPorCriterio() {
+		// TODO Auto-generated method stub
+		
+	}
 }

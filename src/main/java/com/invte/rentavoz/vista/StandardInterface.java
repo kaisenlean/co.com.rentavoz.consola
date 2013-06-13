@@ -13,13 +13,13 @@ import javax.annotation.PostConstruct;
 public interface StandardInterface<T> {
     
     @PostConstruct
-    public  void init();
+      void init();
 //      public   abstract AbstractFacade<T > getFacade();
-    public  void renderizarItem(T objeto,boolean  showForm);
-    public  void eliminarItem(T objeto);
-    public void verForm();
-    public  void verFormNuevo(boolean showForm);
-    public  String  aceptar();
-     public  void  buscarrPorCriterio();
+      void renderizarItem(T objeto,boolean  showForm);
+      void eliminarItem(T objeto);
+     void verForm();
+      void verFormNuevo(boolean showForm);
+      String  aceptar();
+       void  buscarrPorCriterio();
     
 }

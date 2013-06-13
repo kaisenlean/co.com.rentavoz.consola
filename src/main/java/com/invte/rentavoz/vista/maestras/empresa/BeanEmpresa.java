@@ -28,7 +28,11 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class BeanEmpresa extends StandardAbm<Empresa>implements  Serializable{
 
-    @EJB
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6878840473274695937L;
+	@EJB
     private  EmpresaFacade empresaFacade;
     
     @Override

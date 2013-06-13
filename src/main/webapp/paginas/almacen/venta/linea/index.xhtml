@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantilla/siteThm.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <ui:define name="content">
+        <h:form id="form" style="width:100%">
+            <h:outputLabel value="Registrar Venta de Linea" class="h1" />
+
+            <p:panel header="Información de la venta">
+                <h:panelGrid columns="2" style="width:80%">
+
+
+                    <h:outputText value="Fecha de Venta "></h:outputText>
+                    <p:calendar size="25" value="#{beanVentaLinea.dto.fecha}"></p:calendar>
+
+
+                    <h:outputText value="Cliente"></h:outputText>
+                    <p:autoComplete size="100" style="width:800px"
+                                    completeMethod="#{beanVentaLinea.completarBusqueda}">
+                        <p:ajax event="itemSelect"
+                                listener="#{beanVentaLinea.seleccionarTercero}">
+
+                        </p:ajax>
+                    </p:autoComplete>
+
+
+                    <h:outputText value="Forma de Pago "></h:outputText>
+                    <p:selectOneMenu style="width:200px"
+                                     value="#{beanVentaLinea.dto.tipoPago}">
+                        <f:selectItems value="#{selectorTipoPago.items}">/</f:selectItems>
+                        <p:ajax update="panelCuenta" listener="#{beanVentaLinea.cambioFormaPago()}"/>
+                    </p:selectOneMenu>
+
+
+
+                </h:panelGrid>
+                <p:panel id="panelCuenta" header="Consignacion a cuenta" visible="#{beanVentaLinea.verFormaPagos}">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Cuenta"/>
+                        <p:selectOneMenu id="selectCuentas" value="#{beanVentaLinea.dto.selIdCuenta}" required="true" requiredMessage="Selecciona una cuenta para continuar">
+                            <f:selectItems  value="#{selectorCuentas.items}"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="Fecha"/>
+                        <p:calendar value="#{beanVentaLinea.dto.fechaPagoCuenta}"/>
+                        <h:outputText value="Lugar de consignación"/>
+                        <p:inputText value="#{beanVentaLinea.dto.lugarPago}"/>
+                    </h:panelGrid>
+                      <p:message for="selectCuentas"/>
+                </p:panel>
+
+
+            </p:panel>
+            <!--<p:panel header="Lineas">-->
+
+
+                <h:commandButton value="Adicionar Lineas"
+                                 onclick="dlgLineas.show();
+                                         return false;"></h:commandButton>
+                <p:dataTable paginator="true" rows="20"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             value="#{beanVentaLinea.lineasSeleccionadas}" var="line">
+
+                    <p:column headerText="Numero" filterBy="#{line.linNumero}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{line.linNumero}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Corte" filterBy="#{line.linCorte}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{line.linCorte}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Empresa" filterBy="#{line.empresaidEmpresa}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{line.empresaidEmpresa}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Plan" filterBy="#{line.plan}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{line.plan}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Minutos"
+                              filterBy="#{line.plan.plaCantidadMinutos}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{line.plan.plaCantidadMinutos}"></h:outputText>
+                    </p:column>
+                </p:dataTable>
+
+
+            <!--</p:panel>-->
+
+            <p:dialog header="Lineas Disponibles" visible="false"
+                      widgetVar="dlgLineas">
+                <p:dataTable paginator="true" rows="10" lazy="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15" value="#{beanVentaLinea.model}"
+                             var="line" selection="#{beanVentaLinea.seleccionada}"
+                             selectionMode="single">
+
+                    <p:column headerText="Numero" filterBy="#{line.linNumero}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{line.linNumero}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Corte" filterBy="#{line.linCorte}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{line.linCorte}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Empresa" filterBy="#{line.empresaidEmpresa}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{line.empresaidEmpresa}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Plan" filterBy="#{line.plan}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{line.plan}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Minutos"
+                              filterBy="#{line.plan.plaCantidadMinutos}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{line.plan.plaCantidadMinutos}"></h:outputText>
+                    </p:column>
+
+                </p:dataTable>
+                <h:commandButton value="Adicionar"
+                                 actionListener="#{beanVentaLinea.adicionarCarrito}" />
+            </p:dialog>
+
+            <fieldset>
+
+                <h:panelGrid >
+                    <h:panelGrid columns="4">
+                        <p:outputLabel value="Subtotal" />
+                        <h:inputText value="#{beanVentaLinea.subtotal}" />
+                        <p:outputLabel value="Total Depositos" />
+                        <h:inputText value="#{beanVentaLinea.totalDepositos}" />
+                        <p:outputLabel value="Total descuento" />
+                        <h:inputText value="#{beanVentaLinea.descuentos}" />
+                        <p:outputLabel value="domicilio" />
+                        <h:inputText value="#{beanVentaLinea.domicilio}" />
+                        <p:outputLabel value="Total" />
+                        <h:inputText value="#{beanVentaLinea.total}" />
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Tipo de pago"/>
+                        <p:selectOneMenu  value="#{beanVentaLinea.tipoPago}" required="true" requiredMessage="Selecciona un tipo de pago para continuar" id="selTipoPago">
+                            <f:selectItem itemLabel="-- Selecciona el tipo de pago --" itemValue=""/>
+                            <f:selectItem itemLabel="Pago total" itemValue="T" />
+                            <f:selectItem itemLabel="Pago parcial" itemValue="P" />
+                            <p:ajax update="suburbs"  
+                                    listener="#{beanVentaLinea.cambioTipoPago()}" /> 
+                        </p:selectOneMenu>
+                        <p:message  for="selTipoPago"/>
+                    </h:panelGrid>
+                    <p:panel header="Pago parcial" id="suburbs"  visible="#{beanVentaLinea.verGridCuotas}">
+                        <h:inputText  value="#{beanVentaLinea.valorAbonado}" />
+                        <p:calendar readonly="#{beanVentaLinea.verGridCuotas}" value="#{beanVentaLinea.proxFechaPago}"></p:calendar>
+                    </p:panel>
+                </h:panelGrid>
+
+
+            </fieldset>
+            <fieldset>
+                <h:panelGrid>
+                    <h:outputText value="Obsservación" />
+                    <p:inputTextarea cols="100"
+                                     value="#{beanVentaLinea.dto.observacion}" />
+                </h:panelGrid>
+            </fieldset>
+            <h:panelGrid columns="2">
+                <p:commandButton value="Guardar"
+                                 actionListener="#{beanVentaLinea.registrarVenta()}" />
+                <p:commandButton value="Cancelar"
+                                 action="/paginas/almacen/venta/linea/" />
+            </h:panelGrid>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

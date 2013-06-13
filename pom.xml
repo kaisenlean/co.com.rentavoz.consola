@@ -1,100 +1,106 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>co.com.rentavoz</groupId>
-	<artifactId>co.com.rentavoz.consola</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+    <groupId>co.com.rentavoz</groupId>
+    <artifactId>co.com.rentavoz.consola</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-	<name>co.com.rentavoz.consola</name>
+    <name>co.com.rentavoz.consola</name>
 
-	<properties>
-		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	<repositories>
-		<!-- repositorios de openfaces -->
-		<repository>
-			<id>org.openfaces</id>
-			<url>http://repository.openfaces.org/repository</url>
-		</repository>
-		<repository>
-			<id>jfree</id>
-			<url>http://www.ibiblio.org/maven/jfree/</url>
-		</repository>
-		<repository>
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
-	<dependencies>
-		<!-- Logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.6.1</version>
-		</dependency>
+    <properties>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <repositories>
+        <!-- repositorios de openfaces -->
+        <repository>
+            <id>org.openfaces</id>
+            <url>http://repository.openfaces.org/repository</url>
+        </repository>
+        <repository>
+            <id>jfree</id>
+            <url>http://www.ibiblio.org/maven/jfree/</url>
+        </repository>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <dependencies>
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.6.1</version>
+        </dependency>
 
-		<!--themes -->
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>sunny</artifactId>
-			<version>1.0.10</version>
-		</dependency>
-
-		<dependency>
-			<groupId>co.com.rentavoz</groupId>
-			<artifactId>co.com.rentavoz.model.core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+        <!--themes -->
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>sunny</artifactId>
+            <version>1.0.10</version>
+        </dependency>
 
 
 
-		<!-- dependencias de openfaces -->
-<!-- 		<dependency> -->
-<!-- 		<groupId>org.openfaces</groupId> -->
-<!-- 		<artifactId>openfaces</artifactId> -->
-<!-- 		<version>3.0</version> -->
-<!-- 		<scope>compile</scope> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 		<groupId>commons-collections</groupId> -->
-<!-- 		<artifactId>commons-collections</artifactId> -->
-<!-- 		<version>3.1</version> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 		<groupId>jfree</groupId> -->
-<!-- 		<artifactId>jcommon</artifactId> -->
-<!-- 		<version>1.0.16</version> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 		<groupId>jfree</groupId> -->
-<!-- 		<artifactId>jfreechart</artifactId> -->
-<!-- 		<version>1.0.13</version> -->
-<!-- 		</dependency> -->
-		<!-- fin de dependencias de openfaces -->
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>3.5</version>
-		</dependency>
-	 <dependency>
-	  <groupId>co.com.rentavoz</groupId>
-	  <artifactId>co.com.rentavoz.model.jpa</artifactId>
-	  <version>1.0-SNAPSHOT</version>
-	  <type>jar</type>
-	 </dependency>
-	 <dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-web-api</artifactId>
-			<version>6.0</version>
-			<scope>provided</scope>
-		</dependency>
 
-	</dependencies>
+        <!-- dependencias de openfaces -->
+        <!-- 		<dependency> -->
+        <!-- 		<groupId>org.openfaces</groupId> -->
+        <!-- 		<artifactId>openfaces</artifactId> -->
+        <!-- 		<version>3.0</version> -->
+        <!-- 		<scope>compile</scope> -->
+        <!-- 		</dependency> -->
+        <!-- 		<dependency> -->
+        <!-- 		<groupId>commons-collections</groupId> -->
+        <!-- 		<artifactId>commons-collections</artifactId> -->
+        <!-- 		<version>3.1</version> -->
+        <!-- 		</dependency> -->
+        <!-- 		<dependency> -->
+        <!-- 		<groupId>jfree</groupId> -->
+        <!-- 		<artifactId>jcommon</artifactId> -->
+        <!-- 		<version>1.0.16</version> -->
+        <!-- 		</dependency> -->
+        <!-- 		<dependency> -->
+        <!-- 		<groupId>jfree</groupId> -->
+        <!-- 		<artifactId>jfreechart</artifactId> -->
+        <!-- 		<version>1.0.13</version> -->
+        <!-- 		</dependency> -->
+        <!-- fin de dependencias de openfaces -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>3.5</version>
+        </dependency>
+	 
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>6.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>co.com.rentavoz</groupId>
+            <artifactId>co.com.rentavoz.model.core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>co.com.rentavoz</groupId>
+            <artifactId>co.com.rentavoz.model.jpa</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+            <version>2.2</version>
+        </dependency>
+    </dependencies>
 
 
 
