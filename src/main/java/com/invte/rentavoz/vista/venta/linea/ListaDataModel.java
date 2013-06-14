@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.invte.rentavoz.vista.venta.linea;
 
 import java.util.List;
