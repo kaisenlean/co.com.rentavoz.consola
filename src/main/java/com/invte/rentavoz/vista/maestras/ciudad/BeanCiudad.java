@@ -7,13 +7,11 @@ package com.invte.rentavoz.vista.maestras.ciudad;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.HttpSession;
-
-import com.invte.component.rentavoz.buscador.BuscadorDepartamento;
-import com.invte.rentavoz.vista.StandardAbm;
 
 import co.com.rentavoz.logica.jpa.entidades.Ciudad;
 import co.com.rentavoz.logica.jpa.entidades.Departamento;
@@ -21,6 +19,9 @@ import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
 import co.com.rentavoz.logica.jpa.fachadas.CiudadFacade;
 import co.com.rentavoz.logica.jpa.fachadas.DepartamentoFacade;
 import co.com.rentavoz.logica.venta.dto.VentaBean;
+
+import com.invte.component.rentavoz.buscador.BuscadorDepartamento;
+import com.invte.rentavoz.vista.StandardAbm;
 
 
 /**

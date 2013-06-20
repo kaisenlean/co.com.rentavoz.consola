@@ -4,17 +4,17 @@
  */
 package com.invte.rentavoz.logica.sesion;
 
-import co.com.rentavoz.logica.jpa.entidades.Menu;
-import co.com.rentavoz.logica.jpa.fachadas.MenuFacade;
-
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import co.com.rentavoz.logica.jpa.entidades.Menu;
+import co.com.rentavoz.logica.jpa.fachadas.MenuFacade;
 
 /**
  *

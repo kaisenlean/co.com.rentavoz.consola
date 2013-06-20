@@ -4,6 +4,7 @@
 package com.invte.rentavoz.vista.venta.linea;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +19,6 @@ import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.SelectEvent;
 
-import com.invte.rentavoz.vista.CustomListener;
-
 import co.com.rentavoz.logica.jpa.entidades.Linea;
 import co.com.rentavoz.logica.jpa.entidades.Tercero;
 import co.com.rentavoz.logica.jpa.entidades.VentaLinea;
@@ -27,8 +26,8 @@ import co.com.rentavoz.logica.jpa.fachadas.LineaFacade;
 import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
 import co.com.rentavoz.logica.venta.dto.VentaBean;
 import co.com.rentavoz.logica.venta.dto.VentaDTO;
-import java.math.BigDecimal;
-import javax.faces.event.ValueChangeEvent;
+
+import com.invte.rentavoz.vista.CustomListener;
 
 /**
  * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>

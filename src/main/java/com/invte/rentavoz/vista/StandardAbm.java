@@ -5,19 +5,22 @@
 package com.invte.rentavoz.vista;
 
 
-import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+
 import org.primefaces.context.RequestContext;
+
+import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
 
 /**
  *

@@ -6,6 +6,7 @@ package com.invte.rentavoz.logica.sesion;
 
 
 import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 

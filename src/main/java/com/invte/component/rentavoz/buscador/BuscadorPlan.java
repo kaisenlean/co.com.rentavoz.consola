@@ -7,13 +7,12 @@ package com.invte.component.rentavoz.buscador;
 
 
 
-import co.com.rentavoz.logica.jpa.entidades.Departamento;
-import co.com.rentavoz.logica.jpa.entidades.Plan;
-import co.com.rentavoz.logica.jpa.fachadas.DepartamentoFacade;
-import co.com.rentavoz.logica.jpa.fachadas.PlanFacade;
-
 import java.util.List;
+
 import javax.faces.event.ActionEvent;
+
+import co.com.rentavoz.logica.jpa.entidades.Plan;
+import co.com.rentavoz.logica.jpa.fachadas.PlanFacade;
 
 /**
  *

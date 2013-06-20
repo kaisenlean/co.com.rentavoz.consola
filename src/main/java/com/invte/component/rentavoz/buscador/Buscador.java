@@ -7,6 +7,7 @@ package com.invte.component.rentavoz.buscador;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.event.ActionEvent;
 
 /**

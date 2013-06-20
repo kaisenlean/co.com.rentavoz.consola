@@ -4,6 +4,14 @@
  */
 package com.invte.rentavoz.vista.maestras.linea;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import co.com.rentavoz.logica.jpa.entidades.Linea;
 import co.com.rentavoz.logica.jpa.entidades.Plan;
 import co.com.rentavoz.logica.jpa.entidades.PlanLinea;
@@ -16,13 +24,6 @@ import co.com.rentavoz.logica.jpa.fachadas.PlanLineaFacade;
 
 import com.invte.component.rentavoz.buscador.BuscadorPlan;
 import com.invte.rentavoz.vista.StandardAbm;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 
 /**
  * 

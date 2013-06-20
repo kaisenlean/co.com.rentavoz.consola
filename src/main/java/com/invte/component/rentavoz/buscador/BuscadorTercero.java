@@ -7,11 +7,12 @@ package com.invte.component.rentavoz.buscador;
 
 
 
+import java.util.List;
+
+import javax.faces.event.ActionEvent;
+
 import co.com.rentavoz.logica.jpa.entidades.Tercero;
 import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
-
-import java.util.List;
-import javax.faces.event.ActionEvent;
 
 /**
  *

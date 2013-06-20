@@ -5,15 +5,18 @@
 package com.invte.rentavoz.vista.maestras.tercero;
 
 
-import co.com.rentavoz.logica.jpa.entidades.Tercero;
-import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
-import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
-import com.invte.rentavoz.vista.StandardAbm;
 import java.io.Serializable;
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
+import co.com.rentavoz.logica.jpa.entidades.Tercero;
+import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
+import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
+
+import com.invte.rentavoz.vista.StandardAbm;
 
 /**
  *

@@ -4,8 +4,8 @@
  */
 package com.invte.component.rentavoz.selector;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.model.SelectItem;
 
 /**

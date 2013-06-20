@@ -4,6 +4,13 @@
  */
 package com.invte.rentavoz.vista.maestras.sucursal;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import co.com.rentavoz.logica.jpa.entidades.Ciudad;
 import co.com.rentavoz.logica.jpa.entidades.Departamento;
 import co.com.rentavoz.logica.jpa.entidades.Sucursal;
@@ -11,15 +18,10 @@ import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
 import co.com.rentavoz.logica.jpa.fachadas.CiudadFacade;
 import co.com.rentavoz.logica.jpa.fachadas.DepartamentoFacade;
 import co.com.rentavoz.logica.jpa.fachadas.SucursalFacade;
+
 import com.invte.component.rentavoz.buscador.BuscadorCiudad;
 import com.invte.component.rentavoz.buscador.BuscadorDepartamento;
-
 import com.invte.rentavoz.vista.StandardAbm;
-import java.io.Serializable;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 
 /**
  *
