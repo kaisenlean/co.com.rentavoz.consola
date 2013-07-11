@@ -12,25 +12,28 @@ import javax.faces.event.ActionListener;
  * @project co.com.rentavoz.consola
  * @class MenuListener
  * @date 2/06/2013
- *
+ * 
  */
-public abstract class MenuListener implements ActionListener{
+public abstract class MenuListener implements ActionListener {
 
-	/* (non-Javadoc)
-	 * @see javax.faces.event.ActionListener#processAction(javax.faces.event.ActionEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * javax.faces.event.ActionListener#processAction(javax.faces.event.ActionEvent
+	 * )
 	 */
-	
-	
-	
+
 	public void processAction(ActionEvent arg0) throws AbortProcessingException {
-	ejecutarAccion();
-		
+		ejecutarAccion();
+
 	}
 
 	/**
-	* @author <a href="mailto:juanm.caicedo@premize.com">Juan Manuel Caicedo</a>
-	* @date 2/06/2013
-	*/
+	 * @author <a href="mailto:juanm.caicedo@premize.com">Juan Manuel
+	 *         Caicedo</a>
+	 * @date 2/06/2013
+	 */
 	public abstract void ejecutarAccion();
 
 }

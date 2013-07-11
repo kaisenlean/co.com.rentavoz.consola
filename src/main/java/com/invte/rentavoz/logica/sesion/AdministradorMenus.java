@@ -17,96 +17,92 @@ import co.com.rentavoz.logica.jpa.entidades.Menu;
 import co.com.rentavoz.logica.jpa.fachadas.MenuFacade;
 
 /**
- *
+ * 
  * @author ejody
  */
 @SuppressWarnings("serial")
-@ManagedBean(eager=true)
+@ManagedBean(eager = true)
 @SessionScoped
 public class AdministradorMenus implements Serializable {
 
-    private List<Menu> menus;
-    @EJB
-    private MenuFacade menuFacade;
-    
-    private MenuListener listener;
-    private String padre;
+	private List<Menu> menus;
+	@EJB
+	private MenuFacade menuFacade;
 
-    @PostConstruct
-    public void init() {
-    	listener=new MenuListener() {
-			
+	private MenuListener listener;
+	private String padre;
+
+	@PostConstruct
+	public void init() {
+		listener = new MenuListener() {
+
 			@Override
 			public void ejecutarAccion() {
-				
+
 				cargarMenus(padre);
 			}
 		};
-        try {
-           menus = menuFacade.findAll();
-        } catch (Exception e) {
-           menus=new ArrayList<Menu>();
-        }
-    }
-    
-    
-    public void cargarMenus(String padre) {
-    	menus.clear();
-        try {
-           menus = menuFacade.findTodosByPadre(padre);
-        } catch (Exception e) {
-           menus=new ArrayList<Menu>();
-        }
-    }
+		try {
+			menus = menuFacade.findAll();
+		} catch (Exception e) {
+			menus = new ArrayList<Menu>();
+		}
+	}
 
-    public MenuListener getListener() {
-        return listener;
-    }
+	public void cargarMenus(String padre) {
+		menus.clear();
+		try {
+			menus = menuFacade.findTodosByPadre(padre);
+		} catch (Exception e) {
+			menus = new ArrayList<Menu>();
+		}
+	}
 
-    public void setListener(MenuListener listener) {
-        this.listener = listener;
-    }
+	public MenuListener getListener() {
+		return listener;
+	}
 
-    
-    
-    
-    
-    //<editor-fold defaultstate="collapsed" desc="Capsulas">
-    public MenuFacade getMenuFacade() {
-        return menuFacade;
-    }
+	public void setListener(MenuListener listener) {
+		this.listener = listener;
+	}
 
-    public void setMenuFacade(MenuFacade menuFacade) {
-        this.menuFacade = menuFacade;
-    }
-    
-    
-    public List<Menu> getMenus() {
-        return menus;
-    }
+	// <editor-fold defaultstate="collapsed" desc="Capsulas">
+	public MenuFacade getMenuFacade() {
+		return menuFacade;
+	}
 
-    public void setMenus(List<Menu> menus) {
-        this.menus = menus;
-    }
-    
-    /**
-	 * @author <a href="mailto:juanm.caicedo@premize.com">Juan Manuel Caicedo</a>
+	public void setMenuFacade(MenuFacade menuFacade) {
+		this.menuFacade = menuFacade;
+	}
+
+	public List<Menu> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+
+	/**
+	 * @author <a href="mailto:juanm.caicedo@premize.com">Juan Manuel
+	 *         Caicedo</a>
 	 * @date 2/06/2013
 	 * @return the padre
 	 */
 	public String getPadre() {
 		return padre;
 	}
-	
+
 	/**
-	 * @author <a href="mailto:juanm.caicedo@premize.com">Juan Manuel Caicedo</a>
+	 * @author <a href="mailto:juanm.caicedo@premize.com">Juan Manuel
+	 *         Caicedo</a>
 	 * @date 2/06/2013
-	 * @param padre the padre to set
+	 * @param padre
+	 *            the padre to set
 	 */
 	public void setPadre(String padre) {
 		this.padre = padre;
 	}
-	
-	
-    //</editor-fold>
+
+	// </editor-fold>
 }

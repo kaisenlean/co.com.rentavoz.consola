@@ -9,13 +9,11 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 /**
- *
+ * 
  * @author ejody
  */
 public interface SelectorBase<T> {
-    
-    List<SelectItem> getItems();
-    
-    
-    
+
+	List<SelectItem> getItems();
+
 }

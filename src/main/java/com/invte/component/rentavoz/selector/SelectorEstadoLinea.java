@@ -19,23 +19,23 @@ import co.com.rentavoz.logica.jpa.fachadas.EstadoLineaFacade;
 @ManagedBean
 @ViewScoped
 public class SelectorEstadoLinea implements SelectorBase<EstadoLinea> {
-    
-    @EJB
-    private EstadoLineaFacade facade;
-    private ArrayList<SelectItem> items;
-    
-    @PostConstruct
-    public void init() {
-        List<EstadoLinea> findAll = facade.findAll();
-        items = new ArrayList<SelectItem>();
-        items.add(new SelectItem(" ", "-- Seleccione un estado --"));
-        for (EstadoLinea estadoLinea : findAll) {
-            items.add(new SelectItem(estadoLinea.getIdEstadoLinea()+"", estadoLinea.getEstLinNombre()));
-        }
-    }
 
-    
-    public List<SelectItem> getItems() {
-        return items;
-    }
+	@EJB
+	private EstadoLineaFacade facade;
+	private ArrayList<SelectItem> items;
+
+	@PostConstruct
+	public void init() {
+		List<EstadoLinea> findAll = facade.findAll();
+		items = new ArrayList<SelectItem>();
+		items.add(new SelectItem(" ", "-- Seleccione un estado --"));
+		for (EstadoLinea estadoLinea : findAll) {
+			items.add(new SelectItem(estadoLinea.getIdEstadoLinea() + "",
+					estadoLinea.getEstLinNombre()));
+		}
+	}
+
+	public List<SelectItem> getItems() {
+		return items;
+	}
 }

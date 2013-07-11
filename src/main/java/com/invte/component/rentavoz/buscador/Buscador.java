@@ -4,128 +4,127 @@
  */
 package com.invte.component.rentavoz.buscador;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
 
 /**
- *
+ * 
  * @author ejody
  */
 public abstract class Buscador<T> {
 
-    private boolean mostrarPopup;
-    private List<BuscadorItem> items;
-    
-    private String criterio;
-    private T item;
-    private  BuscadorListener listener;
-   
-    
-    public String getCriterio() {
-        return criterio.toUpperCase();
-    }
+	private boolean mostrarPopup;
+	@SuppressWarnings("rawtypes")
+	private List<BuscadorItem> items;
 
-    public void setCriterio(String criterio) {
-        this.criterio = criterio;
-    }
+	private String criterio;
+	private T item;
+	private BuscadorListener listener;
 
-    public List<BuscadorItem> getItems() {
-        return items;
-    }
+	public String getCriterio() {
+		return criterio.toUpperCase();
+	}
 
-    public void setItems(List<BuscadorItem> items) {
-        this.items = items;
-    }
+	public void setCriterio(String criterio) {
+		this.criterio = criterio;
+	}
 
-    public boolean isMostrarPopup() {
-        return mostrarPopup;
-    }
+	@SuppressWarnings("rawtypes")
+	public List<BuscadorItem> getItems() {
+		return items;
+	}
 
-    public void setMostrarPopup(boolean mostrarPopup) {
-        this.mostrarPopup = mostrarPopup;
-    }
+	public void setItems(@SuppressWarnings("rawtypes") List<BuscadorItem> items) {
+		this.items = items;
+	}
 
-    public void mostrar() {
-        mostrar(null);
-    }
+	public boolean isMostrarPopup() {
+		return mostrarPopup;
+	}
 
-    public void mostrar(ActionEvent evt) {
-        buscar();
-        mostrarPopup = true;
-        setMostrarPopup(true);
-    }
+	public void setMostrarPopup(boolean mostrarPopup) {
+		this.mostrarPopup = mostrarPopup;
+	}
 
-    public T getItem() {
-        return item;
-    }
+	public void mostrar() {
+		mostrar(null);
+	}
 
-    public void setItem(T item) {
-        this.item = item;
-    }
+	public void mostrar(ActionEvent evt) {
+		buscar();
+		mostrarPopup = true;
+		setMostrarPopup(true);
+	}
 
-    public Buscador() {
-        this.mostrarPopup = false;
-        this.items = new ArrayList<BuscadorItem>();
-        criterio = "";
-            listener=new BuscadorListener() {
+	public T getItem() {
+		return item;
+	}
 
-        @Override
-        public void listener() {
-          mostrar();
-        }
-    };
-    }
+	public void setItem(T item) {
+		this.item = item;
+	}
 
-    public abstract String buscar();
+	@SuppressWarnings("rawtypes")
+	public Buscador() {
+		this.mostrarPopup = false;
+		this.items = new ArrayList<BuscadorItem>();
+		criterio = "";
+		listener = new BuscadorListener() {
 
-    public abstract void asignar(T t);
+			@Override
+			public void listener() {
+				mostrar();
+			}
+		};
+	}
 
-    public boolean getMostrarLimpiar() {
-        return true;
-    }
+	public abstract String buscar();
 
-    public String limpiar() {
-        asignar(null);
+	public abstract void asignar(T t);
 
-        cerrar();
-        return null;
-    }
+	public boolean getMostrarLimpiar() {
+		return true;
+	}
 
-    public void seleccionar(T t) {
-//        item = (T)  FacesUtils.getAttribute( "item");
-        item = (T) t;
-        System.out.println(t);
-        asignar(item);
+	public String limpiar() {
+		asignar(null);
 
-        cerrar();
-//        return null;
-    }
+		cerrar();
+		return null;
+	}
 
-    public String cerrar() {
-        getItems().clear();
-        setCriterio("");
+	public void seleccionar(T t) {
+		// item = (T) FacesUtils.getAttribute( "item");
+		item = (T) t;
+		System.out.println(t);
+		asignar(item);
 
-        setMostrarPopup(false);
-        return null;
-    }
+		cerrar();
+		// return null;
+	}
 
-    public void reiniciar() {
-        setCriterio("");
-        getItems().clear();
-        setMostrarPopup(false);
-    }
+	public String cerrar() {
+		getItems().clear();
+		setCriterio("");
 
-    public BuscadorListener getListener() {
-        return listener;
-    }
+		setMostrarPopup(false);
+		return null;
+	}
 
-    public void setListener(BuscadorListener listener) {
-        this.listener = listener;
-    }
-    
-    
-    
+	public void reiniciar() {
+		setCriterio("");
+		getItems().clear();
+		setMostrarPopup(false);
+	}
+
+	public BuscadorListener getListener() {
+		return listener;
+	}
+
+	public void setListener(BuscadorListener listener) {
+		this.listener = listener;
+	}
+
 }

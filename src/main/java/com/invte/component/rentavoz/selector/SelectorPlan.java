@@ -19,23 +19,23 @@ import co.com.rentavoz.logica.jpa.fachadas.PlanFacade;
 @ManagedBean
 @ViewScoped
 public class SelectorPlan implements SelectorBase<Plan> {
-    
-    @EJB
-    private PlanFacade facade;
-    private ArrayList<SelectItem> items;
-    
-    @PostConstruct
-    public void init() {
-        List<Plan> findAll = facade.findAll();
-        items = new ArrayList<SelectItem>();
-        items.add(new SelectItem(" ", "-- Seleccione un Plan --"));
-        for (Plan empresa : findAll) {
-            items.add(new SelectItem(empresa.getIdPlan(), empresa.getPlaNombre()));
-        }
-    }
 
-    
-    public List<SelectItem> getItems() {
-        return items;
-    }
+	@EJB
+	private PlanFacade facade;
+	private ArrayList<SelectItem> items;
+
+	@PostConstruct
+	public void init() {
+		List<Plan> findAll = facade.findAll();
+		items = new ArrayList<SelectItem>();
+		items.add(new SelectItem(" ", "-- Seleccione un Plan --"));
+		for (Plan empresa : findAll) {
+			items.add(new SelectItem(empresa.getIdPlan(), empresa
+					.getPlaNombre()));
+		}
+	}
+
+	public List<SelectItem> getItems() {
+		return items;
+	}
 }

@@ -19,23 +19,23 @@ import co.com.rentavoz.logica.jpa.fachadas.EmpresaFacade;
 @ManagedBean
 @ViewScoped
 public class SelectorEmpresa implements SelectorBase<Empresa> {
-    
-    @EJB
-    private EmpresaFacade facade;
-    private ArrayList<SelectItem> items;
-    
-    @PostConstruct
-    public void init() {
-        List<Empresa> findAll = facade.findAll();
-        items = new ArrayList<SelectItem>();
-        items.add(new SelectItem(" ", "-- Seleccione una empresa --"));
-        for (Empresa empresa : findAll) {
-            items.add(new SelectItem(empresa.getIdEmpresa(), empresa.getEmpNombre()));
-        }
-    }
 
-    
-    public List<SelectItem> getItems() {
-        return items;
-    }
+	@EJB
+	private EmpresaFacade facade;
+	private ArrayList<SelectItem> items;
+
+	@PostConstruct
+	public void init() {
+		List<Empresa> findAll = facade.findAll();
+		items = new ArrayList<SelectItem>();
+		items.add(new SelectItem(" ", "-- Seleccione una empresa --"));
+		for (Empresa empresa : findAll) {
+			items.add(new SelectItem(empresa.getIdEmpresa(), empresa
+					.getEmpNombre()));
+		}
+	}
+
+	public List<SelectItem> getItems() {
+		return items;
+	}
 }

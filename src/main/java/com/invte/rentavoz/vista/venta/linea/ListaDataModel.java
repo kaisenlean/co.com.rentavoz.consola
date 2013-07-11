@@ -1,4 +1,3 @@
-
 package com.invte.rentavoz.vista.venta.linea;
 
 import java.util.List;
@@ -21,25 +20,22 @@ public abstract class ListaDataModel extends LazyDataModel<Linea> {
 
 	private static final long serialVersionUID = 1L;
 
-            private  List<Linea> players;
-            private  List<Linea> players1;
-	
+	private List<Linea> lista;
 
 	public abstract LineaFacade getFacade();
 
-	
 	@Override
 	public void setRowIndex(int rowIndex) {
-	    /*
-	     * The following is in ancestor (LazyDataModel):
-	     * this.rowIndex = rowIndex == -1 ? rowIndex : (rowIndex % pageSize);
-	     */
-	    if (rowIndex == -1 || getPageSize() == 0) {
-	        super.setRowIndex(-1);
-	    }
-	    else
-	        super.setRowIndex(rowIndex % getPageSize());
+		/*
+		 * The following is in ancestor (LazyDataModel): this.rowIndex =
+		 * rowIndex == -1 ? rowIndex : (rowIndex % pageSize);
+		 */
+		if (rowIndex == -1 || getPageSize() == 0) {
+			super.setRowIndex(-1);
+		} else
+			super.setRowIndex(rowIndex % getPageSize());
 	}
+
 	@Override
 	public List<Linea> load(int startingAt, int maxPerPage, String sortField,
 			SortOrder sortOrder, Map<String, String> filters) {
@@ -47,9 +43,8 @@ public abstract class ListaDataModel extends LazyDataModel<Linea> {
 			try {
 
 				// with datatable pagination limits
-				players = getFacade().findPlayers(startingAt, maxPerPage);
-                                players1=players;
-                                setWrappedData(players);
+				lista = getFacade().findPlayers(startingAt, maxPerPage);
+				setWrappedData(lista);
 
 			} finally {
 
@@ -67,23 +62,17 @@ public abstract class ListaDataModel extends LazyDataModel<Linea> {
 		// set the page dize
 		setPageSize(maxPerPage);
 
-		return players;
+		return lista;
 	}
 
+	@Override
+	public Object getRowKey(Linea player) {
+		return player.getIdLinea();
+	}
 
-  
-            @Override
-            public Object getRowKey(Linea player) {
-                return player.getIdLinea();
-            }
+	@Override
+	public Linea getRowData(String rowKey) {
+		return getFacade().find(Integer.valueOf(rowKey));
+	}
 
-     
-            @Override
-            public Linea getRowData(String rowKey) {
-                return getFacade().find(Integer.valueOf(rowKey));
-            }
-          
-            
-    
-    
 }

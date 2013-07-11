@@ -9,15 +9,16 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
 /**
- *
+ * 
  * @author ejody
  */
-public abstract class BuscadorListener implements  ActionListener{
+public abstract class BuscadorListener implements ActionListener {
 
-    public  abstract void listener();
-   
-    public void processAction(ActionEvent event) throws AbortProcessingException {
-      listener();
-    }
-    
+	public abstract void listener();
+
+	public void processAction(ActionEvent event)
+			throws AbortProcessingException {
+		listener();
+	}
+
 }

@@ -19,23 +19,23 @@ import co.com.rentavoz.logica.jpa.fachadas.CuentasFacade;
 @ManagedBean
 @ViewScoped
 public class SelectorCuentas implements SelectorBase<Cuentas> {
-    
-    @EJB
-    private CuentasFacade facade;
-    private ArrayList<SelectItem> items;
-    
-    @PostConstruct
-    public void init() {
-        List<Cuentas> findAll = facade.findAll();
-        items = new ArrayList<SelectItem>();
-        items.add(new SelectItem(" ", "-- Seleccione una cuenta --"));
-        for (Cuentas empresa : findAll) {
-            items.add(new SelectItem(empresa.getIdCuentas(), empresa.getCueNombre()));
-        }
-    }
 
-    
-    public List<SelectItem> getItems() {
-        return items;
-    }
+	@EJB
+	private CuentasFacade facade;
+	private ArrayList<SelectItem> items;
+
+	@PostConstruct
+	public void init() {
+		List<Cuentas> findAll = facade.findAll();
+		items = new ArrayList<SelectItem>();
+		items.add(new SelectItem(" ", "-- Seleccione una cuenta --"));
+		for (Cuentas empresa : findAll) {
+			items.add(new SelectItem(empresa.getIdCuentas(), empresa
+					.getCueNombre()));
+		}
+	}
+
+	public List<SelectItem> getItems() {
+		return items;
+	}
 }

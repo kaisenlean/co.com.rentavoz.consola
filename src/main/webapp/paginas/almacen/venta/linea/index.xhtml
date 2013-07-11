@@ -154,8 +154,16 @@
                         <p:message  for="selTipoPago"/>
                     </h:panelGrid>
                     <p:panel header="Pago parcial" id="suburbs"  visible="#{beanVentaLinea.verGridCuotas}">
-                        <h:inputText  value="#{beanVentaLinea.valorAbonado}" />
-                        <p:calendar readonly="#{beanVentaLinea.verGridCuotas}" value="#{beanVentaLinea.proxFechaPago}"></p:calendar>
+                    <h:panelGrid columns="2">
+                    <p:outputLabel value="Proxima Fecha"></p:outputLabel>
+                      <p:calendar readonly="#{beanVentaLinea.verGridCuotas}" value="#{beanVentaLinea.proxFechaPago}"></p:calendar>
+                      
+                      <p:outputLabel value="Valor a abonar"></p:outputLabel>
+                       <h:inputText  value="#{beanVentaLinea.valorAbonado}" />
+                      
+                    </h:panelGrid>
+                       
+                      
                     </p:panel>
                 </h:panelGrid>
 

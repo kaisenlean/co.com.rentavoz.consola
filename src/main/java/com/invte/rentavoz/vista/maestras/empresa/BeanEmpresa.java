@@ -18,69 +18,78 @@ import co.com.rentavoz.logica.jpa.fachadas.EmpresaFacade;
 import com.invte.rentavoz.vista.StandardAbm;
 
 /**
- *
+ * 
  * @author ejody
  */
 @ManagedBean
 @ViewScoped
-public class BeanEmpresa extends StandardAbm<Empresa>implements  Serializable{
+public class BeanEmpresa extends StandardAbm<Empresa> implements Serializable {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6878840473274695937L;
 	@EJB
-    private  EmpresaFacade empresaFacade;
-    
-    @Override
-    public AbstractFacade<Empresa> getFacade() {
-       return empresaFacade;
-    }
+	private EmpresaFacade empresaFacade;
 
-    @Override
-    public Empresa getInstancia() {
-     return    new Empresa();
-    }
+	@Override
+	public AbstractFacade<Empresa> getFacade() {
+		return empresaFacade;
+	}
 
-    @Override
-    public String reglaNavegacion() {
-        return "/paginas/maestras/empresa/index.jsf";
-    }
+	@Override
+	public Empresa getInstancia() {
+		return new Empresa();
+	}
 
-    @Override
-    public Empresa getObjeto() {
-        return  obtenerObjeto();
-    }
+	@Override
+	public String reglaNavegacion() {
+		return "/paginas/maestras/empresa/index.jsf";
+	}
 
-    @Override
-    public List<Empresa> getListado() {
-        return  obtenerListado();
-    }
+	@Override
+	public Empresa getObjeto() {
+		return obtenerObjeto();
+	}
 
-    @Override
-    public void initialize() {
-        
-    }
+	@Override
+	public List<Empresa> getListado() {
+		return obtenerListado();
+	}
 
-    @Override
-    public boolean preAction() {
-        if(!isEdit()){
-            
-        if (getFacade().find(getObjeto().getIdEmpresa())==null) {
-            return true;
-        }else{
-            mensaje("Error", "El codigo de la empresa ya esta siendo utilizado , por favor digita otro código");
-        return false;
-        }
-        }else{
-        return true;
-        }
-    }
+	@Override
+	public void initialize() {
 
-    
-    @Override
-    public void buscarrPorCriterio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+	}
+
+	@Override
+	public boolean preAction() {
+		if (!isEdit()) {
+
+			if (getFacade().find(getObjeto().getIdEmpresa()) == null) {
+				return true;
+			} else {
+				mensaje("Error",
+						"El codigo de la empresa ya esta siendo utilizado , por favor digita otro código");
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
+
+	@Override
+	public void buscarrPorCriterio() {
+		throw new UnsupportedOperationException("Not supported yet."); // To
+																		// change
+																		// body
+																		// of
+																		// generated
+																		// methods,
+																		// choose
+																		// Tools
+																		// |
+																		// Templates.
+	}
+
 }

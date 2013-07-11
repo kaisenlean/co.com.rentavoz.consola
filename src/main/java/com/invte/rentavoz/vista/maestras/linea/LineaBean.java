@@ -33,6 +33,10 @@ import com.invte.rentavoz.vista.StandardAbm;
 @ViewScoped
 public class LineaBean extends StandardAbm<Linea> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@EJB
 	private EmpresaFacade facade;
 	@EJB
@@ -48,7 +52,6 @@ public class LineaBean extends StandardAbm<Linea> {
 	private String estadoLinea = null;
 	private BuscadorPlan buscadorPlan;
 	private Plan planOLd;
-	
 
 	@Override
 	public AbstractFacade<Linea> getFacade() {
@@ -204,6 +207,7 @@ public class LineaBean extends StandardAbm<Linea> {
 	public void setEstadoLinea(String estadoLinea) {
 		this.estadoLinea = estadoLinea;
 	}
+
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 3/06/2013
@@ -212,11 +216,12 @@ public class LineaBean extends StandardAbm<Linea> {
 	public BuscadorPlan getBuscadorPlan() {
 		return buscadorPlan;
 	}
-	
+
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 3/06/2013
-	 * @param buscadorPlan the buscadorPlan to set
+	 * @param buscadorPlan
+	 *            the buscadorPlan to set
 	 */
 	public void setBuscadorPlan(BuscadorPlan buscadorPlan) {
 		this.buscadorPlan = buscadorPlan;

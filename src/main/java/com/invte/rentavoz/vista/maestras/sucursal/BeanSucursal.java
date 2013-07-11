@@ -24,157 +24,165 @@ import com.invte.component.rentavoz.buscador.BuscadorDepartamento;
 import com.invte.rentavoz.vista.StandardAbm;
 
 /**
- *
+ * 
  * @author ejody
  */
 @ManagedBean
 @ViewScoped
 public class BeanSucursal extends StandardAbm<Sucursal> implements Serializable {
 
-    @EJB
-    private SucursalFacade sucursalFacade;
-    @EJB
-    private CiudadFacade ciudadFacade;
-    @EJB
-    private DepartamentoFacade departamentoFacade;
-    private BuscadorDepartamento buscadorDepartamento;
-    private BuscadorCiudad buscadorCiudad;
-    private Departamento departamento = new Departamento();
-    private Ciudad ciudad = new Ciudad();
-    private boolean verCiudad = false;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@EJB
+	private SucursalFacade sucursalFacade;
+	@EJB
+	private CiudadFacade ciudadFacade;
+	@EJB
+	private DepartamentoFacade departamentoFacade;
+	private BuscadorDepartamento buscadorDepartamento;
+	private BuscadorCiudad buscadorCiudad;
+	private Departamento departamento = new Departamento();
+	private Ciudad ciudad = new Ciudad();
+	private boolean verCiudad = false;
 
-    @Override
-    public AbstractFacade<Sucursal> getFacade() {
-        return sucursalFacade;
-    }
+	@Override
+	public AbstractFacade<Sucursal> getFacade() {
+		return sucursalFacade;
+	}
 
-    @Override
-    public Sucursal getInstancia() {
-        return new Sucursal();
-    }
+	@Override
+	public Sucursal getInstancia() {
+		return new Sucursal();
+	}
 
-    @Override
-    public String reglaNavegacion() {
-        return "/paginas/maestras/sucursal/index.jsf";
-    }
+	@Override
+	public String reglaNavegacion() {
+		return "/paginas/maestras/sucursal/index.jsf";
+	}
 
-    @Override
-    public Sucursal getObjeto() {
-        return obtenerObjeto();
-    }
+	@Override
+	public Sucursal getObjeto() {
+		return obtenerObjeto();
+	}
 
-    @Override
-    public List<Sucursal> getListado() {
-        return obtenerListado();
-    }
+	@Override
+	public List<Sucursal> getListado() {
+		return obtenerListado();
+	}
 
-    @Override
-    public void preRenderizarItem() {
-        if (getObjeto().getCiudadidCiudad() != null) {
-            ciudad = getObjeto().getCiudadidCiudad();
-            departamento = ciudad.getDepartamentoidDepartamento();
-            verCiudad=true;
-        }
+	@Override
+	public void preRenderizarItem() {
+		if (getObjeto().getCiudadidCiudad() != null) {
+			ciudad = getObjeto().getCiudadidCiudad();
+			departamento = ciudad.getDepartamentoidDepartamento();
+			verCiudad = true;
+		}
 
-    }
+	}
 
-    @Override
-    public boolean preAction() {
-        if (!isEdit()) {
-            if (getObjeto().getCiudadidCiudad()==null ) {
-                  mensaje("Error", "Debes seleccionar una ciudad a la cual vas a asociar la sucursal");
-                return false;
-            }
-            if (getFacade().find(getObjeto().getIdSucursal()) == null) {
-                
-                return true;
-            } else {
-                mensaje("Error", "Este codigo ya esta siendo utilizado por otra sucursal, por favor intente con otro codigo");
-                return false;
-            }
-        } else {
-            return true;
-        }
+	@Override
+	public boolean preAction() {
+		if (!isEdit()) {
+			if (getObjeto().getCiudadidCiudad() == null) {
+				mensaje("Error",
+						"Debes seleccionar una ciudad a la cual vas a asociar la sucursal");
+				return false;
+			}
+			if (getFacade().find(getObjeto().getIdSucursal()) == null) {
 
-    }
+				return true;
+			} else {
+				mensaje("Error",
+						"Este codigo ya esta siendo utilizado por otra sucursal, por favor intente con otro codigo");
+				return false;
+			}
+		} else {
+			return true;
+		}
 
-    @Override
-    public void initialize() {
-        buscadorDepartamento = new BuscadorDepartamento() {
-            @Override
-            public DepartamentoFacade getFacade() {
-                return departamentoFacade;
-            }
+	}
 
-            @Override
-            public void selCentrope(Departamento centrope) {
-                departamento = centrope;
-                verCiudad = true;
+	@Override
+	public void initialize() {
+		buscadorDepartamento = new BuscadorDepartamento() {
+			@Override
+			public DepartamentoFacade getFacade() {
+				return departamentoFacade;
+			}
 
-            }
-        };
-        buscadorCiudad = new BuscadorCiudad() {
-            @Override
-            public CiudadFacade getFacade() {
-                return ciudadFacade;
-            }
+			@Override
+			public void selCentrope(Departamento centrope) {
+				departamento = centrope;
+				verCiudad = true;
 
-            @Override
-            public Departamento getDepartamento() {
-                return departamento;
-            }
+			}
+		};
+		buscadorCiudad = new BuscadorCiudad() {
+			@Override
+			public CiudadFacade getFacade() {
+				return ciudadFacade;
+			}
 
-            @Override
-            public void selCentrope(Ciudad centrope) {
-                ciudad = centrope;
-                getObjeto().setCiudadidCiudad(ciudad);
-            }
-        };
-    }
+			@Override
+			public Departamento getDepartamento() {
+				return departamento;
+			}
 
-    @Override
-    public void buscarrPorCriterio() {
-    }
-    //<editor-fold defaultstate="collapsed" desc="Capsulas">
+			@Override
+			public void selCentrope(Ciudad centrope) {
+				ciudad = centrope;
+				getObjeto().setCiudadidCiudad(ciudad);
+			}
+		};
+	}
 
-    public BuscadorDepartamento getBuscadorDepartamento() {
-        return buscadorDepartamento;
-    }
+	@Override
+	public void buscarrPorCriterio() {
+	}
 
-    public void setBuscadorDepartamento(BuscadorDepartamento buscadorDepartamento) {
-        this.buscadorDepartamento = buscadorDepartamento;
-    }
+	// <editor-fold defaultstate="collapsed" desc="Capsulas">
 
-    public BuscadorCiudad getBuscadorCiudad() {
-        return buscadorCiudad;
-    }
+	public BuscadorDepartamento getBuscadorDepartamento() {
+		return buscadorDepartamento;
+	}
 
-    public void setBuscadorCiudad(BuscadorCiudad buscadorCiudad) {
-        this.buscadorCiudad = buscadorCiudad;
-    }
+	public void setBuscadorDepartamento(
+			BuscadorDepartamento buscadorDepartamento) {
+		this.buscadorDepartamento = buscadorDepartamento;
+	}
 
-    public Departamento getDepartamento() {
-        return departamento;
-    }
+	public BuscadorCiudad getBuscadorCiudad() {
+		return buscadorCiudad;
+	}
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
-    }
+	public void setBuscadorCiudad(BuscadorCiudad buscadorCiudad) {
+		this.buscadorCiudad = buscadorCiudad;
+	}
 
-    public Ciudad getCiudad() {
-        return ciudad;
-    }
+	public Departamento getDepartamento() {
+		return departamento;
+	}
 
-    public void setCiudad(Ciudad ciudad) {
-        this.ciudad = ciudad;
-    }
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
 
-    public boolean isVerCiudad() {
-        return verCiudad;
-    }
+	public Ciudad getCiudad() {
+		return ciudad;
+	}
 
-    public void setVerCiudad(boolean verCiudad) {
-        this.verCiudad = verCiudad;
-    }
-    //</editor-fold>
+	public void setCiudad(Ciudad ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public boolean isVerCiudad() {
+		return verCiudad;
+	}
+
+	public void setVerCiudad(boolean verCiudad) {
+		this.verCiudad = verCiudad;
+	}
+	// </editor-fold>
 }

@@ -12,23 +12,27 @@ import javax.faces.event.ActionListener;
  * @project co.com.rentavoz.consola
  * @class CustomListener
  * @date 3/06/2013
- *
+ * 
  */
 public abstract class CustomListener implements ActionListener {
 
-	/* (non-Javadoc)
-	 * @see javax.faces.event.ActionListener#processAction(javax.faces.event.ActionEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * javax.faces.event.ActionListener#processAction(javax.faces.event.ActionEvent
+	 * )
 	 */
-	
+
 	public void processAction(ActionEvent evt) throws AbortProcessingException {
 		callMethod(evt);
-		
+
 	}
 
 	/**
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 3/06/2013
-	*/
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 3/06/2013
+	 */
 	public abstract void callMethod(ActionEvent evt);
 
 }

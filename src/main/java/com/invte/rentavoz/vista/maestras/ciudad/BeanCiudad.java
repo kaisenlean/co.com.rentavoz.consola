@@ -23,136 +23,137 @@ import co.com.rentavoz.logica.venta.dto.VentaBean;
 import com.invte.component.rentavoz.buscador.BuscadorDepartamento;
 import com.invte.rentavoz.vista.StandardAbm;
 
-
 /**
- *
+ * 
  * @author ejody
  */
 @ManagedBean
 @ViewScoped
-public class BeanCiudad extends  StandardAbm<Ciudad> implements Serializable{
+public class BeanCiudad extends StandardAbm<Ciudad> implements Serializable {
 
-    @EJB
-    private  CiudadFacade ciudadFacade;
-    @EJB
-    private  DepartamentoFacade departamentoFacade;
-    
-    @EJB
-    private VentaBean bean;
-    
-    private  BuscadorDepartamento buscadorDepartamento;
-    private  Departamento departamento=new Departamento();
-    @Override
-    public AbstractFacade<Ciudad> getFacade() {
-       return ciudadFacade;
-    }
- 
-    @Override
-    public Ciudad getInstancia() {
-        return new Ciudad();
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@EJB
+	private CiudadFacade ciudadFacade;
+	@EJB
+	private DepartamentoFacade departamentoFacade;
 
-    @Override
-    public String reglaNavegacion() {
-       return "/paginas/maestras/ciudad/index.jsf";
-    }
+	@EJB
+	private VentaBean bean;
 
-    @Override
-    public Ciudad getObjeto() {
-      return obtenerObjeto();
-              
-    }
+	private BuscadorDepartamento buscadorDepartamento;
+	private Departamento departamento = new Departamento();
 
-    @Override
-    public List<Ciudad> getListado() {
-       return obtenerListado();
-    }
+	@Override
+	public AbstractFacade<Ciudad> getFacade() {
+		return ciudadFacade;
+	}
 
-    @Override
-    public void initialize() {
-       buscadorDepartamento=new BuscadorDepartamento() {
+	@Override
+	public Ciudad getInstancia() {
+		return new Ciudad();
+	}
 
-           @Override
-           public DepartamentoFacade getFacade() {
-               return departamentoFacade;
-           }
+	@Override
+	public String reglaNavegacion() {
+		return "/paginas/maestras/ciudad/index.jsf";
+	}
 
-           @Override
-           public void selCentrope(Departamento centrope) {
-               if (getObjeto()!=null) {
-                   departamento=centrope;
-                   getObjeto().setDepartamentoidDepartamento(centrope);
-               }
-           }
-       };
-      bean.init();
-//       System.out.println(ejb.registrarVenta(null));
-    }
+	@Override
+	public Ciudad getObjeto() {
+		return obtenerObjeto();
 
-    
-       @Override
-    public boolean preAction() {
-        if (!isEdit()) {
+	}
 
-            if (getFacade().find(getObjeto().getIdCiudad()) == null) {
-                return true;
-            } else {
-                mensaje("Codigo ya esta en uso", "Este codigo ya esta en uso para la nueva ciudad");
-                return false;
-            }
-        } else {
-            return true;
-        }
-    }
-       
-    @Override
-    public void preRenderizarItem() {
-        departamento=getObjeto().getDepartamentoidDepartamento();
-    }
+	@Override
+	public List<Ciudad> getListado() {
+		return obtenerListado();
+	}
 
-    
-    @Override
-    public void buscarrPorCriterio() {
-      
-    }
+	@Override
+	public void initialize() {
+		buscadorDepartamento = new BuscadorDepartamento() {
 
-    public BuscadorDepartamento getBuscadorDepartamento() {
-        return buscadorDepartamento;
-    }
+			@Override
+			public DepartamentoFacade getFacade() {
+				return departamentoFacade;
+			}
 
-    public void setBuscadorDepartamento(BuscadorDepartamento buscadorDepartamento) {
-        this.buscadorDepartamento = buscadorDepartamento;
-    }
+			@Override
+			public void selCentrope(Departamento centrope) {
+				if (getObjeto() != null) {
+					departamento = centrope;
+					getObjeto().setDepartamentoidDepartamento(centrope);
+				}
+			}
+		};
+		bean.init();
+		// System.out.println(ejb.registrarVenta(null));
+	}
 
-    public Departamento getDepartamento() {
-        return departamento;
-    }
+	@Override
+	public boolean preAction() {
+		if (!isEdit()) {
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
-    }
-    
-    @Override
-    public void postEliminar() {
+			if (getFacade().find(getObjeto().getIdCiudad()) == null) {
+				return true;
+			} else {
+				mensaje("Codigo ya esta en uso",
+						"Este codigo ya esta en uso para la nueva ciudad");
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
 
+	@Override
+	public void preRenderizarItem() {
+		departamento = getObjeto().getDepartamentoidDepartamento();
+	}
 
-        try {
+	@Override
+	public void buscarrPorCriterio() {
 
+	}
 
-            // Usar el contexto de JSF para invalidar la sesión,
-            // NO EL DE SERVLETS (nada de HttpServletRequest)
-            ((HttpSession) ctx.getSession(false)).invalidate();
+	public BuscadorDepartamento getBuscadorDepartamento() {
+		return buscadorDepartamento;
+	}
 
-            // Redirección de nuevo con el contexto de JSF,
-            // si se usa una HttpServletResponse fallará.
-            // Sin embargo, como ya está fuera del ciclo de vida 
-            // de JSF se debe usar la ruta completa -_-U
-            ctx.redirect(ctxPath + reglaNavegacion());
+	public void setBuscadorDepartamento(
+			BuscadorDepartamento buscadorDepartamento) {
+		this.buscadorDepartamento = buscadorDepartamento;
+	}
 
+	public Departamento getDepartamento() {
+		return departamento;
+	}
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+
+	@Override
+	public void postEliminar() {
+
+		try {
+
+			// Usar el contexto de JSF para invalidar la sesión,
+			// NO EL DE SERVLETS (nada de HttpServletRequest)
+			((HttpSession) ctx.getSession(false)).invalidate();
+
+			// Redirección de nuevo con el contexto de JSF,
+			// si se usa una HttpServletResponse fallará.
+			// Sin embargo, como ya está fuera del ciclo de vida
+			// de JSF se debe usar la ruta completa -_-U
+			ctx.redirect(ctxPath + reglaNavegacion());
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }
