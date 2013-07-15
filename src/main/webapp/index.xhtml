@@ -8,6 +8,7 @@
 </h:head>
 <h:body style="font-size: 11px;background-color:#A4A4A4">
 	<h:form>
+	<p:growl autoUpdate="true" showDetail="true" sticky="true" />
 		<div align="center">
 
 			<p:panel footer="@Grupo Innovate S.A.S" closable="false"
@@ -19,15 +20,15 @@
 				<h:panelGrid columns="2" style="margin-left: 10%">
 					<h:outputLabel value="Usuario"
 						style="color: orangered;font-weight: bold" />
-					<h:inputText style="width: 100%" />
+					<h:inputText style="width: 100%" value="#{login.usuario}" />
 
 					<h:outputLabel value="Contraseña"
 						style="color: orangered;font-weight: bold" />
-					<h:inputSecret style="width: 100%" />
+					<h:inputSecret style="width: 100%"  value="#{login.contrasena}"/>
 
 				</h:panelGrid>
 				<p:commandButton style="margin-left: 20%" value="Ingresar"
-					action="/dashboard.jsf" />
+					action="#{login.login()}" />
 			</p:panel>
 
 		</div>

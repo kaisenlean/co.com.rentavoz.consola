@@ -20,16 +20,24 @@
 
 	<p:layout fullPage="true" collapseTitle="Modulos">
 
+		<p:dialog rendered="${login.user==null}" closable="false">
 
+			<h:panelGrid>
+				<h:outputLabel
+					value="Lo sentimos , no hemos detectado una sesion activa recientemente" />
+				<h:graphicImage value="/imagenes/errorlo.png" />
+				<p:commandButton value="Inicio" action="/index.jsf"></p:commandButton>
+			</h:panelGrid>
+		</p:dialog>
 		<p:layoutUnit position="north" size="60">
 
-<h:form>
-			<h:graphicImage url="/imagenes/logo.png"
-				style="width: 20%;height: 100%;float: left" />
-			<p:menubar style="float: right;height: 60%">
-				<p:menuitem title="Nombre del usuario" value="Nombre del usuario" />
-				<p:menuitem title="Salir del sistema" value="Salir" />
-			</p:menubar>
+			<h:form>
+				<h:graphicImage url="/imagenes/logo.png"
+					style="width: 20%;height: 100%;float: left" />
+				<p:menubar style="float: right;height: 60%">
+					<p:menuitem title="Nombre del usuario" value="Nombre del usuario" />
+					<p:menuitem title="Salir del sistema" value="Salir" />
+				</p:menubar>
 			</h:form>
 		</p:layoutUnit>
 
@@ -46,12 +54,25 @@
 		</p:layoutUnit>
 
 
-	<h:form>
-		<p:layoutUnit position="center">
-		
+		<h:form>
+			<p:layoutUnit position="center">
+
 				<p:growl autoUpdate="true" showDetail="true" sticky="true" />
+				<p:dialog rendered="#{!login.session}" visible="#{!login.session}"
+					closable="false" appendToBody="true" modal="true">
+					<div align="center" >
+
+						<h:panelGrid >
+							<h:outputLabel
+								value="Lo sentimos , no hemos detectado una sesion activa recientemente" />
+							<h:graphicImage style="margin-left: 40%" value="/imagenes/errorlo.png" width="100"
+								height="80" />
+							<h:commandButton  style="margin-left: 40%"  value="Inicio" action="/index.jsf"></h:commandButton>
+						</h:panelGrid>
+					</div>
+				</p:dialog>
 				<ui:insert name="content"> Pagina principal</ui:insert>
-		</p:layoutUnit>
+			</p:layoutUnit>
 		</h:form>
 
 	</p:layout>
