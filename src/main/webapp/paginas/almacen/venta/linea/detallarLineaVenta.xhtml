@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+	<ui:define name="content">
+		<h:form id="formLIneasPendientes" style="width:100%">
+			<h:outputLabel value="Renovar Venta de Linea" class="h1" />
+			<p:dialog visible="#{!detalleRenovacionLinea.continuarRenovacion}" modal="true" appendToBody="true" position="center" header="Advertencia">
+				<br><h:outputText value="La venta de esta linea aun tiene cuotas pendientes por pagar" /></br>
+			</p:dialog>
+			<p:panel header="Detalla de la Linea Vendida">
+				<h:panelGrid columns="6" width="80%">
+					<h:outputText value="Cliente : " />
+					<h:inputText size="40" readonly="true"
+						value="#{detalleRenovacionLinea.dto.tercero}" />
+
+					<h:outputLabel value="Linea : " />
+					<h:inputText size="40" readonly="true"
+						value="#{detalleRenovacionLinea.dto.lineaTemp.linNumero}" />
+
+
+					<h:outputLabel value="Plan : " />
+					<h:inputText readonly="true" size="40"
+						value="#{detalleRenovacionLinea.dto.lineaTemp.plan}" />
+
+					<h:outputLabel value="Cantidad de MInutos : " />
+					<h:inputText size="40" readonly="true"
+						value="#{detalleRenovacionLinea.dto.lineaTemp.plan.plaCantidadMinutos}" />
+
+					<h:outputLabel value="Corte : " />
+					<h:inputText size="40" readonly="true"
+						value="#{detalleRenovacionLinea.dto.lineaTemp.linCorte}" />
+
+
+					<h:outputLabel value="Operador : " />
+					<h:inputText size="40" readonly="true"
+						value="#{detalleRenovacionLinea.dto.lineaTemp.plan.operadoridOperador.opeNombre}" />
+
+
+
+				</h:panelGrid>
+			</p:panel>
+			<div align="left">
+
+				<h:panelGrid columns="1" rendered="#{!detalleRenovacionLinea.devolucion}">
+
+
+					<h:panelGrid>
+
+
+
+						<p:selectOneMenu style="width:400px;float:top"
+							value="#{detalleRenovacionLinea.dto.tipoPago}">
+							<f:selectItems value="#{selectorTipoPago.items}">/</f:selectItems>
+							<p:ajax update="panelCuenta"
+								listener="#{detalleRenovacionLinea.cambioFormaPago()}" />
+						</p:selectOneMenu>
+
+						<p:panel id="panelCuenta" header="Consignacion a cuenta"
+							visible="#{detalleRenovacionLinea.verFormaPagos}">
+							<h:panelGrid columns="6">
+								<h:outputText value="Cuenta" />
+								<p:selectOneMenu id="selectCuentas"
+									value="#{detalleRenovacionLinea.dto.selIdCuenta}"
+									required="true"
+									requiredMessage="Selecciona una cuenta para continuar">
+									<f:selectItems value="#{selectorCuentas.items}" />
+								</p:selectOneMenu>
+								<h:outputText value="Fecha" />
+								<p:calendar
+									value="#{detalleRenovacionLinea.dto.fechaPagoCuenta}" />
+								<h:outputText value="Lugar de consignación" />
+								<p:inputText value="#{beanVentaLinea.dto.lugarPago}" />
+							</h:panelGrid>
+							<p:message for="selectCuentas" />
+						</p:panel>
+					</h:panelGrid>
+					<h:panelGrid>
+
+						<p:selectOneMenu value="#{detalleRenovacionLinea.formaPago}"
+							required="true" style="width:400px;float:top"
+							requiredMessage="Selecciona un tipo de pago para continuar"
+							id="selTipoPago">
+							<f:selectItem itemLabel="-- Selecciona una forma  de pago --"
+								itemValue="" />
+							<f:selectItem itemLabel="Pago total" itemValue="T" />
+							<f:selectItem itemLabel="Pago parcial" itemValue="P" />
+							<p:ajax update="suburbs"
+								listener="#{detalleRenovacionLinea.cambioTipoPago()}" />
+						</p:selectOneMenu>
+						<p:message for="selTipoPago" />
+						<p:panel header="Pago parcial" id="suburbs"
+							visible="#{detalleRenovacionLinea.verGridCuotas}">
+							<h:panelGrid columns="4">
+								<p:outputLabel value="Proxima Fecha"></p:outputLabel>
+								<p:calendar readonly="#{beanVentaLinea.verGridCuotas}"
+									value="#{detalleRenovacionLinea.proxFechaPago}"></p:calendar>
+
+								<p:outputLabel value="Valor a abonar"></p:outputLabel>
+								<h:inputText value="#{detalleRenovacionLinea.dto.valorAbono}" />
+
+							</h:panelGrid>
+
+						</p:panel>
+						<h:panelGrid columns="4">
+							<p:outputLabel value="Subtotal" />
+							<h:inputText value="#{detalleRenovacionLinea.subtotal}" />
+							<p:outputLabel value="Total Depositos" />
+							<h:inputText value="#{detalleRenovacionLinea.totalDepositos}" />
+							<p:outputLabel value="Total descuento" />
+							<h:inputText value="#{detalleRenovacionLinea.descuentos}" />
+							<p:outputLabel value="domicilio" />
+							<h:inputText value="#{detalleRenovacionLinea.domicilio}" />
+							<p:outputLabel value="Total" />
+							<h:inputText value="#{detalleRenovacionLinea.total}" />
+						</h:panelGrid>
+						<h:outputText value="Observacion" />
+						<p:inputTextarea cols="100"
+							value="#{detalleRenovacionLinea.dto.observacion}" />
+					</h:panelGrid>
+					
+					<h:panelGrid columns="2">
+					<p:commandButton value="Aceptar" actionListener="#{detalleRenovacionLinea.registrarRenovacion()}"></p:commandButton>
+					<p:commandButton value="Volver" action="/paginas/almacen/linea/pendientes"></p:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+					<br><p:outputLabel value="Nota: Antes de realiar la devolcion debes revisar si hay deposito a devolver y sino hay cuotas pendientes por pagar"></p:outputLabel></br>
+					<h:panelGrid columns="2">
+					<p:commandButton value="Registrar Devolucion" actionListener="#{detalleRenovacionLinea.registrarDevolucion()}"></p:commandButton>
+					<p:commandButton value="Volver" action="/paginas/almacen/linea/pendientes"></p:commandButton>
+					</h:panelGrid>
+			</div>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

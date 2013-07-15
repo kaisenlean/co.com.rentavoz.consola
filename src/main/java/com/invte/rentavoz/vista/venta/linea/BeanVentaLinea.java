@@ -21,10 +21,10 @@ import org.primefaces.event.SelectEvent;
 
 import co.com.rentavoz.logica.jpa.entidades.Linea;
 import co.com.rentavoz.logica.jpa.entidades.Tercero;
-import co.com.rentavoz.logica.jpa.entidades.VentaLinea;
+import co.com.rentavoz.logica.jpa.entidades.almacen.VentaLinea;
 import co.com.rentavoz.logica.jpa.fachadas.LineaFacade;
 import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
-import co.com.rentavoz.logica.venta.dto.VentaBean;
+import co.com.rentavoz.logica.venta.VentaBean;
 import co.com.rentavoz.logica.venta.dto.VentaDTO;
 
 import com.invte.rentavoz.vista.BaseBean;
@@ -41,6 +41,10 @@ import com.invte.rentavoz.vista.CustomListener;
 @ViewScoped
 public class BeanVentaLinea extends BaseBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final String REGLA_NAVEGACION = "/paginas/almacen/venta/linea/";
 	@EJB
 	private VentaBean bean;
 	@EJB
@@ -80,6 +84,17 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		dto = new VentaDTO();
+		subtotal = 0.0;
+		totalDepositos = 0.0;
+		descuentos = 0.0;
+		total = 0.0;
+		domicilio = 0.0;
+		formaPago = null;
+		proxFechaPago = null;
+		valorAbonado = 0.0;
+		verGridCuotas = false;
+		verFormaPagos = false;
+		selIdCuenta = null;
 		model = new ListaDataModel() {
 			/**
              *
@@ -135,8 +150,9 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 	 * 
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 24/06/2013
+	 * @return
 	 */
-	public void registrarVenta() {
+	public String registrarVenta() {
 		ArrayList<VentaLinea> ventaLineaTemp = new ArrayList<VentaLinea>();
 		for (Linea linea : lineasSeleccionadas) {
 			VentaLinea vl = new VentaLinea();
@@ -153,15 +169,26 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 		
 		dto.setPagoTotal(verGridCuotas);
 		dto.setValorAbono(valorAbonado);
+		dto.setDomicilio(BigDecimal.valueOf(domicilio));
+		dto.setDescuento(descuentos);
 
 		dto.setPagoConsignacion(verFormaPagos);
+		dto.setDomicilio(BigDecimal.valueOf(domicilio));
+		dto.setValorTotal(total);
+		
+		
 		try {
-
+			
 			bean.registrarVenta(dto);
 			mensaje("Exito", "Se há registrado una venta");
 			dto = new VentaDTO();
+			model = null;
+			lineasSeleccionadas.clear();
+			init();
+			return REGLA_NAVEGACION;
 		} catch (Exception e) {
-			// TODO: handle exception
+			mensaje("Error", e.toString());
+			return null;
 		}
 
 	}
@@ -334,6 +361,7 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 					* seleccionada.getPlan().getPlaCantidadMinutos();
 			subtotal += (d);
 			totalDepositos += (15000.00);
+
 			total = subtotal + totalDepositos + descuentos + domicilio;
 
 		}

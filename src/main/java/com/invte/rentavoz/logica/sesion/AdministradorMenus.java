@@ -18,7 +18,11 @@ import co.com.rentavoz.logica.jpa.fachadas.MenuFacade;
 
 /**
  * 
- * @author ejody
+ * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+ * @project co.com.rentavoz.consola
+ * @class AdministradorMenus
+ * @date 14/07/2013
+ * 
  */
 @SuppressWarnings("serial")
 @ManagedBean(eager = true)
@@ -84,21 +88,20 @@ public class AdministradorMenus implements Serializable {
 	}
 
 	/**
-	 * @author <a href="mailto:juanm.caicedo@premize.com">Juan Manuel
-	 *         Caicedo</a>
-	 * @date 2/06/2013
-	 * @return the padre
+	 * 
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 14/07/2013
+	 * @return
 	 */
 	public String getPadre() {
 		return padre;
 	}
 
 	/**
-	 * @author <a href="mailto:juanm.caicedo@premize.com">Juan Manuel
-	 *         Caicedo</a>
-	 * @date 2/06/2013
+	 * 
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 14/07/2013
 	 * @param padre
-	 *            the padre to set
 	 */
 	public void setPadre(String padre) {
 		this.padre = padre;

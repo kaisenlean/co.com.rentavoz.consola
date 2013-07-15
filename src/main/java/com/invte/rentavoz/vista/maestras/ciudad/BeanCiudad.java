@@ -18,22 +18,23 @@ import co.com.rentavoz.logica.jpa.entidades.Departamento;
 import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
 import co.com.rentavoz.logica.jpa.fachadas.CiudadFacade;
 import co.com.rentavoz.logica.jpa.fachadas.DepartamentoFacade;
-import co.com.rentavoz.logica.venta.dto.VentaBean;
+import co.com.rentavoz.logica.venta.VentaBean;
 
 import com.invte.component.rentavoz.buscador.BuscadorDepartamento;
 import com.invte.rentavoz.vista.StandardAbm;
 
 /**
  * 
- * @author ejody
+* @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+* @project co.com.rentavoz.consola
+* @class BeanCiudad
+* @date 14/07/2013
+*
  */
 @ManagedBean
 @ViewScoped
 public class BeanCiudad extends StandardAbm<Ciudad> implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private CiudadFacade ciudadFacade;

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+	<ui:define name="content">
+		<h:form id="formLIneasPendientes" style="width:100%">
+			<h:outputLabel value="Lineas pendientes por realizar renovación"
+				class="h1" />
+
+			<p:panel header="Filtros de consulta">
+				<h:panelGrid columns="6">
+					<h:outputText value="Fecha de inicio" />
+					<p:calendar value="#{beanRenovacionLinea.inicio}"
+						pattern="dd/MM/yyyy" required="true"
+						requiredMessage="Por favor selecciona una fecha de inicio"
+						id="fechIni"></p:calendar>
+					<p:message for="fechIni"></p:message>
+
+
+					<h:outputText value="Fecha de inicio" />
+					<p:calendar value="#{beanRenovacionLinea.fin}" pattern="dd/MM/yyyy"
+						required="true"
+						requiredMessage="Por favor selecciona una fecha de fin"
+						id="fechFin"></p:calendar>
+					<p:message for="fechFin"></p:message>
+
+
+					<p:commandButton value="Buscar Lineas"
+						actionListener="#{beanRenovacionLinea.buscarLineas()}"
+						update="tablaLineas"></p:commandButton>
+
+				</h:panelGrid>
+			</p:panel>
+			<p:dataTable paginator="true" rows="15"
+				value="#{beanRenovacionLinea.lista}" var="renLinea"
+				style="width:100%" id="tablaLineas">
+				<p:column headerText="Numero de la Linea">
+					<p:outputLabel value="#{renLinea.lineaidLinea.linNumero}"></p:outputLabel>
+
+				</p:column>
+
+				<p:column headerText="Fecha de renovación">
+					<p:calendar disabled="true" value="#{renLinea.fechaRenovacion}"
+						pattern="dd/MM/yyyy"></p:calendar>
+
+				</p:column>
+
+				<p:column headerText="Numero de venta">
+					<p:outputLabel value="#{renLinea.ventaidVenta.idVenta}"></p:outputLabel>
+				</p:column>
+				<p:column>
+					<h:commandButton  value="Renovar"  action="#{beanRenovacionLinea.goDetalle(renLinea)}">
+					</h:commandButton>
+					
+					<h:commandButton  value="Registrar Devolucion"  action="#{beanRenovacionLinea.goDetalleDEvolucion(renLinea)}">
+					</h:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -21,6 +21,7 @@
 
                     <h:outputText value="Cliente"></h:outputText>
                     <p:autoComplete size="100" style="width:800px"
+                    
                                     completeMethod="#{beanVentaLinea.completarBusqueda}">
                         <p:ajax event="itemSelect"
                                 listener="#{beanVentaLinea.seleccionarTercero}">
@@ -156,13 +157,12 @@
                     <p:panel header="Pago parcial" id="suburbs"  visible="#{beanVentaLinea.verGridCuotas}">
                     <h:panelGrid columns="2">
                     <p:outputLabel value="Proxima Fecha"></p:outputLabel>
-                      <p:calendar readonly="#{beanVentaLinea.verGridCuotas}" value="#{beanVentaLinea.proxFechaPago}"></p:calendar>
+                      <p:calendar value="#{beanVentaLinea.dto.fechaProxPago}"  pattern="dd/MM/yyyy"></p:calendar>
                       
                       <p:outputLabel value="Valor a abonar"></p:outputLabel>
                        <h:inputText  value="#{beanVentaLinea.valorAbonado}" />
                       
-                    </h:panelGrid>
-                       
+                    </h:panelGrid>                   
                       
                     </p:panel>
                 </h:panelGrid>
@@ -177,9 +177,9 @@
                 </h:panelGrid>
             </fieldset>
             <h:panelGrid columns="2">
-                <p:commandButton value="Guardar"
-                                 actionListener="#{beanVentaLinea.registrarVenta()}" />
-                <p:commandButton value="Cancelar"
+                <h:commandButton value="Guardar"
+                                 action="#{beanVentaLinea.registrarVenta()}" />
+                <h:commandButton value="Cancelar"
                                  action="/paginas/almacen/venta/linea/" />
             </h:panelGrid>
 
