@@ -6,7 +6,7 @@ import java.util.Map;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-import co.com.rentavoz.logica.jpa.entidades.Linea;
+import co.com.rentavoz.logica.jpa.entidades.almacen.Linea;
 import co.com.rentavoz.logica.jpa.fachadas.LineaFacade;
 
 /**

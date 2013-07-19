@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -56,7 +57,16 @@
 
 		<h:form>
 			<p:layoutUnit position="center">
-
+ 
+<p:ajaxStatus style="width:64px;height:64px;float:right">  
+    <f:facet name="start">  
+        <p:graphicImage value="/imagenes/ajax-loader.gif" />  
+    </f:facet>  
+  
+    <f:facet name="complete">  
+        <h:outputText value="" />  
+    </f:facet>  
+</p:ajaxStatus> 
 				<p:growl autoUpdate="true" showDetail="true" sticky="true" />
 				<p:dialog rendered="#{!login.session}" visible="#{!login.session}"
 					closable="false" appendToBody="true" modal="true">

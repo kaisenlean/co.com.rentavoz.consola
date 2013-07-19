@@ -13,8 +13,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import co.com.rentavoz.logica.jpa.entidades.Linea;
 import co.com.rentavoz.logica.jpa.entidades.TerceroVenta;
+import co.com.rentavoz.logica.jpa.entidades.almacen.Linea;
 import co.com.rentavoz.logica.jpa.entidades.almacen.Venta;
 import co.com.rentavoz.logica.jpa.entidades.almacen.VentaLinea;
 import co.com.rentavoz.logica.jpa.fachadas.CuotaFacade;

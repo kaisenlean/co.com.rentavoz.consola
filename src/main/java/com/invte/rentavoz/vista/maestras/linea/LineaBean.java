@@ -12,9 +12,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import co.com.rentavoz.logica.jpa.entidades.Linea;
 import co.com.rentavoz.logica.jpa.entidades.Plan;
 import co.com.rentavoz.logica.jpa.entidades.PlanLinea;
+import co.com.rentavoz.logica.jpa.entidades.almacen.Linea;
 import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
 import co.com.rentavoz.logica.jpa.fachadas.EmpresaFacade;
 import co.com.rentavoz.logica.jpa.fachadas.EstadoLineaFacade;
@@ -27,7 +27,11 @@ import com.invte.rentavoz.vista.StandardAbm;
 
 /**
  * 
- * @author ejody
+* @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+* @project co.com.rentavoz.consola
+* @class LineaBean
+* @date 17/07/2013
+*
  */
 @ManagedBean
 @ViewScoped

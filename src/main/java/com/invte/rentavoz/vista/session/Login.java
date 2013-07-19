@@ -10,10 +10,10 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.invte.rentavoz.vista.BaseBean;
-
 import co.com.rentavoz.logica.jpa.entidades.Usuario;
 import co.com.rentavoz.logica.jpa.fachadas.UsuarioFacade;
+
+import com.invte.rentavoz.vista.BaseBean;
 
 /**
  * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>

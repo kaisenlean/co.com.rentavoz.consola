@@ -19,8 +19,8 @@ import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.SelectEvent;
 
-import co.com.rentavoz.logica.jpa.entidades.Linea;
 import co.com.rentavoz.logica.jpa.entidades.Tercero;
+import co.com.rentavoz.logica.jpa.entidades.almacen.Linea;
 import co.com.rentavoz.logica.jpa.entidades.almacen.VentaLinea;
 import co.com.rentavoz.logica.jpa.fachadas.LineaFacade;
 import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
