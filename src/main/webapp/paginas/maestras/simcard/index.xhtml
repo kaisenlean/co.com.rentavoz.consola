@@ -52,7 +52,7 @@
                     <p:outputLabel value="${item.estadoAsString}"/>
                 </p:column>
                 <p:column headerText="Fecha de creación" styleClass="styleColumn" filterBy="${item.fecha}" filterMatchMode="contains">
-                    <p:calendar value="${item.fecha}" pattern="dd/MM/yyyy"/>
+                    <p:calendar value="${item.fecha}" disabled="true" pattern="dd/MM/yyyy"/>
                 </p:column>
                
                 <p:column width="7%">

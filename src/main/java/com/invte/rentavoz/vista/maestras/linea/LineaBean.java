@@ -15,14 +15,17 @@ import javax.faces.bean.ViewScoped;
 import co.com.rentavoz.logica.jpa.entidades.Plan;
 import co.com.rentavoz.logica.jpa.entidades.PlanLinea;
 import co.com.rentavoz.logica.jpa.entidades.almacen.Linea;
+import co.com.rentavoz.logica.jpa.entidades.almacen.Simcard;
 import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
 import co.com.rentavoz.logica.jpa.fachadas.EmpresaFacade;
 import co.com.rentavoz.logica.jpa.fachadas.EstadoLineaFacade;
 import co.com.rentavoz.logica.jpa.fachadas.LineaFacade;
 import co.com.rentavoz.logica.jpa.fachadas.PlanFacade;
 import co.com.rentavoz.logica.jpa.fachadas.PlanLineaFacade;
+import co.com.rentavoz.logica.jpa.fachadas.SimcardFacade;
 
 import com.invte.component.rentavoz.buscador.BuscadorPlan;
+import com.invte.component.rentavoz.buscador.BuscadorSimCard;
 import com.invte.rentavoz.vista.StandardAbm;
 
 /**
@@ -37,9 +40,7 @@ import com.invte.rentavoz.vista.StandardAbm;
 @ViewScoped
 public class LineaBean extends StandardAbm<Linea> {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private EmpresaFacade facade;
@@ -51,10 +52,14 @@ public class LineaBean extends StandardAbm<Linea> {
 	private PlanFacade planFacade;
 	@EJB
 	private PlanLineaFacade plFacade;
+	@EJB
+	private SimcardFacade simcardFacade;
 
 	private String empresa = null;
 	private String estadoLinea = null;
 	private BuscadorPlan buscadorPlan;
+	private BuscadorSimCard buscadorSimCard;
+	
 	private Plan planOLd;
 
 	@Override
@@ -105,6 +110,19 @@ public class LineaBean extends StandardAbm<Linea> {
 				return planFacade;
 			}
 		};
+		
+		buscadorSimCard= new BuscadorSimCard() {
+			
+			@Override
+			public void selCentrope(Simcard centrope) {
+					getObjeto().setSimcard(centrope);
+			}
+			
+			@Override
+			public SimcardFacade getFacade() {
+				return simcardFacade;
+			}
+		};
 	}
 
 	@Override
@@ -119,16 +137,18 @@ public class LineaBean extends StandardAbm<Linea> {
 		planOLd = getObjeto().getPlan();
 
 	}
-
+/**
+ * @see com.invte.rentavoz.vista.StandardAbm#preAction()
+ */
 	@Override
 	public boolean preAction() {
 		if (isEdit()) {
-			if (empresa == null || estadoLinea == null) {
-				mensaje("Error", "Para poder continuar por favor diligencia "
+			if (empresa == null || estadoLinea == null || getObjeto().getPlan()==null || getObjeto().getSimcard()==null) {
+				mensajeError( "Para poder continuar por favor diligencia "
 						+ empresa == null ? "empresa"
-						: "" + " " + estadoLinea == null ? "estado linea " : "");
+						: "" + " " + estadoLinea == null ? "estado linea " : " "+getObjeto().getSimcard() ==null?" simcard":" "+getObjeto().getPlan()==null?" plan ":"");
 				return false;
-			} else {
+			} 
 				if (!getObjeto().getPlan().equals(planOLd)) {
 					if (getObjeto().getPlanLineaList() == null) {
 						getObjeto()
@@ -155,10 +175,18 @@ public class LineaBean extends StandardAbm<Linea> {
 							"El numero de linea ya esta en uso por favor intente con otro numero");
 					return false;
 				}
-			}
+			
 		} else {
+			
+					if (empresa == null || estadoLinea == null || getObjeto().getPlan()==null || getObjeto().getSimcard()==null) {
+						mensajeError( "Para poder continuar por favor diligencia "
+								+ empresa == null ? "empresa"
+								: "" + " " + estadoLinea == null ? "estado linea " : " "+getObjeto().getSimcard() ==null?" simcard":" "+getObjeto().getPlan()==null?" plan ":"");
+				return false;
+					}
+			
 			if (empresa == null || estadoLinea == null) {
-				mensaje("Error", "Para poder continuar por favor diligencia "
+				mensajeError( "Para poder continuar por favor diligencia "
 						+ empresa == null ? "empresa"
 						: "" + " " + estadoLinea == null ? "estado linea " : "");
 				return false;
@@ -176,12 +204,11 @@ public class LineaBean extends StandardAbm<Linea> {
 					return false;
 				}
 			}
-		}
+			 }
 
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
 	 * @see com.invte.rentavoz.vista.StandardAbm#postAction()
 	 */
@@ -195,7 +222,6 @@ public class LineaBean extends StandardAbm<Linea> {
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="CAPSULAS">
 	public String getEmpresa() {
 		return empresa;
 	}
@@ -230,5 +256,25 @@ public class LineaBean extends StandardAbm<Linea> {
 	public void setBuscadorPlan(BuscadorPlan buscadorPlan) {
 		this.buscadorPlan = buscadorPlan;
 	}
-	// </editor-fold>
+	
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 22/07/2013
+	 * @return the buscadorSimCard
+	 */
+	public BuscadorSimCard getBuscadorSimCard() {
+		return buscadorSimCard;
+	}
+	
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 22/07/2013
+	 * @param buscadorSimCard the buscadorSimCard to set
+	 */
+	public void setBuscadorSimCard(BuscadorSimCard buscadorSimCard) {
+		this.buscadorSimCard = buscadorSimCard;
+	}
+	
 }

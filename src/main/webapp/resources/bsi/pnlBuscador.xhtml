@@ -20,7 +20,7 @@
          <!--appendToBody="true"-->
         <p:dialog
            
-            modal="false"
+            
             rendered="#{cc.attrs.buscador.mostrarPopup}"
             visible="#{cc.attrs.buscador.mostrarPopup}"
 
@@ -59,7 +59,6 @@
                                                      actionListener="#{cc.attrs.buscador.seleccionar(item.obj)}">
                                         <f:attribute name="item" value="#{item.obj}"/>
                                         <f:param name="item" value="#{item.obj}"/>
-                
                                     </h:commandButton>
                                 </p:column>
                                 <p:column  headerText="Id" style="text-align: left" filterBy="${item.id}">

@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="./../../../plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:bsi="http://java.sun.com/jsf/composite/bsi"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+	<ui:define name="content">
+		<h:form>
+			<h:outputLabel value="Gestion de Bancos" class="h1" />
+
+			<h:panelGrid columns="2" rendered="${!bancoBean.form}">
+				<h:commandButton value="Nuevo Banco"
+					actionListener="${bancoBean.verFormNuevo(true)}" />
+			</h:panelGrid>
+
+
+			<p:panel rendered="${bancoBean.form}"
+				header="Informacion de la SimCard" style="width: 100%">
+				<h:panelGrid columns="3">
+
+
+					<h:outputLabel rendered="#{bancoBean.edit}" value="Codigo" />
+					<p:inputText rendered="#{bancoBean.edit}" size="10" id="codBanco"
+						value="${bancoBean.objeto.idBanco}" required="true"
+						requiredMessage="Por favor digita un id válido" />
+					<p:message rendered="#{bancoBean.edit}" for="codBanco" />
+
+					<h:outputLabel value="Nombre" />
+					<p:inputText size="40" id="nombreBanco"
+						value="${bancoBean.objeto.bancoNombre}" required="true"
+						requiredMessage="Por favor digita un nombre válido" />
+					<p:message for="nombreBanco" />
+
+
+					<h:outputLabel value="Dirección" />
+					<p:inputText size="40" id="direccion"
+						value="${bancoBean.objeto.bancoDireccion}" />
+					<p:message for="direccion" />
+
+
+					<h:outputLabel value="Teléfono" />
+					<p:inputText size="40" id="telefono"
+						value="${bancoBean.objeto.bancoTelefono}" />
+					<p:message for="telefono" />
+
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:commandButton value="Aceptar" action="${bancoBean.aceptar()}"
+						id="btnAceptar" />
+					<h:commandButton  value="Cancelar" immediate="true"
+						action="${bancoBean.reglaNavegacion()}" />
+				</h:panelGrid>
+
+			</p:panel>
+
+			<p:dataTable rendered="${!bancoBean.form}" style="width: 100%"
+				value="#{bancoBean.listado}" var="item"
+				emptyMessage="No hay registros">
+				<p:column style="width: 10%" headerText="Codigo"
+					filterBy="${item.idBanco}" filterMatchMode="contains"
+					styleClass="styleColumn">
+					<p:outputLabel value="${item.idBanco}" />
+				</p:column>
+				<p:column headerText="Nombre" styleClass="styleColumn"
+					filterBy="${item.bancoNombre}" filterMatchMode="contains">
+					<p:outputLabel value="${item.bancoNombre}" />
+				</p:column>
+				<p:column headerText="Direccion" styleClass="styleColumn"
+					filterBy="${item.bancoDireccion}" filterMatchMode="contains">
+					<p:outputLabel value="${item.bancoDireccion}" />
+				</p:column>
+
+				<p:column width="7%">
+					<h:commandButton image="/imagenes/edit.png"
+						actionListener="${bancoBean.renderizarItem(item, true)}" />
+					<h:commandLink onclick="pnl${item.idBanco}.show();">
+						<h:graphicImage url="/imagenes/delete.png" />
+
+					</h:commandLink>
+					<p:dialog widgetVar="pnl${item.idBanco}" closable="false"
+						header="Desea eliminar este Item ?" visible="false"
+						resizable="false">
+
+						<h:panelGrid columns="2">
+							<p:commandButton value="Eliminar" partialSubmit="true"
+								actionListener="${bancoBean.eliminarItem(item)}" />
+							<p:commandButton value="Cancelar"
+								onclick="pnl${item.idBanco}.hide();" />
+						</h:panelGrid>
+
+					</p:dialog>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

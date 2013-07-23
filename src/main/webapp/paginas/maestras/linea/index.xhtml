@@ -35,8 +35,7 @@
                     <h:outputLabel value="Linea corte"/>
                     <h:inputText  id="fechaVencimiento" value="${lineaBean.objeto.linCorte}" required="true" requiredMessage="Por favor digita un corte"/>
                     <p:message for="fechaVencimiento"/>
-
-
+     
                     <h:outputLabel value="Empresa"/>
                     <p:selectOneMenu id="empresaLinea" value="${lineaBean.empresa}" required="true" requiredMessage="Por favor selecciona una empresa">
                         <f:selectItems value="${selectorEmpresa.items}"/>
@@ -52,6 +51,12 @@
                       <h:outputLabel value="Plan"/>
                    <bsi:buscar codValue="#{lineaBean.objeto.plan.idPlan}" displayValue="#{lineaBean.objeto.plan.plaNombre}" buscarListener="#{lineaBean.buscadorPlan.mostrar}" ></bsi:buscar>
                    <bsi:pnlBuscador buscador="#{lineaBean.buscadorPlan}"></bsi:pnlBuscador>
+
+					 <h:outputLabel value="SimCard"/>
+                   <bsi:buscar codValue="#{lineaBean.objeto.simcard.idSimcard}" displayValue="#{lineaBean.objeto.simcard.simIccid}" buscarListener="#{lineaBean.buscadorSimCard.mostrar}" ></bsi:buscar>
+                   <bsi:pnlBuscador buscador="#{lineaBean.buscadorSimCard}"></bsi:pnlBuscador>
+					
+             
 
                  
                 </h:panelGrid>

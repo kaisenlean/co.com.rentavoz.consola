@@ -29,12 +29,29 @@ import com.invte.rentavoz.vista.StandardAbm;
 public class SimcardBean extends StandardAbm<Simcard> {
 
 	
+	
+	/**
+	 * 22/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * REGLA_NAVEGACION
+	 */
 	private static final String REGLA_NAVEGACION = "/paginas/maestras/simcard/index.jsf";
 
 	private static final long serialVersionUID = -1689462037286702729L;
 	
+	/**
+	 * 22/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * estadoSim
+	 */
 	private String estadoSim;
 
+	
+	/**
+	 * 22/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * simcardFacade
+	 */
 	@EJB
 	private SimcardFacade simcardFacade;
 

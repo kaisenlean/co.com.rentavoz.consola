@@ -2,38 +2,57 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>Rentavoz 2.0</title>
 </h:head>
 <h:body style="font-size: 11px;background-color:#A4A4A4">
 	<h:form>
-	<p:growl autoUpdate="true" showDetail="true" sticky="true" />
-		<div align="center">
+		<p:growl autoUpdate="true" showDetail="true" sticky="true" />
+		<!-- 		<div align="center"> -->
 
-			<p:panel footer="@Grupo Innovate S.A.S" closable="false"
-				resizable="false" draggable="false" modal="true"
-				appendToBody="true" visible="true" header="Ingreso al sistema"
-				style="width:300px;">
+		<p:dialog footer="@Grupo Innovate S.A.S" closable="false"
+			resizable="false" draggable="false" modal="true" appendToBody="true"
+			widgetVar="pnl" visible="true" header="Ingreso al sistema"
+			style="width:500px;float:top">
 
-				<h:graphicImage url="/imagenes/logo.png" width="250" height="100"/>
-				<h:panelGrid columns="2" style="margin-left: 10%">
-					<h:outputLabel value="Usuario"
-						style="color: orangered;font-weight: bold" />
-					<h:inputText style="width: 100%" value="#{login.usuario}" />
+			<h:graphicImage url="/imagenes/logo.png" width="250" height="100" />
+			<h:panelGrid columns="3" style="margin-left: 10%">
+				<h:graphicImage value="/imagenes/user.png" />
+				<h:outputLabel value="Usuario"
+					style="color: orangered;font-weight: bold" />
+				<h:inputText style="width: 100%" value="#{login.usuario}"
+					id="usuari" />
 
-					<h:outputLabel value="Contraseña"
-						style="color: orangered;font-weight: bold" />
-					<h:inputSecret style="width: 100%"  value="#{login.contrasena}"/>
+				<h:graphicImage value="/imagenes/password.png" />
+				<h:outputLabel value="Contraseña"
+					style="color: orangered;font-weight: bold" />
+				<h:inputSecret style="width: 100%" value="#{login.contrasena}"
+					id="contras" />
 
-				</h:panelGrid>
-				<p:commandButton style="margin-left: 20%" value="Ingresar"
-					action="#{login.login()}" />
-			</p:panel>
+			</h:panelGrid>
+			<p:commandButton style="margin-left: 40%" value="Ingresar"
+				process="@this,contras,usuari" partialSubmit="true"
+				action="#{login.login()}"
+				oncomplete="handleLoginRequest(xhr, status, args)" />
 
-		</div>
+		</p:dialog>
+
+		<!-- 		</div> -->
 	</h:form>
 
+	<script type="text/javascript">  
+    function handleLoginRequest(xhr, status, args) {  
+        if(args.validationFailed || !args.loggedIn) {  
+            pnl.jq.effect("shake", { times:5 }, 100);  
+        }   
+        else {  
+            pnl.hide();  
+            $('#loginLink').fadeOut();  
+        }  
+    }  
+</script>
 </h:body>
 </html>
 

@@ -20,15 +20,32 @@
 
 		<h:form>
 
-			<p:layoutUnit position="center" size="190">
+			<p:layoutUnit  position="center" size="190">
+			<p:dialog rendered="#{!login.session}" visible="#{!login.session}"
+					header="Lo sentimos , no hemos detectado una sesion activa recientemente"
+					
+					modal="true"
+					closable="false" appendToBody="true" >
+					<h:form>
+					
+					<div align="center">
+
+						<h:panelGrid>
+						<h:graphicImage value="/imagenes/innovateLogo.png" />
+					<a href="#{request.contextPath}/" type="button">Volver al inicio</a> 
+						</h:panelGrid>
+					</div>
+					</h:form>
+				</p:dialog>
 				<div style="float: right;">
 
-					<p:menuButton value="(Nombre Usuario)">
-						<p:menuitem value="Salir" />
+					<p:menuButton value="Sesión activa ( #{login.user.usuario} )">
+						<p:menuitem value="Salir" actionListener="#{login.logOut}" />
 					</p:menuButton>
 				</div>
 				<p:graphicImage url="/imagenes/logo.png"></p:graphicImage>
 				<h:panelGrid style="margin-left:5%" columns="4" cellspacing="3"
+				rendered="#{login.session}"
 					cellpadding="3">
 					<p:panel header="Configuracion" style="width:100px">
 						<h:commandLink action="/inicio.jsf">

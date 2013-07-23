@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.context.RequestContext;
+
 /**
  * 
  * @author ejody
@@ -100,8 +102,10 @@ public abstract class Buscador<T> {
 		item = (T) t;
 		System.out.println(t);
 		asignar(item);
+		
 
 		cerrar();
+		RequestContext.getCurrentInstance().execute("dlg.hide()");
 		// return null;
 	}
 

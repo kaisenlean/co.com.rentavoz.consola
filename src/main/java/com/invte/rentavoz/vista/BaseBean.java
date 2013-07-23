@@ -30,6 +30,18 @@ public class BaseBean {
 				new FacesMessage(title, mensaje));
 	}
 
+	
+	/**
+	 *Metodo que manda un mensaje de error al cliente
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 22/07/2013
+	* @param mensaje
+	 */
+	public void mensajeError( String mensaje) {
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_WARN,"Error", mensaje));
+	}
+
 	/**
 	 * 
 	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>

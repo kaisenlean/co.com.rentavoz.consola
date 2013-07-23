@@ -3,14 +3,21 @@
  */
 package com.invte.rentavoz.vista.session;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
-import co.com.rentavoz.logica.jpa.entidades.Usuario;
+import org.primefaces.context.RequestContext;
+
+import co.com.rentavoz.logica.jpa.entidades.profile.Usuario;
 import co.com.rentavoz.logica.jpa.fachadas.UsuarioFacade;
 
 import com.invte.rentavoz.vista.BaseBean;
@@ -43,17 +50,50 @@ public class Login extends BaseBean implements Serializable {
 	}
 
 	public String login() {
+		RequestContext context = RequestContext.getCurrentInstance();  
+         
+        boolean loggedIn = false; 
 		try {
-
+	
+	        
 			user = usuarioFacade.login(usuario, contrasena);
+			loggedIn = true;
+	        context.addCallbackParam("loggedIn", loggedIn);
 			return "/dashboard.jsf";
 		} catch (Exception e) {
-			mensaje("Error", "Credenciales invalidas");
+	         loggedIn = false; 
+	         context.addCallbackParam("loggedIn", loggedIn);
+			mensajeError( "Credenciales invalidas");
 			return null;
 		}
 
 	}
 
+	/**
+	 * 
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 22/07/2013
+	 */
+	public void logOut(){
+		ExternalContext ctx = 
+			      FacesContext.getCurrentInstance().getExternalContext();
+			  String ctxPath = 
+			      ((ServletContext) ctx.getContext()).getContextPath();
+
+			  try {
+			    // Usar el contexto de JSF para invalidar la sesión,
+			    // NO EL DE SERVLETS (nada de HttpServletRequest)
+			    ((HttpSession) ctx.getSession(false)).invalidate();
+
+			    // Redirección de nuevo con el contexto de JSF,
+			    // si se usa una HttpServletResponse fallará.
+			    // Sin embargo, como ya está fuera del ciclo de vida 
+			    // de JSF se debe usar la ruta completa -_-U
+			    ctx.redirect(ctxPath + "/");
+			  } catch (IOException ex) {
+			   mensaje("Error", ex.toString());
+			  }
+	}
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
