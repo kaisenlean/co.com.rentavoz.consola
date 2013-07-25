@@ -11,7 +11,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.servlet.http.HttpSession;
 
 import co.com.rentavoz.logica.jpa.entidades.Departamento;
 import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;

@@ -12,11 +12,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.password.Password;
 import org.primefaces.context.RequestContext;
 
 import co.com.rentavoz.logica.jpa.entidades.Tercero;
