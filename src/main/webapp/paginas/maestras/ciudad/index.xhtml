@@ -18,9 +18,9 @@
 
             <p:panel rendered="#{beanCiudad.form}" header="Informacion de la ciudad" style="width: 100%">
                 <h:panelGrid columns="3" >
-                    <h:outputLabel value="Codigo" />
-                    <h:inputText id="codDept" disabled="#{beanCiudad.edit}" value="#{beanCiudad.objeto.idCiudad}" required="true" requiredMessage="Por favor digita un codigo valido"/>
-                    <p:message for="codDept"/>
+                    <h:outputLabel rendered="#{beanCiudad.edit}" value="Codigo" />
+                    <h:inputText rendered="#{beanCiudad.edit}" id="codDept" disabled="#{beanCiudad.edit}" value="#{beanCiudad.objeto.idCiudad}" required="true" requiredMessage="Por favor digita un codigo valido"/>
+                    <p:message rendered="#{beanCiudad.edit}" for="codDept"/>
                    
 
                     <h:outputLabel value="Nombre"/>

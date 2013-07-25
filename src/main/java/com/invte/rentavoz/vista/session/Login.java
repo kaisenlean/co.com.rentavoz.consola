@@ -12,12 +12,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.component.password.Password;
 import org.primefaces.context.RequestContext;
 
+import co.com.rentavoz.logica.jpa.entidades.Tercero;
 import co.com.rentavoz.logica.jpa.entidades.profile.Usuario;
+import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
 import co.com.rentavoz.logica.jpa.fachadas.UsuarioFacade;
 
 import com.invte.rentavoz.vista.BaseBean;
@@ -38,9 +42,14 @@ public class Login extends BaseBean implements Serializable {
 	@EJB
 	private UsuarioFacade usuarioFacade;
 
+	@EJB
+	private TerceroFacade terceroFacade;
+	
+	
 	private Usuario user;
 	private String usuario;
 	private String contrasena;
+	private Tercero tercero;
 	
 
 	@PostConstruct
@@ -59,6 +68,7 @@ public class Login extends BaseBean implements Serializable {
 			user = usuarioFacade.login(usuario, contrasena);
 			loggedIn = true;
 	        context.addCallbackParam("loggedIn", loggedIn);
+	        buscarTercero();
 			return "/dashboard.jsf";
 		} catch (Exception e) {
 	         loggedIn = false; 
@@ -69,6 +79,17 @@ public class Login extends BaseBean implements Serializable {
 
 	}
 
+	/**
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 24/07/2013
+	*/
+	private void buscarTercero() {
+		tercero=terceroFacade.findByUsuario(user);
+		
+	}
+
+	
+	
 	/**
 	 * 
 	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
@@ -180,5 +201,25 @@ public class Login extends BaseBean implements Serializable {
 		
 		return user!=null?true:false;
 	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 24/07/2013
+	 * @return the tercero
+	 */
+	public Tercero getTercero() {
+		return tercero;
+	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 24/07/2013
+	 * @param tercero the tercero to set
+	 */
+	public void setTercero(Tercero tercero) {
+		this.tercero = tercero;
+	}
+	
+	
 
 }

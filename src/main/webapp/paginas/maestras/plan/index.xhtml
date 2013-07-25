@@ -20,9 +20,9 @@
 
             <p:panel rendered="${planBean.form}" header="Informacion del Plan" style="width: 100%">
                 <h:panelGrid columns="3" >
-                    <h:outputLabel value="Codigo" />
-                    <h:inputText id="codDept" disabled="${planBean.edit}" value="${planBean.objeto.idPlan}" required="true" requiredMessage="Por favor digita un codigo valido"/>
-                    <p:message for="codDept"/>
+                    <h:outputLabel rendered="#{planBean.edit}" value="Codigo" />
+                    <h:inputText rendered="#{planBean.edit}" id="codDept" disabled="${planBean.edit}" value="${planBean.objeto.idPlan}" required="true" requiredMessage="Por favor digita un codigo valido"/>
+                    <p:message rendered="#{planBean.edit}" for="codDept"/>
 
                     <h:outputLabel value="Nombre"/>
                     <h:inputTextarea rows="5" cols="70" id="nomDept" value="${planBean.objeto.plaNombre}" required="true" requiredMessage="Por favor digita un nombre valido"/>
@@ -33,7 +33,7 @@
                     <p:message for="fechPlan"/>
 
                     <h:outputLabel value="Fecha de Vencimiento"/>
-                    <p:calendar  id="fechaVencimiento" value="${planBean.objeto.plaFechaVenc}" required="true" requiredMessage="Por favor digita una fecha de vencimiento"/>
+                    <p:calendar  id="fechaVencimiento"  pattern="dd/MM/yyyy" value="${planBean.objeto.plaFechaVenc}" required="true" requiredMessage="Por favor digita una fecha de vencimiento"/>
                     <p:message for="fechaVencimiento"/>
 
 
@@ -41,8 +41,8 @@
                     <bsi:buscar id="buscadorOperador" buscarListener="${planBean.buscadorOperador.mostrar}" codValue="${planBean.operador.idOperador}" displayValue="${planBean.operador.opeNombre}" />
                     <p:message for="buscadorOperador"/>
 
-                                        <h:outputLabel value="Tercero"/>
-                                        <bsi:buscar id="bter" buscarListener="${planBean.buscadorTercero.mostrar(evt)}" codValue="${planBean.tercero.idTecero}" displayValue="${planBean.tercero}" />
+                                        <h:outputLabel value="Tercero Creador"/>
+                                        <bsi:buscar bloqueaBoton="true" id="bter"  buscarListener="${planBean.buscadorTercero.mostrar(evt)}" codValue="${planBean.tercero.idTecero}" displayValue="${planBean.tercero}" />
                                         <p:message for="bter"/>
 
                     <h:outputLabel value="Cantidad de Minutos"/>
@@ -80,21 +80,41 @@
             </p:panel>
             <bsi:pnlBuscador buscador="${planBean.buscadorOperador}"/>
             <bsi:pnlBuscador buscador="${planBean.buscadorTercero}"/>
-            <p:dataTable rendered="${!planBean.form}" style="width: 100%" value="#{planBean.listado}" var="item" emptyMessage="No hay registros">
-                <p:column style="width: 10%" headerText="Codigo" filterBy="${item.idPlan}" filterMatchMode="contains" styleClass="styleColumn">
-                    <p:outputLabel value="${item.idPlan}"/>
-                </p:column>
+            
+<!--  tercero que lo crea / Que aparezcan los datos del plan (Cantidad y los 3 costos) -->
+            <p:dataTable rendered="${!planBean.form}" style="width: 70%" value="#{planBean.listado}" var="item" emptyMessage="No hay registros">
+<!--                 <p:column style="width: 2%" headerText="Codigo" filterBy="${item.idPlan}" filterMatchMode="contains" styleClass="styleColumn"> -->
+<!--                     <p:outputLabel value="${item.idPlan}"/> -->
+<!--                 </p:column> -->
                 <p:column headerText="Nombre" styleClass="styleColumn" filterBy="${item.plaNombre}" filterMatchMode="contains">
                     <p:outputLabel value="${item.plaNombre}"/>
                 </p:column>
-                <p:column headerText="Tercero" styleClass="styleColumn" filterBy="${item.terceroidTecero}" filterMatchMode="contains">
-                    <p:outputLabel value="${item.terceroidTecero}"/>
-                </p:column>
-                <p:column headerText="Fecha Vencimiento" styleClass="styleColumn" >
-                    <p:calendar value="${item.plaFechaVenc}" pattern="dd/MM/yyyy" disabled="true"/>
+                <p:column headerText="Vencimiento" styleClass="styleColumn" >
+                <p:outputLabel value="#{item.vencimiento}">
+                
+                </p:outputLabel>
                 </p:column>
                 <p:column headerText="Operador" sortBy="${item.operadoridOperador.opeNombre}"  styleClass="styleColumn" filterBy="${item.operadoridOperador.opeNombre}" filterMatchMode="contains">
                     <p:outputLabel value="${item.operadoridOperador.opeNombre}"/>
+                </p:column>
+                 <p:column headerText="Creador" sortBy="${item.terceroidTecero}"  styleClass="styleColumn" filterBy="${item.operadoridOperador.opeNombre}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.terceroidTecero}"/>
+                </p:column>
+                
+                <p:column headerText="Cantidad Minutos" sortBy="${item.plaCantidadMinutos}"  styleClass="styleColumn" filterBy="${item.operadoridOperador.opeNombre}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.plaCantidadMinutos}"/>
+                </p:column>
+                
+                  <p:column headerText="Costo Minuto" styleClass="styleColumn" >
+                    <p:outputLabel value="${item.plaCostoMinuto}"/>
+                </p:column>
+                
+                    <p:column headerText="Costo Maximo Minuto" styleClass="styleColumn" >
+                    <p:outputLabel value="${item.plaCostoMax}"/>
+                </p:column>
+                
+                   <p:column headerText="Costo Minimo Minuto "  styleClass="styleColumn" >
+                    <p:outputLabel value="${item.plaCostoMin}"/>
                 </p:column>
                 <p:column width="7%">
                     <h:commandButton image="/imagenes/edit.png" actionListener="${planBean.renderizarItem(item, true)}"/>

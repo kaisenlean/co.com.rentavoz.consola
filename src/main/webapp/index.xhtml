@@ -28,13 +28,17 @@
 				<h:graphicImage value="/imagenes/password.png" />
 				<h:outputLabel value="Contraseña"
 					style="color: orangered;font-weight: bold" />
+					
 				<h:inputSecret style="width: 100%" value="#{login.contrasena}"
-					id="contras" />
+			onkeypress="if (event.keyCode == 13) {btnIngreso.click(); return false;}" 
+					id="contras" 
+			 ></h:inputSecret>
 
 			</h:panelGrid>
 			<p:commandButton style="margin-left: 40%" value="Ingresar"
 				process="@this,contras,usuari" partialSubmit="true"
 				action="#{login.login()}"
+				id="btnIngreso"
 				oncomplete="handleLoginRequest(xhr, status, args)" />
 
 		</p:dialog>

@@ -18,9 +18,9 @@
 
             <p:panel rendered="${departamentoBean.form}" header="Informacion del departamento" style="width: 100%">
                 <h:panelGrid columns="3" >
-                    <h:outputLabel value="Codigo" />
-                    <h:inputText id="codDept" disabled="${departamentoBean.edit}" value="${departamentoBean.objeto.idDepartamento}" required="true" requiredMessage="Por favor digita un codigo valido"/>
-                    <p:message for="codDept"/>
+                    <h:outputLabel rendered="#{departamentoBean.edit}" value="Codigo" />
+                    <h:inputText rendered="#{departamentoBean.edit}" id="codDept" disabled="${departamentoBean.edit}" value="${departamentoBean.objeto.idDepartamento}" required="true" requiredMessage="Por favor digita un codigo valido"/>
+                    <p:message for="codDept" rendered="#{departamentoBean.edit}"/>
 
                     <h:outputLabel value="Nombre"/>
                     <h:inputTextarea rows="5" cols="70" id="nomDept" value="${departamentoBean.objeto.depNombre}" required="true" requiredMessage="Por favor digita un nombre valido"/>

@@ -84,23 +84,7 @@ public class BeanSucursal extends StandardAbm<Sucursal> implements Serializable 
 
 	@Override
 	public boolean preAction() {
-		if (!isEdit()) {
-			if (getObjeto().getCiudadidCiudad() == null) {
-				mensaje("Error",
-						"Debes seleccionar una ciudad a la cual vas a asociar la sucursal");
-				return false;
-			}
-			if (getFacade().find(getObjeto().getIdSucursal()) == null) {
-
-				return true;
-			} else {
-				mensaje("Error",
-						"Este codigo ya esta siendo utilizado por otra sucursal, por favor intente con otro codigo");
-				return false;
-			}
-		} else {
-			return true;
-		}
+	return true;
 
 	}
 

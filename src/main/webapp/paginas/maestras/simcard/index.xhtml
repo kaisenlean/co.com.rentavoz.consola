@@ -18,7 +18,8 @@
             </h:panelGrid>
 
 
-            <p:panel rendered="${simcardBean.form}" header="Informacion de la SimCard" style="width: 100%">
+            <p:panel rendered="${simcardBean.form}" id="panel" header="Informacion de la SimCard" style="width: 100%">
+                <p:focus context="panel"/> 
                 <h:panelGrid columns="3" >
                 
 
@@ -36,9 +37,15 @@
 					</p:selectOneMenu>
 					<p:message for="estadoSimCard"/>
                  
+                 
+                 	<h:outputLabel value="Sucursal"/>
+					<p:selectOneMenu style="widht:90px" value="#{simcardBean.sucursal}" required="true" requiredMessage="Por favor seleccione una sucursal" id="sucursalId">
+						<f:selectItems value="#{selectorSucursal.items}" />
+					</p:selectOneMenu>
+					<p:message for="sucursalId"/>
                 </h:panelGrid>
-                <h:panelGrid columns="2">
-                       <p:commandButton value="Aceptar" action="${simcardBean.aceptar()}" id="btnAceptar"/>
+                <h:panelGrid columns="2">	
+                       <h:commandButton value="Aceptar" action="${simcardBean.guardarSim()}" id="btnAceptar"/>
                     <h:commandButton value="Cancelar" immediate="true" action="${simcardBean.reglaNavegacion()}"/>
                 </h:panelGrid>
 
@@ -47,6 +54,9 @@
             <p:dataTable rendered="${!simcardBean.form}" style="width: 100%" value="#{simcardBean.listado}" var="item" emptyMessage="No hay registros">
                 <p:column style="width: 10%" headerText="Codigo" filterBy="${item.idSimcard}" filterMatchMode="contains" styleClass="styleColumn">
                     <p:outputLabel value="${item.idSimcard}"/>
+                </p:column>
+                 <p:column headerText="ICC" styleClass="styleColumn" filterBy="${item.simIccid}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.simIccid}"/>
                 </p:column>
                 <p:column headerText="Estado" styleClass="styleColumn" filterBy="${item.estadoAsString}" filterMatchMode="contains">
                     <p:outputLabel value="${item.estadoAsString}"/>

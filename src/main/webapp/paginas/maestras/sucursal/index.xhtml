@@ -18,9 +18,9 @@
 
             <p:panel rendered="${beanSucursal.form}" header="Informacion de la Sucursal" style="width: 100%">
                 <h:panelGrid columns="3" >
-                    <h:outputLabel value="Codigo" />
-                    <h:inputText id="sucDept" disabled="${beanSucursal.edit}" value="${beanSucursal.objeto.idSucursal}" required="true" requiredMessage="Por favor digita un codigo valido"/>
-                    <p:message for="sucDept"/>
+                    <h:outputLabel value="Codigo" rendered="#{beanSucursal.edit}" />
+                    <h:inputText rendered="#{beanSucursal.edit}" id="sucDept" disabled="${beanSucursal.edit}" value="${beanSucursal.objeto.idSucursal}" required="true" requiredMessage="Por favor digita un codigo valido"/>
+                    <p:message for="sucDept" rendered="#{beanSucursal.edit}"/>
 
                     <h:outputLabel value="Nombre"/>
                     <h:inputTextarea rows="5" cols="70" id="nomsuc" value="${beanSucursal.objeto.sucNombre}" required="true" requiredMessage="Por favor digita un nombre valido"/>

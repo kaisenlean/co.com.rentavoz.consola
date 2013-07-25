@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import co.com.rentavoz.logica.jpa.entidades.Operador;
@@ -22,6 +23,7 @@ import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
 import com.invte.component.rentavoz.buscador.BuscadorOperador;
 import com.invte.component.rentavoz.buscador.BuscadorTercero;
 import com.invte.rentavoz.vista.StandardAbm;
+import com.invte.rentavoz.vista.session.Login;
 
 /**
  * 
@@ -45,6 +47,8 @@ public class PlanBean extends StandardAbm<Plan> {
 	private BuscadorOperador buscadorOperador;
 	private Tercero tercero;
 	private Operador operador;
+	@ManagedProperty(value="#{login}")
+	private Login login;
 
 	@Override
 	public AbstractFacade<Plan> getFacade() {
@@ -75,6 +79,8 @@ public class PlanBean extends StandardAbm<Plan> {
 	public void postFormNuevo() {
 		getObjeto().setIdPlan(facade.nextCodigo());
 		getObjeto().setFecha(new Date());
+		getObjeto().setTerceroidTecero(login.getTercero());
+		tercero=login.getTercero();
 	}
 
 	@Override
@@ -110,8 +116,7 @@ public class PlanBean extends StandardAbm<Plan> {
 	@Override
 	public boolean preAction() {
 
-		if (facade.find(getObjeto().getIdPlan()) == null) {
-
+			
 			if (operador == null || tercero == null) {
 				StringBuilder builder = new StringBuilder(
 						"Por favor selecciona ");
@@ -129,13 +134,10 @@ public class PlanBean extends StandardAbm<Plan> {
 				getObjeto().setOperadoridOperador(operador);
 				return true;
 			}
-		} else {
-			mensaje("Error",
-					"Este codigo de plan ya esta siendo utilizado por favor digita otro");
-			return false;
-		}
+		
 	}
 
+	
 	@Override
 	public void preRenderizarItem() {
 		tercero = getObjeto().getTerceroidTecero();
@@ -174,5 +176,21 @@ public class PlanBean extends StandardAbm<Plan> {
 	public void setOperador(Operador operador) {
 		this.operador = operador;
 	}
-	// </editor-fold>
+/**
+ * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+ * @date 24/07/2013
+ * @return the login
+ */
+public Login getLogin() {
+	return login;
+}
+
+/**
+ * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+ * @date 24/07/2013
+ * @param login the login to set
+ */
+public void setLogin(Login login) {
+	this.login = login;
+}
 }

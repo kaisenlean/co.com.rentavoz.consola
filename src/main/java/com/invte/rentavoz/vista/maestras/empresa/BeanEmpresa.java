@@ -64,18 +64,7 @@ public class BeanEmpresa extends StandardAbm<Empresa> implements Serializable {
 
 	@Override
 	public boolean preAction() {
-		if (!isEdit()) {
-
-			if (getFacade().find(getObjeto().getIdEmpresa()) == null) {
-				return true;
-			} else {
-				mensaje("Error",
-						"El codigo de la empresa ya esta siendo utilizado , por favor digita otro código");
-				return false;
-			}
-		} else {
-			return true;
-		}
+return true;
 	}
 
 	@Override

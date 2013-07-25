@@ -18,9 +18,9 @@
 
             <p:panel rendered="${beanTercero.form}" header="Informacion de la empresa" style="width: 100%">
                 <h:panelGrid columns="3" >
-                    <h:outputLabel value="Codigo" />
-                    <h:inputText id="codDept" disabled="${beanTercero.edit}" value="${beanTercero.objeto.idTecero}" required="true" requiredMessage="Este campo es reuqerido"/>
-                    <p:message for="codDept"/>
+                    <h:outputLabel rendered="#{beanTercero.edit}" value="Codigo" />
+                    <h:inputText rendered="#{beanTercero.edit}" id="codDept" disabled="${beanTercero.edit}" value="${beanTercero.objeto.idTecero}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="codDept" rendered="#{beanTercero.edit}"/>
 
                     <h:outputLabel value="Nombres"/>
                     <h:inputText id="nomDept" value="${beanTercero.objeto.terNombre}" required="true" requiredMessage="Este campo es reuqerido"/>
@@ -41,14 +41,13 @@
                     <h:outputLabel value="Telefono"/>
                     <h:inputText id="dirEmpresa" value="${beanTercero.objeto.terTelefono}" required="true" requiredMessage="Este campo es reuqerido"/>
                     <p:message for="dirEmpresa"/>
+                    
+                     <h:outputLabel value="Tipo"/>
+                     <h:selectOneMenu id="tipoTercero" value="#{beanTercero.tipo}" required="true" requiredMessage="Por favor selecciona un tipo de tercero">
+                     <f:selectItems value="#{beanTercero.itemTipo}"/>
+                     </h:selectOneMenu>
+                    <p:message for="tipoTercero"/>
 
-                    <h:outputLabel value="Clave"/>
-                    <p:password id="telEmpresa"  redisplay="true" value="${beanTercero.objeto.terClave}" required="true" requiredMessage="Este campo es reuqerido"/>
-                    <p:message for="telEmpresa"/>
-
-                    <h:outputLabel value="Repetir clave"/>
-                    <p:password id="telEmpresa2"  redisplay="true" value="${beanTercero.objeto.repTerClave}" required="true" requiredMessage="Este campo es reuqerido"/>
-                    <p:message for="telEmpresa2"/>
 
                     <h:commandButton value="Aceptar" action="${beanTercero.aceptar()}"/>
                     <h:commandButton value="Cancelar" immediate="true" action="${beanTercero.reglaNavegacion()}"/>

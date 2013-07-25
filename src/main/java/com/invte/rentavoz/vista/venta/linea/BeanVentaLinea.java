@@ -117,6 +117,9 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 			}
 		};
 	}
+	
+
+	
 
 	/**
 	 * 
@@ -367,6 +370,21 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 		}
 
 		return null;
+	}
+	
+	/**
+	 * 
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 23/07/2013
+	 */
+	public void eliminarItem(Linea linea){
+		lineasSeleccionadas.remove(linea);
+		double d = linea.getPlan().getPlaCostoMinuto()
+				* linea.getPlan().getPlaCantidadMinutos();
+		subtotal -= (d);
+		totalDepositos -= (15000.00);
+
+		total = subtotal + totalDepositos + descuentos + domicilio;
 	}
 
 	/**

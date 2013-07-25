@@ -24,11 +24,17 @@ import co.com.rentavoz.logica.jpa.fachadas.MenuFacade;
  * @date 14/07/2013
  * 
  */
-@SuppressWarnings("serial")
+
 @ManagedBean(eager = true)
 @SessionScoped
 public class AdministradorMenus implements Serializable {
 
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 988905964589622257L;
 	private List<Menu> menus;
 	@EJB
 	private MenuFacade menuFacade;

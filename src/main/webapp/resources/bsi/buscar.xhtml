@@ -14,6 +14,7 @@
         <cc:attribute name="buscarListener" required="true" method-signature="void actionListener(javax.faces.event.ActionEvent)"/>
         <cc:attribute name="etiquetaBoton" default="Buscar"/>
         <cc:attribute name="requerido" default="false"/>
+        <cc:attribute name="bloqueaBoton" default="false"/>
         <cc:attribute name="mensajeRequerido" default="Por favor seleccione una opcion valida"/>
     </cc:interface>
 
@@ -35,6 +36,7 @@
                 actionListener="${cc.attrs.buscarListener}"
                                value="#{cc.attrs.etiquetaBoton}"
                                immediate="true"
+                               disabled="#{cc.attrs.bloqueaBoton}"
                                >
                 
             </h:commandButton>

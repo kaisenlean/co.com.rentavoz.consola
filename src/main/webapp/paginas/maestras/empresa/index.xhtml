@@ -18,32 +18,32 @@
 
             <p:panel rendered="${beanEmpresa.form}" header="Informacion de la empresa" style="width: 100%">
                 <h:panelGrid columns="3" >
-                    <h:outputLabel value="Codigo" />
-                    <h:inputText id="codDept" disabled="${beanEmpresa.edit}" value="${beanEmpresa.objeto.idEmpresa}" required="true" requiredMessage="Este campo es reuqerido"/>
-                    <p:message for="codDept"/>
+                    <h:outputLabel value="Codigo" rendered="#{beanEmpresa.edit}" />
+                    <h:inputText rendered="#{beanEmpresa.edit}" id="codDept" disabled="${beanEmpresa.edit}" value="${beanEmpresa.objeto.idEmpresa}" required="true" requiredMessage="Este campo es requerido"/>
+                    <p:message for="codDept" rendered="#{beanEmpresa.edit}"/>
 
                     <h:outputLabel value="Nombre"/>
-                    <h:inputText id="nomDept" value="${beanEmpresa.objeto.empNombre}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <h:inputText id="nomDept" value="${beanEmpresa.objeto.empNombre}" required="true" requiredMessage="Este campo es requerido"/>
                     <p:message for="nomDept"/>
                     
                     <h:outputLabel value="Alias"/>
-                    <h:inputText id="empAlias" value="${beanEmpresa.objeto.empAlias}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <h:inputText id="empAlias" value="${beanEmpresa.objeto.empAlias}" required="true" requiredMessage="Este campo es requerido"/>
                     <p:message for="empAlias"/>
 
                     <h:outputLabel value="NIT"/>
-                    <h:inputText id="nitEmpr" value="${beanEmpresa.objeto.empNit}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <h:inputText id="nitEmpr" value="${beanEmpresa.objeto.empNit}" required="true" requiredMessage="Este campo es requerido"/>
                     <p:message for="nitEmpr"/>
 
                     <h:outputLabel value="Contacto"/>
-                    <h:inputText id="empContacto" value="${beanEmpresa.objeto.empContacto}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <h:inputText id="empContacto" value="${beanEmpresa.objeto.empContacto}" required="true" requiredMessage="Este campo es requerido"/>
                     <p:message for="empContacto"/>
 
                     <h:outputLabel value="Dirección"/>
-                    <h:inputText id="dirEmpresa" value="${beanEmpresa.objeto.empDireccion}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <h:inputText id="dirEmpresa" value="${beanEmpresa.objeto.empDireccion}" required="true" requiredMessage="Este campo es requerido"/>
                     <p:message for="dirEmpresa"/>
 
                     <h:outputLabel value="Teléfono"/>
-                    <h:inputText id="telEmpresa" value="${beanEmpresa.objeto.empTelefono}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <h:inputText id="telEmpresa" value="${beanEmpresa.objeto.empTelefono}" required="true" requiredMessage="Este campo es requerido"/>
                     <p:message for="telEmpresa"/>
 
                     <h:commandButton value="Aceptar" action="${beanEmpresa.aceptar()}"/>
@@ -65,6 +65,21 @@
                 
                 <p:column headerText="Contacto" styleClass="styleColumn" filterBy="${item.empContacto}" filterMatchMode="contains">
                     <p:outputLabel value="${item.empContacto}"/>
+                </p:column>
+                
+                
+                <p:column headerText="Alias" styleClass="styleColumn" filterBy="${item.empAlias}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.empAlias}"/>
+                </p:column>
+                
+                
+                <p:column headerText="Direccion" styleClass="styleColumn" filterBy="${item.empDireccion}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.empDireccion}"/>
+                </p:column>
+                
+                
+                <p:column headerText="Teléfono" styleClass="styleColumn" filterBy="${item.empTelefono}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.empTelefono}"/>
                 </p:column>
                 
                 <p:column width="7%">

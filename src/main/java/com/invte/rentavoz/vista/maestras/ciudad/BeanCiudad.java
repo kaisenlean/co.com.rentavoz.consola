@@ -96,18 +96,7 @@ public class BeanCiudad extends StandardAbm<Ciudad> implements Serializable {
 
 	@Override
 	public boolean preAction() {
-		if (!isEdit()) {
-
-			if (getFacade().find(getObjeto().getIdCiudad()) == null) {
-				return true;
-			} else {
-				mensaje("Codigo ya esta en uso",
-						"Este codigo ya esta en uso para la nueva ciudad");
-				return false;
-			}
-		} else {
-			return true;
-		}
+	return true;
 	}
 
 	@Override
@@ -137,24 +126,6 @@ public class BeanCiudad extends StandardAbm<Ciudad> implements Serializable {
 		this.departamento = departamento;
 	}
 
-	@Override
-	public void postEliminar() {
-
-		try {
-
-			// Usar el contexto de JSF para invalidar la sesión,
-			// NO EL DE SERVLETS (nada de HttpServletRequest)
-			((HttpSession) ctx.getSession(false)).invalidate();
-
-			// Redirección de nuevo con el contexto de JSF,
-			// si se usa una HttpServletResponse fallará.
-			// Sin embargo, como ya está fuera del ciclo de vida
-			// de JSF se debe usar la ruta completa -_-U
-			ctx.redirect(ctxPath + reglaNavegacion());
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
+	
 
 }

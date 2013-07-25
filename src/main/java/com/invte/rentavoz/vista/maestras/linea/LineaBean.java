@@ -14,6 +14,7 @@ import javax.faces.bean.ViewScoped;
 
 import co.com.rentavoz.logica.jpa.entidades.Plan;
 import co.com.rentavoz.logica.jpa.entidades.PlanLinea;
+import co.com.rentavoz.logica.jpa.entidades.almacen.EstadosSimcardEnum;
 import co.com.rentavoz.logica.jpa.entidades.almacen.Linea;
 import co.com.rentavoz.logica.jpa.entidades.almacen.Simcard;
 import co.com.rentavoz.logica.jpa.fachadas.AbstractFacade;
@@ -30,36 +31,90 @@ import com.invte.rentavoz.vista.StandardAbm;
 
 /**
  * 
-* @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-* @project co.com.rentavoz.consola
-* @class LineaBean
-* @date 17/07/2013
-*
+ * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+ * @project co.com.rentavoz.consola
+ * @class LineaBean
+ * @date 17/07/2013
+ * 
  */
 @ManagedBean
 @ViewScoped
 public class LineaBean extends StandardAbm<Linea> {
 
-	
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * facade
+	 */
 	@EJB
 	private EmpresaFacade facade;
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * terceroFacade
+	 */
 	@EJB
 	private EstadoLineaFacade terceroFacade;
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * lineaFacade
+	 */
 	@EJB
 	private LineaFacade lineaFacade;
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * planFacade
+	 */
 	@EJB
 	private PlanFacade planFacade;
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * plFacade
+	 */
 	@EJB
 	private PlanLineaFacade plFacade;
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * simcardFacade
+	 */
 	@EJB
 	private SimcardFacade simcardFacade;
 
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * empresa
+	 */
 	private String empresa = null;
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * estadoLinea
+	 */
 	private String estadoLinea = null;
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * buscadorPlan
+	 */
 	private BuscadorPlan buscadorPlan;
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * buscadorSimCard
+	 */
 	private BuscadorSimCard buscadorSimCard;
-	
+
+	/**
+	 * 23/07/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * planOLd
+	 */
 	private Plan planOLd;
 
 	@Override
@@ -110,14 +165,14 @@ public class LineaBean extends StandardAbm<Linea> {
 				return planFacade;
 			}
 		};
-		
-		buscadorSimCard= new BuscadorSimCard() {
-			
+
+		buscadorSimCard = new BuscadorSimCard() {
+
 			@Override
 			public void selCentrope(Simcard centrope) {
-					getObjeto().setSimcard(centrope);
+				getObjeto().setSimcard(centrope);
 			}
-			
+
 			@Override
 			public SimcardFacade getFacade() {
 				return simcardFacade;
@@ -137,56 +192,66 @@ public class LineaBean extends StandardAbm<Linea> {
 		planOLd = getObjeto().getPlan();
 
 	}
-/**
- * @see com.invte.rentavoz.vista.StandardAbm#preAction()
- */
+
+	/**
+	 * @see com.invte.rentavoz.vista.StandardAbm#preAction()
+	 */
 	@Override
 	public boolean preAction() {
 		if (isEdit()) {
-			if (empresa == null || estadoLinea == null || getObjeto().getPlan()==null || getObjeto().getSimcard()==null) {
-				mensajeError( "Para poder continuar por favor diligencia "
+			if (empresa == null || estadoLinea == null
+					|| getObjeto().getPlan() == null
+					|| getObjeto().getSimcard() == null) {
+				mensajeError("Para poder continuar por favor diligencia "
 						+ empresa == null ? "empresa"
-						: "" + " " + estadoLinea == null ? "estado linea " : " "+getObjeto().getSimcard() ==null?" simcard":" "+getObjeto().getPlan()==null?" plan ":"");
+						: "" + " " + estadoLinea == null ? "estado linea "
+								: " " + getObjeto().getSimcard() == null ? " simcard"
+										: " " + getObjeto().getPlan() == null ? " plan "
+												: "");
 				return false;
-			} 
-				if (!getObjeto().getPlan().equals(planOLd)) {
-					if (getObjeto().getPlanLineaList() == null) {
-						getObjeto()
-								.setPlanLineaList(new ArrayList<PlanLinea>());
-						PlanLinea pl = new PlanLinea();
-						pl.setFecha(new Date());
-						pl.setLineaidLinea(getObjeto());
-						pl.setPlaEstado(1);
-						pl.setPlanidPlan(getObjeto().getPlan());
-						getObjeto().getPlanLineaList().add(pl);
-						plFacade.desactivarTodosPlanesLineas(getObjeto());
+			}
+			if (!getObjeto().getPlan().equals(planOLd)) {
+				if (getObjeto().getPlanLineaList() == null) {
+					getObjeto().setPlanLineaList(new ArrayList<PlanLinea>());
+					PlanLinea pl = new PlanLinea();
+					pl.setFecha(new Date());
+					pl.setLineaidLinea(getObjeto());
+					pl.setPlaEstado(1);
+					pl.setPlanidPlan(getObjeto().getPlan());
+					getObjeto().getPlanLineaList().add(pl);
+					plFacade.desactivarTodosPlanesLineas(getObjeto());
 
-					}
 				}
+			}
 
-				if (lineaFacade.findBNumero2(getObjeto().getLinNumero())) {
-					getObjeto().setEmpresaidEmpresa(
-							facade.find(Integer.valueOf(empresa)));
-					getObjeto().setEstadoLineaidEstadoLinea(
-							terceroFacade.find(Integer.parseInt(estadoLinea)));
-					return true;
-				} else {
-					mensaje("Error",
-							"El numero de linea ya esta en uso por favor intente con otro numero");
-					return false;
-				}
-			
+			if (lineaFacade.findBNumero2(getObjeto().getLinNumero())) {
+				getObjeto().setEmpresaidEmpresa(
+						facade.find(Integer.valueOf(empresa)));
+				getObjeto().setEstadoLineaidEstadoLinea(
+						terceroFacade.find(Integer.parseInt(estadoLinea)));
+				return true;
+			} else {
+				mensaje("Error",
+						"El numero de linea ya esta en uso por favor intente con otro numero");
+				return false;
+			}
+
 		} else {
-			
-					if (empresa == null || estadoLinea == null || getObjeto().getPlan()==null || getObjeto().getSimcard()==null) {
-						mensajeError( "Para poder continuar por favor diligencia "
-								+ empresa == null ? "empresa"
-								: "" + " " + estadoLinea == null ? "estado linea " : " "+getObjeto().getSimcard() ==null?" simcard":" "+getObjeto().getPlan()==null?" plan ":"");
+
+			if (empresa == null || estadoLinea == null
+					|| getObjeto().getPlan() == null
+					|| getObjeto().getSimcard() == null) {
+				mensajeError("Para poder continuar por favor diligencia "
+						+ empresa == null ? "empresa"
+						: "" + " " + estadoLinea == null ? "estado linea "
+								: " " + getObjeto().getSimcard() == null ? " simcard"
+										: " " + getObjeto().getPlan() == null ? " plan "
+												: "");
 				return false;
-					}
-			
+			}
+
 			if (empresa == null || estadoLinea == null) {
-				mensajeError( "Para poder continuar por favor diligencia "
+				mensajeError("Para poder continuar por favor diligencia "
 						+ empresa == null ? "empresa"
 						: "" + " " + estadoLinea == null ? "estado linea " : "");
 				return false;
@@ -197,14 +262,18 @@ public class LineaBean extends StandardAbm<Linea> {
 							facade.find(Integer.valueOf(empresa)));
 					getObjeto().setEstadoLineaidEstadoLinea(
 							terceroFacade.find(Integer.parseInt(estadoLinea)));
+					Simcard sim = getObjeto().getSimcard();
+					sim.setSimEstado(EstadosSimcardEnum.ASIGNADA);
+					simcardFacade.edit(sim);
 					return true;
 				} else {
-					mensaje("Error",
+					mensajeError(
 							"El codigo o numero  de linea ya esta siendo utilizado");
 					return false;
 				}
 			}
-			 }
+			
+		}
 
 	}
 
@@ -256,8 +325,7 @@ public class LineaBean extends StandardAbm<Linea> {
 	public void setBuscadorPlan(BuscadorPlan buscadorPlan) {
 		this.buscadorPlan = buscadorPlan;
 	}
-	
-	
+
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 22/07/2013
@@ -266,15 +334,15 @@ public class LineaBean extends StandardAbm<Linea> {
 	public BuscadorSimCard getBuscadorSimCard() {
 		return buscadorSimCard;
 	}
-	
-	
+
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 22/07/2013
-	 * @param buscadorSimCard the buscadorSimCard to set
+	 * @param buscadorSimCard
+	 *            the buscadorSimCard to set
 	 */
 	public void setBuscadorSimCard(BuscadorSimCard buscadorSimCard) {
 		this.buscadorSimCard = buscadorSimCard;
 	}
-	
+
 }

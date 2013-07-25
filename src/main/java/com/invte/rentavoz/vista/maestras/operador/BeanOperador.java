@@ -64,32 +64,9 @@ public class BeanOperador extends StandardAbm<Operador> implements Serializable 
 
 	@Override
 	public void buscarrPorCriterio() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		throw new UnsupportedOperationException("Not supported yet."); 
 	}
 
-	// @Override
-	// public boolean preAction() {
-	// if (!isEdit()) {
-	//
-	// if (getFacade().find(getObjeto().getIdOperador()) == null) {
-	// return true;
-	// } else {
-	// mensaje("Codigo ya esta en uso",
-	// "Este codigo ya esta en uso para el nuevo operador");
-	// return false;
-	// }
-	// } else {
-	// return true;
-	// }
-	// }
+
 
 }

@@ -18,11 +18,11 @@
             </h:panelGrid>
 
 
-            <p:panel rendered="${lineaBean.form}" header="Informacion del Plan" style="width: 100%">
+            <p:panel rendered="${lineaBean.form}" header="Informacion de la Linea" style="width: 100%">
                 <h:panelGrid columns="3" >
-                    <h:outputLabel value="Codigo" />
-                    <h:inputText id="codDept" disabled="${lineaBean.edit}" value="${lineaBean.objeto.idLinea}" required="true" requiredMessage="Por favor digita un codigo valido"/>
-                    <p:message for="codDept"/>
+                    <h:outputLabel value="Codigo" rendered="#{lineaBean.edit}"/>
+                    <h:inputText id="codDept" rendered="#{lineaBean.edit}" disabled="${lineaBean.edit}" value="${lineaBean.objeto.idLinea}" required="true" requiredMessage="Por favor digita un codigo valido"/>
+                    <p:message for="codDept" rendered="#{lineaBean.edit}"/>
 
                     <h:outputLabel value="Numero"/>
                     <h:inputText id="nomDept" value="${lineaBean.objeto.linNumero}" required="true" requiredMessage="Por favor digita un numero valido"/>
@@ -80,9 +80,23 @@
                 <p:column headerText="Fecha Registro" styleClass="styleColumn" >
                     <p:calendar value="${item.fecha}" pattern="dd/MM/yyyy" disabled="true"/>
                 </p:column>
-                <p:column headerText="Operador" sortBy="${item.estadoLineaidEstadoLinea.estLinNombre}"  styleClass="styleColumn" filterBy="${item.estadoLineaidEstadoLinea.estLinNombre}" filterMatchMode="contains">
+                <p:column headerText="Estado" sortBy="${item.estadoLineaidEstadoLinea.estLinNombre}"  styleClass="styleColumn" filterBy="${item.estadoLineaidEstadoLinea.estLinNombre}" filterMatchMode="contains">
                     <p:outputLabel value="${item.estadoLineaidEstadoLinea.estLinNombre}"/>
                 </p:column>
+                
+                 <p:column headerText="Plan" sortBy="${item.plan.plaNombre}"  styleClass="styleColumn" filterBy="${item.plan.plaNombre}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.plan.plaNombre}"/>
+                </p:column>
+                
+                 <p:column headerText="SimCard" sortBy="${item.simcard.simIccid}"  styleClass="styleColumn" filterBy="${item.simcard.simIccid}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.simcard.simIccid}"/>
+                </p:column>
+                
+                
+                 <p:column headerText="Empresa" sortBy="${item.empresaidEmpresa.empNombre}"  styleClass="styleColumn" filterBy="${item.empresaidEmpresa.empNombre}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.empresaidEmpresa.empNombre}"/>
+                </p:column>
+                
                 <p:column width="7%">
                     <h:commandButton image="/imagenes/edit.png" actionListener="${lineaBean.renderizarItem(item, true)}"/>
                     <h:commandLink  onclick="pnl${item.linNumero}.show();"  >
