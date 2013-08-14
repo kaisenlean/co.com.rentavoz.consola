@@ -64,9 +64,7 @@ public class BeanOperador extends StandardAbm<Operador> implements Serializable 
 
 	@Override
 	public void buscarrPorCriterio() {
-		throw new UnsupportedOperationException("Not supported yet."); 
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
-
-
 
 }

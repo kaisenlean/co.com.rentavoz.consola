@@ -10,23 +10,73 @@
 	<ui:define name="content">
 		<h:form id="form" style="width:100%">
 			<h:outputLabel value="Registrar Venta de Linea" class="h1" />
-
-			<p:panel header="Información de la venta">
-				<h:panelGrid columns="2" style="width:80%">
-
-
-					<h:outputText value="Fecha de Venta "></h:outputText>
-					<p:calendar size="25" value="#{beanVentaLinea.dto.fecha}"></p:calendar>
-
-
-					<h:outputText value="Cliente"></h:outputText>
+	<h:panelGrid columns="3"  style="width:80%">
+				<h:outputText value="Cliente"></h:outputText>
 					<p:autoComplete size="100" style="width:800px"
+					value="#{beanVentaLinea.queryTercero}"
 						completeMethod="#{beanVentaLinea.completarBusqueda}">
 						<p:ajax event="itemSelect"
+							update="autocomp"
 							listener="#{beanVentaLinea.seleccionarTercero}">
 
 						</p:ajax>
 					</p:autoComplete>
+					<p:commandButton process="@this"  value="Nuevo Cliente" action="#{beanVentaLinea.loadForm()}">
+					<f:attribute name="create" value="create"/>
+					</p:commandButton>
+				</h:panelGrid>
+				<p:dialog appendToBody="true" visible="false" widgetVar="dlgNuevoCliente" modal="true" id="dlgNuevoCliente">
+<h:form>
+                <h:panelGrid columns="3" >
+                    <h:outputLabel rendered="#{beanTercero.edit}" value="Codigo" />
+                    <p:inputText rendered="#{beanTercero.edit}" id="codDept" disabled="${beanTercero.edit}" value="${beanTercero.objeto.idTecero}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="codDept" rendered="#{beanTercero.edit}"/>
+
+                    <h:outputLabel value="Nombres"/>
+                    <p:inputText id="nomDept" value="${beanTercero.objeto.terNombre}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="nomDept"/>
+                    
+                    <h:outputLabel value="Apellidos"/>
+                    <p:inputText id="empAlias" value="${beanTercero.objeto.terApellidos}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="empAlias"/>
+
+                    <h:outputLabel value="Documento"/>
+                    <p:inputText id="nitEmpr" value="${beanTercero.objeto.terDocumento}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="nitEmpr"/>
+
+                    <h:outputLabel value="Direccion"/>
+                    <p:inputText id="empContacto" value="${beanTercero.objeto.terDireccion}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="empContacto"/>
+
+                    <h:outputLabel value="Telefono"/>
+                    <p:inputText id="dirEmpresa" value="${beanTercero.objeto.terTelefono}" required="true" requiredMessage="Este campo es reuqerido"/>
+                    <p:message for="dirEmpresa"/>
+                    
+                     <h:outputLabel value="Tipo"/>
+                     <p:selectOneMenu id="tipoTercero" value="#{beanTercero.tipo}" required="true" requiredMessage="Por favor selecciona un tipo de tercero">
+                     <f:selectItems value="#{beanTercero.itemTipo}"/>
+                     <p:ajax process="@this"  event="change"></p:ajax>
+                     </p:selectOneMenu>
+                    <p:message for="tipoTercero"/>
+
+
+                    <p:commandButton process="@this" update="@all" value="Aceptar" action="${beanTercero.aceptar()}"/>
+                    <p:commandButton process="@this" value="Cancelar" immediate="true" action="${beanTercero.reglaNavegacion()}"/>
+                </h:panelGrid>
+</h:form>                
+				</p:dialog>
+<!-- 			<p:panel header="Información de la venta"> -->
+			
+				<h:panelGrid columns="2">
+
+
+<!-- 					<h:outputText value="Fecha de Venta "></h:outputText> -->
+<!-- 					<p:calendar size="25" value="#{beanVentaLinea.dto.fecha}"></p:calendar> -->
+
+
+					
+
+
 
 
 					<h:outputText value="Forma de Pago "></h:outputText>
@@ -58,16 +108,27 @@
 				</p:panel>
 
 
-			</p:panel>
+<!-- 			</p:panel> -->
 			<!--<p:panel header="Lineas">-->
-
-
-			<h:commandButton value="Adicionar Lineas"
-				onclick="dlgLineas.show();
-                                         return false;"></h:commandButton>
+<br/>
+			<h:outputText value="Linea"></h:outputText>
+			<p:autoComplete size="100" style="width:800px"
+			id="autocomp" widgetVar="autocomp"
+			disabled="${beanVentaLinea.dto.tercero == null}"
+			value="#{beanVentaLinea.query}"
+				completeMethod="#{beanVentaLinea.autocompleteLinea.completarBusqueda}">
+				<p:ajax event="itemSelect"
+				update="@all"
+					listener="#{beanVentaLinea.autocompleteLinea.seleccionar}">
+				</p:ajax>
+			</p:autoComplete>
+<!-- 			<h:commandButton value="Adicionar Lineas" -->
+<!-- 				onclick="dlgLineas.show(); -->
+<!--                                          return false;"></h:commandButton> -->
 			<p:dataTable paginator="true" rows="20"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15"
+				id="tablaLineas"
 				value="#{beanVentaLinea.lineasSeleccionadas}" var="line">
 
 				<p:column headerText="Numero" filterBy="#{line.linNumero}"
@@ -91,15 +152,19 @@
 					filterMatchMode="contains">
 					<h:outputText value="#{line.plan.plaCantidadMinutos}"></h:outputText>
 				</p:column>
+				<p:column headerText="Descuento" rendered="#{beanVentaLinea.permiteDescuento}">
+					<h:inputText  value="#{line.descuento}" />
+				</p:column>
 				<p:column>
-				<h:commandButton action="#{beanVentaLinea.eliminarItem(line)}" value="Remover" />
+					<h:commandButton action="#{beanVentaLinea.eliminarItem(line)}"
+						value="Remover" />
 				</p:column>
 			</p:dataTable>
 
 
 			<!--</p:panel>-->
 
-			<p:dialog header="Lineas Disponibles" visible="false"
+			<p:dialog header="Lineas Disponibles" visible="false" rendered="false"
 				widgetVar="dlgLineas">
 				<p:dataTable paginator="true" rows="10" lazy="true"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

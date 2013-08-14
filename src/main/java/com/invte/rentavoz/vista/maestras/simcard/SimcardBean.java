@@ -64,12 +64,13 @@ public class SimcardBean extends StandardAbm<Simcard> {
 
 	@EJB
 	private SucursalFacade sucursalFacade;
-	
+
 	@EJB
 	private SucursalSimcardFacade sucursalSimcardFacade;
 
-	@ManagedProperty(value="#{login}")
+	@ManagedProperty(value = "#{login}")
 	private Login login;
+
 	/**
 	 * @see com.invte.rentavoz.vista.StandardAbm#getFacade()
 	 */
@@ -150,7 +151,7 @@ public class SimcardBean extends StandardAbm<Simcard> {
 				}
 			} else {
 				aceptar();
-				
+
 				setObjeto(getInstancia());
 				getObjeto().setFecha(new Date());
 				return reglaNavegacion();
@@ -177,7 +178,6 @@ public class SimcardBean extends StandardAbm<Simcard> {
 			ss.setSucSimObservacion(" ");
 			ss.setFecha(new Date());
 			sucursalSimcardFacade.create(ss);
-		
 
 		}
 	}
@@ -283,11 +283,12 @@ public class SimcardBean extends StandardAbm<Simcard> {
 	public Login getLogin() {
 		return login;
 	}
-	
+
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 24/07/2013
-	 * @param login the login to set
+	 * @param login
+	 *            the login to set
 	 */
 	public void setLogin(Login login) {
 		this.login = login;

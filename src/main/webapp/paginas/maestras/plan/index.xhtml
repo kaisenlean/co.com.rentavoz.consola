@@ -28,9 +28,9 @@
                     <h:inputTextarea rows="5" cols="70" id="nomDept" value="${planBean.objeto.plaNombre}" required="true" requiredMessage="Por favor digita un nombre valido"/>
                     <p:message for="nomDept"/>
 
-                    <h:outputLabel value="Fecha"/>
-                    <p:calendar id="fechPlan" pattern="dd/MM/yyyy"  value="${planBean.objeto.fecha}" required="true" requiredMessage="Por favor selecciona una fecha"/>
-                    <p:message for="fechPlan"/>
+<!--                     <h:outputLabel value="Fecha"/> -->
+<!--                     <p:calendar id="fechPlan" pattern="dd/MM/yyyy"  value="${planBean.objeto.fecha}" required="true" requiredMessage="Por favor selecciona una fecha"/> -->
+<!--                     <p:message for="fechPlan"/> -->
 
                     <h:outputLabel value="Fecha de Vencimiento"/>
                     <p:calendar  id="fechaVencimiento"  pattern="dd/MM/yyyy" value="${planBean.objeto.plaFechaVenc}" required="true" requiredMessage="Por favor digita una fecha de vencimiento"/>
@@ -62,11 +62,12 @@
                     </h:inputText>
                     <p:message for="costoMinimo"/>
 
-                    <h:outputLabel value="Costo minuto"/>
-                    <h:inputText  id="costoMinuto" value="${planBean.objeto.plaCostoMinuto}" required="true" requiredMessage="Por favor digita un costo minuto">
-                    <f:convertNumber  type="currency"/>  
-                    </h:inputText>
-                    <p:message for="costoMinuto"/>
+
+<!--                     <h:outputLabel value="Costo minuto"/> -->
+<!--                     <h:inputText  id="costoMinuto" value="${planBean.objeto.plaCostoMinuto}" required="true" requiredMessage="Por favor digita un costo minuto"> -->
+<!--                     <f:convertNumber  type="currency"/>   -->
+<!--                     </h:inputText> -->
+<!--                     <p:message for="costoMinuto"/> -->
 
 
 
@@ -97,23 +98,23 @@
                 <p:column headerText="Operador" sortBy="${item.operadoridOperador.opeNombre}"  styleClass="styleColumn" filterBy="${item.operadoridOperador.opeNombre}" filterMatchMode="contains">
                     <p:outputLabel value="${item.operadoridOperador.opeNombre}"/>
                 </p:column>
-                 <p:column headerText="Creador" sortBy="${item.terceroidTecero}"  styleClass="styleColumn" filterBy="${item.operadoridOperador.opeNombre}" filterMatchMode="contains">
-                    <p:outputLabel value="${item.terceroidTecero}"/>
-                </p:column>
+<!--                  <p:column headerText="Creador" sortBy="${item.terceroidTecero}"  styleClass="styleColumn" filterBy="${item.operadoridOperador.opeNombre}" filterMatchMode="contains"> -->
+<!--                     <p:outputLabel value="${item.terceroidTecero}"/> -->
+<!--                 </p:column> -->
                 
                 <p:column headerText="Cantidad Minutos" sortBy="${item.plaCantidadMinutos}"  styleClass="styleColumn" filterBy="${item.operadoridOperador.opeNombre}" filterMatchMode="contains">
                     <p:outputLabel value="${item.plaCantidadMinutos}"/>
                 </p:column>
                 
-                  <p:column headerText="Costo Minuto" styleClass="styleColumn" >
-                    <p:outputLabel value="${item.plaCostoMinuto}"/>
-                </p:column>
+<!--                   <p:column headerText="Costo Minuto" styleClass="styleColumn" > -->
+<!--                     <p:outputLabel value="${item.plaCostoMinuto}"/> -->
+<!--                 </p:column> -->
                 
-                    <p:column headerText="Costo Maximo Minuto" styleClass="styleColumn" >
+                    <p:column headerText="Costo Maximo " styleClass="styleColumn" >
                     <p:outputLabel value="${item.plaCostoMax}"/>
                 </p:column>
                 
-                   <p:column headerText="Costo Minimo Minuto "  styleClass="styleColumn" >
+                   <p:column headerText="Costo Minimo  "  styleClass="styleColumn" >
                     <p:outputLabel value="${item.plaCostoMin}"/>
                 </p:column>
                 <p:column width="7%">

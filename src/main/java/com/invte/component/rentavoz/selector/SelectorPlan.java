@@ -28,7 +28,7 @@ public class SelectorPlan implements SelectorBase<Plan> {
 	public void init() {
 		List<Plan> findAll = facade.findAll();
 		items = new ArrayList<SelectItem>();
-		items.add(new SelectItem(" ", "-- Seleccione un Plan --"));
+		items.add(new SelectItem(" ", "-- Seleccione un Plán --"));
 		for (Plan empresa : findAll) {
 			items.add(new SelectItem(empresa.getIdPlan(), empresa
 					.getPlaNombre()));

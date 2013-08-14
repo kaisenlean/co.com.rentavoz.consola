@@ -31,7 +31,7 @@ import com.invte.rentavoz.vista.BaseBean;
  * @date 15/07/2013
  * 
  */
-@ManagedBean(eager=true)
+@ManagedBean(eager = true)
 @SessionScoped
 public class Login extends BaseBean implements Serializable {
 
@@ -42,13 +42,11 @@ public class Login extends BaseBean implements Serializable {
 
 	@EJB
 	private TerceroFacade terceroFacade;
-	
-	
+
 	private Usuario user;
 	private String usuario;
 	private String contrasena;
 	private Tercero tercero;
-	
 
 	@PostConstruct
 	public void init() {
@@ -57,62 +55,59 @@ public class Login extends BaseBean implements Serializable {
 	}
 
 	public String login() {
-		RequestContext context = RequestContext.getCurrentInstance();  
-         
-        boolean loggedIn = false; 
+		RequestContext context = RequestContext.getCurrentInstance();
+
+		boolean loggedIn = false;
 		try {
-	
-	        
+
 			user = usuarioFacade.login(usuario, contrasena);
 			loggedIn = true;
-	        context.addCallbackParam("loggedIn", loggedIn);
-	        buscarTercero();
+			context.addCallbackParam("loggedIn", loggedIn);
+			buscarTercero();
 			return "/dashboard.jsf";
 		} catch (Exception e) {
-	         loggedIn = false; 
-	         context.addCallbackParam("loggedIn", loggedIn);
-			mensajeError( "Credenciales invalidas");
+			loggedIn = false;
+			context.addCallbackParam("loggedIn", loggedIn);
+			mensajeError("Credenciales invalidas");
 			return null;
 		}
 
 	}
 
 	/**
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 24/07/2013
-	*/
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 24/07/2013
+	 */
 	private void buscarTercero() {
-		tercero=terceroFacade.findByUsuario(user);
-		
+		tercero = terceroFacade.findByUsuario(user);
+
 	}
 
-	
-	
 	/**
 	 * 
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 22/07/2013
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 22/07/2013
 	 */
-	public void logOut(){
-		ExternalContext ctx = 
-			      FacesContext.getCurrentInstance().getExternalContext();
-			  String ctxPath = 
-			      ((ServletContext) ctx.getContext()).getContextPath();
+	public void logOut() {
+		ExternalContext ctx = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		String ctxPath = ((ServletContext) ctx.getContext()).getContextPath();
 
-			  try {
-			    // Usar el contexto de JSF para invalidar la sesión,
-			    // NO EL DE SERVLETS (nada de HttpServletRequest)
-			    ((HttpSession) ctx.getSession(false)).invalidate();
+		try {
+			// Usar el contexto de JSF para invalidar la sesión,
+			// NO EL DE SERVLETS (nada de HttpServletRequest)
+			((HttpSession) ctx.getSession(false)).invalidate();
 
-			    // Redirección de nuevo con el contexto de JSF,
-			    // si se usa una HttpServletResponse fallará.
-			    // Sin embargo, como ya está fuera del ciclo de vida 
-			    // de JSF se debe usar la ruta completa -_-U
-			    ctx.redirect(ctxPath + "/");
-			  } catch (IOException ex) {
-			   mensaje("Error", ex.toString());
-			  }
+			// Redirección de nuevo con el contexto de JSF,
+			// si se usa una HttpServletResponse fallará.
+			// Sin embargo, como ya está fuera del ciclo de vida
+			// de JSF se debe usar la ruta completa -_-U
+			ctx.redirect(ctxPath + "/");
+		} catch (IOException ex) {
+			mensaje("Error", ex.toString());
+		}
 	}
+
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
@@ -188,18 +183,18 @@ public class Login extends BaseBean implements Serializable {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
-	
+
 	/**
 	 * 
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 15/07/2013
-	* @return
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/07/2013
+	 * @return
 	 */
-	public boolean isSession(){
-		
-		return user!=null?true:false;
+	public boolean isSession() {
+
+		return user != null ? true : false;
 	}
-	
+
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 24/07/2013
@@ -208,16 +203,15 @@ public class Login extends BaseBean implements Serializable {
 	public Tercero getTercero() {
 		return tercero;
 	}
-	
+
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 24/07/2013
-	 * @param tercero the tercero to set
+	 * @param tercero
+	 *            the tercero to set
 	 */
 	public void setTercero(Tercero tercero) {
 		this.tercero = tercero;
 	}
-	
-	
 
 }

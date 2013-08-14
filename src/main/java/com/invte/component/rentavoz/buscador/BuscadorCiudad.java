@@ -33,8 +33,8 @@ public abstract class BuscadorCiudad extends Buscador<Ciudad> {
 
 		for (Ciudad centrope : result) {
 			getItems().add(
-					new BuscadorItem<Ciudad>(centrope.getIdCiudad() + "", centrope
-							.getCiuNombre(), centrope));
+					new BuscadorItem<Ciudad>(centrope.getIdCiudad() + "",
+							centrope.getCiuNombre(), centrope));
 		}
 		return null;
 	}
@@ -57,8 +57,8 @@ public abstract class BuscadorCiudad extends Buscador<Ciudad> {
 
 		for (Ciudad centrope : result) {
 			getItems().add(
-					new BuscadorItem<Ciudad>(centrope.getIdCiudad() + "", centrope
-							.getCiuNombre(), centrope));
+					new BuscadorItem<Ciudad>(centrope.getIdCiudad() + "",
+							centrope.getCiuNombre(), centrope));
 		}
 		super.mostrar(evt);
 	}

@@ -29,8 +29,8 @@ public abstract class BuscadorDepartamento extends Buscador<Departamento> {
 
 		for (Departamento centrope : result) {
 			getItems().add(
-					new BuscadorItem<Departamento>(centrope.getIdDepartamento() + "",
-							centrope.getDepNombre(), centrope));
+					new BuscadorItem<Departamento>(centrope.getIdDepartamento()
+							+ "", centrope.getDepNombre(), centrope));
 		}
 		return null;
 	}
@@ -52,8 +52,8 @@ public abstract class BuscadorDepartamento extends Buscador<Departamento> {
 
 		for (Departamento centrope : result) {
 			getItems().add(
-					new BuscadorItem<Departamento>(centrope.getIdDepartamento() + "",
-							centrope.getDepNombre(), centrope));
+					new BuscadorItem<Departamento>(centrope.getIdDepartamento()
+							+ "", centrope.getDepNombre(), centrope));
 		}
 		super.mostrar(evt);
 	}

@@ -80,7 +80,7 @@ public class DepartamentoBean extends StandardAbm<Departamento> implements
 
 	@Override
 	public boolean preAction() {
-	return true;
+		return true;
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class DepartamentoBean extends StandardAbm<Departamento> implements
 
 			// Usar el contexto de JSF para invalidar la sesión,
 			// NO EL DE SERVLETS (nada de HttpServletRequest)
-//			((HttpSession) ctx.getSession(false)).invalidate();
+			// ((HttpSession) ctx.getSession(false)).invalidate();
 
 			// Redirección de nuevo con el contexto de JSF,
 			// si se usa una HttpServletResponse fallará.

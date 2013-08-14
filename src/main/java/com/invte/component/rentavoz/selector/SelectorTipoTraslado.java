@@ -8,27 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
-import co.com.rentavoz.logica.jpa.entidades.almacen.EstadosSimcardEnum;
+import com.invte.rentavoz.vista.traslado.linea.TipoTrasladoEnum;
+
+import co.com.rentavoz.logica.jpa.entidades.TipoTerceroEnum;
+import co.com.rentavoz.logica.jpa.fachadas.CuentasFacade;
 
 @ManagedBean
 @ViewScoped
-public class SelectorEstadosSimcard {
+public class SelectorTipoTraslado  {
 
+	@EJB
+	private CuentasFacade facade;
 	private ArrayList<SelectItem> items;
 
 	@PostConstruct
 	public void init() {
-		EstadosSimcardEnum[] findAll = EstadosSimcardEnum.values();
-		items = new ArrayList<SelectItem>();
-		items.add(new SelectItem(" ", "-- Seleccione un estado --"));
-		for (int i = 0; i < findAll.length; i++) {
-
-			items.add(new SelectItem(findAll[i].name(), findAll[i].name()));
-		}
+	for (int i = 0; i < TipoTerceroEnum.values().length; i++) {
+		items.add(new SelectItem(TipoTrasladoEnum.values()[i].name(),TipoTrasladoEnum.values()[i].name().replace("_", " ") ));
+	}
 	}
 
 	public List<SelectItem> getItems() {

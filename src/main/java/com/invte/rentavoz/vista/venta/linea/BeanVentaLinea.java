@@ -20,6 +20,7 @@ import javax.faces.event.ActionEvent;
 import org.primefaces.event.SelectEvent;
 
 import co.com.rentavoz.logica.jpa.entidades.Tercero;
+import co.com.rentavoz.logica.jpa.entidades.TipoTerceroEnum;
 import co.com.rentavoz.logica.jpa.entidades.almacen.Linea;
 import co.com.rentavoz.logica.jpa.entidades.almacen.VentaLinea;
 import co.com.rentavoz.logica.jpa.fachadas.LineaFacade;
@@ -29,6 +30,8 @@ import co.com.rentavoz.logica.venta.dto.VentaDTO;
 
 import com.invte.rentavoz.vista.BaseBean;
 import com.invte.rentavoz.vista.CustomListener;
+import com.invte.rentavoz.vista.SessionParams;
+import com.invte.rentavoz.vista.componentes.autocomplete.linea.AutocompleteLinea;
 
 /**
  * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
@@ -41,10 +44,8 @@ import com.invte.rentavoz.vista.CustomListener;
 @ViewScoped
 public class BeanVentaLinea extends BaseBean implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final String REGLA_NAVEGACION = "/paginas/almacen/venta/linea/";
+	private static final String REGLA_NAVEGACION = "/paginas/almacen/venta/linea/index.jsf";
+	
 	@EJB
 	private VentaBean bean;
 	@EJB
@@ -52,12 +53,14 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 	@EJB
 	private TerceroFacade terceroFacade;
 	private List<Tercero> terceros = new ArrayList<Tercero>();
-	private String tipoPago;
+	private String tipoPago = "T";
 	private List<Linea> lineasDisponibles;
 	private ArrayList<Linea> lineasSeleccionadas = new ArrayList<Linea>();
 	private ListaDataModel model;
 	private CustomListener listener;
 	private Linea seleccionada;
+	private String query;
+	private String queryTercero;
 	/**
      *
      */
@@ -74,6 +77,8 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 	private boolean verGridCuotas = false;
 	private boolean verFormaPagos;
 	private String selIdCuenta;
+	private AutocompleteLinea autocompleteLinea;
+	private boolean permiteDescuento;
 
 	/**
 	 * S
@@ -103,7 +108,6 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 
 			@Override
 			public LineaFacade getFacade() {
-				// TODO Auto-generated method stub
 				return lineaFacade;
 			}
 		};
@@ -116,10 +120,30 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 
 			}
 		};
-	}
-	
+		autocompleteLinea = new AutocompleteLinea() {
 
-	
+			@Override
+			public LineaFacade getFacade() {
+				return lineaFacade;
+			}
+
+			@Override
+			public void postSelect() {
+				query="";
+				seleccionada=seleccionado;
+				adicionarCarrito();
+			}
+
+			@Override
+			public int getIdSucursal() {
+				return 0;
+			}
+		};
+		if (getAttribute(SessionParams.ENTITY_BACK)!=null) {
+			dto.setTercero((Tercero) getAttribute(SessionParams.ENTITY_BACK));
+			query=dto.getTercero().toString();
+		}
+	}
 
 	/**
 	 * 
@@ -135,6 +159,19 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 
 	}
 
+	/**
+	 * 
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 9/08/2013
+	* @return
+	 */
+	public String loadForm(){
+		addAttribute(SessionParams.CREATE_TERCERO_ON_LOAD, SessionParams.CREATE_TERCERO_ON_LOAD);
+		addAttribute(SessionParams.MODULE_URI, REGLA_NAVEGACION);
+		return "/paginas/maestras/tercero/index.jsf";
+		
+	}
+	
 	/**
 	 * 
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
@@ -169,7 +206,7 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 			ventaLineaTemp.add(vl);
 		}
 		dto.setLineas(ventaLineaTemp);
-		
+
 		dto.setPagoTotal(verGridCuotas);
 		dto.setValorAbono(valorAbonado);
 		dto.setDomicilio(BigDecimal.valueOf(domicilio));
@@ -178,10 +215,9 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 		dto.setPagoConsignacion(verFormaPagos);
 		dto.setDomicilio(BigDecimal.valueOf(domicilio));
 		dto.setValorTotal(total);
-		
-		
+
 		try {
-			
+
 			bean.registrarVenta(dto);
 			mensaje("Exito", "Se há registrado una venta");
 			dto = new VentaDTO();
@@ -197,13 +233,14 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 	}
 
 	public List<Tercero> completarBusqueda(String query) {
+
 		terceros = terceroFacade.findByCriterio(query);
+
 		return terceros;
 	}
 
 	public void seleccionarTercero(SelectEvent evt) {
 		String valor = evt.getObject().toString();
-
 		String id = obtenerId(valor);
 		Integer val = Integer.parseInt(id);
 		Tercero tercero = terceroFacade.findByDocumento(val);
@@ -360,8 +397,34 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 
 		if (!lineasSeleccionadas.contains(seleccionada)) {
 			lineasSeleccionadas.add(seleccionada);
-			double d = seleccionada.getPlan().getPlaCostoMinuto()
-					* seleccionada.getPlan().getPlaCantidadMinutos();
+			
+			TipoTerceroEnum tipo = null ;
+			try {
+				tipo =seleccionada.getPlan().getTerceroidTecero().getTipo();
+			} catch (Exception e) {
+//				MANEJO DE EXCEPCION
+			mensajeError(e.toString());
+			}
+			double d =0.0;
+			permiteDescuento=false;
+			if (tipo!=null) {
+			
+				switch (tipo) {
+				case CLIENTE_MINORISTA:
+					 d = seleccionada.getPlan().getPlaCostoMax();
+					 permiteDescuento=false;
+					break;
+				case CLIENTE_MAYORISTA:
+					 d = seleccionada.getPlan().getPlaCostoMax();
+					 permiteDescuento=true;
+					break;
+					
+				default:
+					break;
+				}
+			}
+			
+			
 			subtotal += (d);
 			totalDepositos += (15000.00);
 
@@ -371,13 +434,13 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 
 		return null;
 	}
-	
+
 	/**
 	 * 
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 23/07/2013
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 23/07/2013
 	 */
-	public void eliminarItem(Linea linea){
+	public void eliminarItem(Linea linea) {
 		lineasSeleccionadas.remove(linea);
 		double d = linea.getPlan().getPlaCostoMinuto()
 				* linea.getPlan().getPlaCantidadMinutos();
@@ -656,5 +719,76 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 
 	public String getSelIdCuenta() {
 		return selIdCuenta;
+	}
+
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 31/07/2013
+	 * @return the autocompleteLinea
+	 */
+	public AutocompleteLinea getAutocompleteLinea() {
+		return autocompleteLinea;
+	}
+
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 31/07/2013
+	 * @param autocompleteLinea
+	 *            the autocompleteLinea to set
+	 */
+	public void setAutocompleteLinea(AutocompleteLinea autocompleteLinea) {
+		this.autocompleteLinea = autocompleteLinea;
+	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 31/07/2013
+	 * @return the permiteDescuento
+	 */
+	public boolean isPermiteDescuento() {
+		return permiteDescuento;
+	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 31/07/2013
+	 * @param permiteDescuento the permiteDescuento to set
+	 */
+	public void setPermiteDescuento(boolean permiteDescuento) {
+		this.permiteDescuento = permiteDescuento;
+	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 8/08/2013
+	 * @return the query
+	 */
+	public String getQuery() {
+		return query;
+	}  /**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 8/08/2013
+	 * @param query the query to set
+	 */
+	public void setQuery(String query) {
+		this.query = query;
+	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 9/08/2013
+	 * @return the queryTercero
+	 */
+	public String getQueryTercero() {
+		return queryTercero;
+	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 9/08/2013
+	 * @param queryTercero the queryTercero to set
+	 */
+	public void setQueryTercero(String queryTercero) {
+		this.queryTercero = queryTercero;
 	}
 }

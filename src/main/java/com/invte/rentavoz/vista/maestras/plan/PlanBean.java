@@ -47,7 +47,7 @@ public class PlanBean extends StandardAbm<Plan> {
 	private BuscadorOperador buscadorOperador;
 	private Tercero tercero;
 	private Operador operador;
-	@ManagedProperty(value="#{login}")
+	@ManagedProperty(value = "#{login}")
 	private Login login;
 
 	@Override
@@ -80,7 +80,7 @@ public class PlanBean extends StandardAbm<Plan> {
 		getObjeto().setIdPlan(facade.nextCodigo());
 		getObjeto().setFecha(new Date());
 		getObjeto().setTerceroidTecero(login.getTercero());
-		tercero=login.getTercero();
+		tercero = login.getTercero();
 	}
 
 	@Override
@@ -116,28 +116,25 @@ public class PlanBean extends StandardAbm<Plan> {
 	@Override
 	public boolean preAction() {
 
-			
-			if (operador == null || tercero == null) {
-				StringBuilder builder = new StringBuilder(
-						"Por favor selecciona ");
-				if (operador == null) {
-					builder.append(" un  operador ");
-				}
-				if (tercero == null) {
-					builder.append("y un tercero");
-				}
-				builder.append("para poder continuar.");
-				mensaje("Error", builder.toString());
-				return false;
-			} else {
-				getObjeto().setTerceroidTecero(tercero);
-				getObjeto().setOperadoridOperador(operador);
-				return true;
+		if (operador == null || tercero == null) {
+			StringBuilder builder = new StringBuilder("Por favor selecciona ");
+			if (operador == null) {
+				builder.append(" un  operador ");
 			}
-		
+			if (tercero == null) {
+				builder.append("y un tercero");
+			}
+			builder.append("para poder continuar.");
+			mensaje("Error", builder.toString());
+			return false;
+		} else {
+			getObjeto().setTerceroidTecero(tercero);
+			getObjeto().setOperadoridOperador(operador);
+			return true;
+		}
+
 	}
 
-	
 	@Override
 	public void preRenderizarItem() {
 		tercero = getObjeto().getTerceroidTecero();
@@ -176,21 +173,23 @@ public class PlanBean extends StandardAbm<Plan> {
 	public void setOperador(Operador operador) {
 		this.operador = operador;
 	}
-/**
- * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
- * @date 24/07/2013
- * @return the login
- */
-public Login getLogin() {
-	return login;
-}
 
-/**
- * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
- * @date 24/07/2013
- * @param login the login to set
- */
-public void setLogin(Login login) {
-	this.login = login;
-}
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 24/07/2013
+	 * @return the login
+	 */
+	public Login getLogin() {
+		return login;
+	}
+
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 24/07/2013
+	 * @param login
+	 *            the login to set
+	 */
+	public void setLogin(Login login) {
+		this.login = login;
+	}
 }

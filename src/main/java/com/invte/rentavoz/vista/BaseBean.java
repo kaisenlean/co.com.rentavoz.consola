@@ -13,59 +13,87 @@ import org.primefaces.context.RequestContext;
  * @project co.com.rentavoz.consola
  * @class BaseBean
  * @date 2/07/2013
- *
+ * 
  */
 public class BaseBean {
-	
-	
+
 	/**
 	 * 
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 15/07/2013
-	* @param title
-	* @param mensaje
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/07/2013
+	 * @param title
+	 * @param mensaje
 	 */
 	public void mensaje(String title, String mensaje) {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(title, mensaje));
 	}
 
-	
 	/**
-	 *Metodo que manda un mensaje de error al cliente
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 22/07/2013
-	* @param mensaje
+	 * Metodo que manda un mensaje de error al cliente
+	 * 
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 22/07/2013
+	 * @param mensaje
 	 */
-	public void mensajeError( String mensaje) {
+	public void mensajeError(String mensaje) {
 		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_WARN,"Error", mensaje));
+				new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", mensaje));
 	}
 
 	/**
 	 * 
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 15/07/2013
-	* @param codigo
-	* @return
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/07/2013
+	 * @param codigo
+	 * @return
 	 */
-	public Object getParameter(String codigo){
-		
-		Object element = RequestContext.getCurrentInstance().getCallbackParams().get(codigo);
-		
+	public Object getParameter(String codigo) {
+
+		Object element = RequestContext.getCurrentInstance()
+				.getCallbackParams().get(codigo);
+
 		return element;
+	}
+
+	/**
+	 * 
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/07/2013
+	 * @param codigo
+	 * @return
+	 */
+	public Object getAttribute(String codigo) {
+		Object atributo = FacesContext.getCurrentInstance()
+				.getExternalContext().getSessionMap().get(codigo);
+		return atributo;
 	}
 	
 	/**
 	 * 
 	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 15/07/2013
-	* @param codigo
-	* @return
+	* @date 9/08/2013
+	* @param key
+	* @param value
 	 */
-	public Object getAttribute(String codigo){
-		Object atributo =FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(codigo);
-		return atributo;
+	public void addAttribute(String key,Object value) {
+		FacesContext.getCurrentInstance()
+				.getExternalContext().getSessionMap().put(key, value);
+	
 	}
+
+	
+	/**
+	 * 
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 9/08/2013
+	* @param key
+	 */
+	public void removeAttribute(String key) {
+		FacesContext.getCurrentInstance()
+				.getExternalContext().getSessionMap().remove(key);
+	
+	}
+	
 
 }

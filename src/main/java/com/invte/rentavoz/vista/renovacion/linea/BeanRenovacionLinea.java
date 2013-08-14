@@ -54,8 +54,6 @@ public class BeanRenovacionLinea extends BaseBean implements Serializable {
 	private Date inicio;
 
 	private List<VentaLinea> lista;
-	
-	
 
 	/**
 	 * 
@@ -73,40 +71,43 @@ public class BeanRenovacionLinea extends BaseBean implements Serializable {
 		lista = ventaBean.cargarLineasPendientesPorReposicion(inicio, fin);
 
 	}
-/**
- * 
-* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-* @date 15/07/2013
-* @param vl
-* @return
- */
+
+	/**
+	 * 
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/07/2013
+	 * @param vl
+	 * @return
+	 */
 	public String goDetalle(VentaLinea vl) {
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(ID_VENTA_LINEA);
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(RENOVACION);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.remove(ID_VENTA_LINEA);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.remove(RENOVACION);
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.put(ID_VENTA_LINEA, vl);
 		return "/paginas/almacen/venta/linea/detallarLineaVenta";
 
 	}
-	
-	
+
 	/**
 	 * 
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 15/07/2013
-	* @param vl
-	* @return
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/07/2013
+	 * @param vl
+	 * @return
 	 */
-		public String goDetalleDEvolucion(VentaLinea vl) {
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-					.put(ID_VENTA_LINEA, vl);
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-			.put(DEVOLUCION, true);
-	
-			return "/paginas/almacen/venta/linea/detallarLineaVenta";
+	public String goDetalleDEvolucion(VentaLinea vl) {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.clear();
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.put(ID_VENTA_LINEA, vl);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.put(DEVOLUCION, true);
 
-		}
+		return "/paginas/almacen/venta/linea/detallarLineaVenta";
+
+	}
 
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>

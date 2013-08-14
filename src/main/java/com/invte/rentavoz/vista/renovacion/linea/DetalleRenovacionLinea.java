@@ -59,13 +59,13 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	private VentaLineaFacade ventaLineaFacade;
 	@EJB
 	private CuotaFacade cuotaFacade;
-	
+
 	@EJB
 	private VentaBean ventaBean;
-	
+
 	@EJB
 	private LineaFacade lineaFacade;
-	
+
 	private VentaLinea ventaLinea;
 	private VentaDTO dto;
 	private boolean verFormaPagos;
@@ -110,8 +110,7 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 		}
 
 	}
-	
-	
+
 	/**
 	 * Constructor que recibe como parametro via request el id de la venta
 	 * 
@@ -123,12 +122,12 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 		Object parameter = getAttribute(ID_VENTA_LINEA);
 		Object parameterDev = getAttribute(DEVOLUCION);
 
-		if (parameterDev!=null) {
+		if (parameterDev != null) {
 			if (parameterDev instanceof Boolean) {
 				devolucion = (Boolean) parameterDev;
 			}
 		}
-		
+
 		if (parameter != null) {
 
 			ventaLinea = (VentaLinea) parameter;
@@ -153,9 +152,9 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	 * @return
 	 */
 	private VentaDTO cargarDTO(VentaLinea ventaLinea) {
-		
+
 		validarPagoDeCuotas(ventaLinea);
-		
+
 		VentaDTO ventaDTO = new VentaDTO();
 		ventaDTO.setBaseData(ventaLinea.getVentaidVenta());
 		ventaDTO.setDomicilio(ventaLinea.getVentaidVenta().getVenDomicilio());
@@ -183,36 +182,37 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 			}
 		}
 
+		totalDepositos = ventaLinea.getVentLinDeposito().doubleValue();
+		subtotal = ventaLinea.getVentLinPrecio().doubleValue();
+		domicilio = ventaLinea.getVentaidVenta().getVenDomicilio()
+				.doubleValue();
+		total = ventaLinea.getVentLinPrecio()
+				.add(ventaLinea.getVentLinDeposito()).doubleValue();
 
-		totalDepositos=ventaLinea.getVentLinDeposito().doubleValue();
-		subtotal=ventaLinea.getVentLinPrecio().doubleValue();
-		domicilio=ventaLinea.getVentaidVenta().getVenDomicilio().doubleValue();
-		total=ventaLinea.getVentLinPrecio().add(ventaLinea.getVentLinDeposito()).doubleValue();
-		
 		return ventaDTO;
 
 	}
 
 	/**
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 15/07/2013
-	* @param ventaLinea2
-	*/
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/07/2013
+	 * @param ventaLinea2
+	 */
 	private void validarPagoDeCuotas(VentaLinea ventaLinea2) {
-		Venta venta= ventaLinea2.getVentaidVenta();
-		continuarRenovacion =!cuotaFacade.cuotasActivas(venta);
-		
+		Venta venta = ventaLinea2.getVentaidVenta();
+		continuarRenovacion = !cuotaFacade.cuotasActivas(venta);
+
 	}
 
 	/**
 	 * 
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 15/07/2013
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/07/2013
 	 */
-	public void registrarRenovacion(){
-		
-		/*si el pago es parcial entonces realizamos las cuotas respectivas*/
-		
+	public void registrarRenovacion() {
+
+		/* si el pago es parcial entonces realizamos las cuotas respectivas */
+
 		dto.setPagoTotal(verGridCuotas);
 		dto.setValorAbono(valorAbonado);
 		dto.setDomicilio(BigDecimal.valueOf(domicilio));
@@ -222,25 +222,27 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 		dto.setValorTotal(total);
 		try {
 			dto.setBaseData(null);
-		ventaBean.registrarRenovacion(dto);
-		mensaje("Exito","Se ha registrado exitosamente la renovacion" );
+			ventaBean.registrarRenovacion(dto);
+			mensaje("Exito", "Se ha registrado exitosamente la renovacion");
 		} catch (Exception e) {
-		mensaje("Error", e.getMessage());
+			mensaje("Error", e.getMessage());
 		}
 	}
-	
-	
+
 	/**
 	 * Metodo que registra una devolucion de una linea
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 15/07/2013
+	 * 
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/07/2013
 	 */
-	public void registrarDevolucion(){
-		Linea linea =ventaLinea.getLineaidLinea();
-		linea.setEstadoLineaidEstadoLinea(estadoLineaFacade.find(Integer.valueOf(ESTADO_LINEA_DISPONIBLE)));
+	public void registrarDevolucion() {
+		Linea linea = ventaLinea.getLineaidLinea();
+		linea.setEstadoLineaidEstadoLinea(estadoLineaFacade.find(Integer
+				.valueOf(ESTADO_LINEA_DISPONIBLE)));
 		lineaFacade.edit(linea);
 		mensaje("Exito", "Se ha realizado la devolucion con exito");
 	}
+
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
@@ -348,7 +350,8 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param formaPago the formaPago to set
+	 * @param formaPago
+	 *            the formaPago to set
 	 */
 	public void setFormaPago(String formaPago) {
 		this.formaPago = formaPago;
@@ -366,7 +369,8 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param verGridCuotas the verGridCuotas to set
+	 * @param verGridCuotas
+	 *            the verGridCuotas to set
 	 */
 	public void setVerGridCuotas(boolean verGridCuotas) {
 		this.verGridCuotas = verGridCuotas;
@@ -384,7 +388,8 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param proxFechaPago the proxFechaPago to set
+	 * @param proxFechaPago
+	 *            the proxFechaPago to set
 	 */
 	public void setProxFechaPago(Date proxFechaPago) {
 		this.proxFechaPago = proxFechaPago;
@@ -402,7 +407,8 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param valorAbonado the valorAbonado to set
+	 * @param valorAbonado
+	 *            the valorAbonado to set
 	 */
 	public void setValorAbonado(double valorAbonado) {
 		this.valorAbonado = valorAbonado;
@@ -420,7 +426,8 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param subtotal the subtotal to set
+	 * @param subtotal
+	 *            the subtotal to set
 	 */
 	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
@@ -438,7 +445,8 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param totalDepositos the totalDepositos to set
+	 * @param totalDepositos
+	 *            the totalDepositos to set
 	 */
 	public void setTotalDepositos(double totalDepositos) {
 		this.totalDepositos = totalDepositos;
@@ -456,7 +464,8 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param descuentos the descuentos to set
+	 * @param descuentos
+	 *            the descuentos to set
 	 */
 	public void setDescuentos(double descuentos) {
 		this.descuentos = descuentos;
@@ -474,7 +483,8 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param total the total to set
+	 * @param total
+	 *            the total to set
 	 */
 	public void setTotal(double total) {
 		this.total = total;
@@ -492,7 +502,8 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param domicilio the domicilio to set
+	 * @param domicilio
+	 *            the domicilio to set
 	 */
 	public void setDomicilio(double domicilio) {
 		this.domicilio = domicilio;
@@ -510,7 +521,8 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param continuarRenovacion the continuarRenovacion to set
+	 * @param continuarRenovacion
+	 *            the continuarRenovacion to set
 	 */
 	public void setContinuarRenovacion(boolean continuarRenovacion) {
 		this.continuarRenovacion = continuarRenovacion;
@@ -528,11 +540,11 @@ public class DetalleRenovacionLinea extends BaseBean implements Serializable {
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param devolucion the devolucion to set
+	 * @param devolucion
+	 *            the devolucion to set
 	 */
 	public void setDevolucion(boolean devolucion) {
 		this.devolucion = devolucion;
 	}
 
-	
 }

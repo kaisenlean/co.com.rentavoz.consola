@@ -64,7 +64,7 @@ public class BeanEmpresa extends StandardAbm<Empresa> implements Serializable {
 
 	@Override
 	public boolean preAction() {
-return true;
+		return true;
 	}
 
 	@Override

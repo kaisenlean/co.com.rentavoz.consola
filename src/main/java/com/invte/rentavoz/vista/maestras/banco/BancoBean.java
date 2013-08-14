@@ -21,7 +21,7 @@ import com.invte.rentavoz.vista.StandardAbm;
  * @project co.com.rentavoz.consola
  * @class BancoBean
  * @date 22/07/2013
- *
+ * 
  */
 @ManagedBean
 @ViewScoped
@@ -29,22 +29,21 @@ public class BancoBean extends StandardAbm<Banco> implements Serializable {
 
 	/**
 	 * 22/07/2013
+	 * 
 	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	 * serialVersionUID
+	 *         serialVersionUID
 	 */
 	private static final long serialVersionUID = -4006490918700541124L;
 
 	@EJB
 	private BancoFacade bancoFacade;
-	
-	
-	
+
 	/**
 	 * @see com.invte.rentavoz.vista.StandardAbm#getFacade()
 	 */
 	@Override
 	public AbstractFacade<Banco> getFacade() {
-		
+
 		return bancoFacade;
 	}
 
@@ -53,7 +52,7 @@ public class BancoBean extends StandardAbm<Banco> implements Serializable {
 	 */
 	@Override
 	public Banco getInstancia() {
-		 
+
 		return new Banco();
 	}
 
@@ -62,7 +61,7 @@ public class BancoBean extends StandardAbm<Banco> implements Serializable {
 	 */
 	@Override
 	public String reglaNavegacion() {
-		
+
 		return "/paginas/maestras/banco/index.jsf";
 	}
 
@@ -71,7 +70,7 @@ public class BancoBean extends StandardAbm<Banco> implements Serializable {
 	 */
 	@Override
 	public Banco getObjeto() {
-		 
+
 		return obtenerObjeto();
 	}
 
@@ -80,7 +79,7 @@ public class BancoBean extends StandardAbm<Banco> implements Serializable {
 	 */
 	@Override
 	public List<Banco> getListado() {
-		 
+
 		return obtenerListado();
 	}
 
@@ -89,12 +88,7 @@ public class BancoBean extends StandardAbm<Banco> implements Serializable {
 	 */
 	@Override
 	public void initialize() {
-		 
-		
+
 	}
-	
-	
-	
-	
 
 }

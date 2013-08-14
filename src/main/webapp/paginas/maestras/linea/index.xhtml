@@ -49,13 +49,21 @@
                     <p:message for="estadoLinea"/>
                     
                       <h:outputLabel value="Plan"/>
-                   <bsi:buscar codValue="#{lineaBean.objeto.plan.idPlan}" displayValue="#{lineaBean.objeto.plan.plaNombre}" buscarListener="#{lineaBean.buscadorPlan.mostrar}" ></bsi:buscar>
-                   <bsi:pnlBuscador buscador="#{lineaBean.buscadorPlan}"></bsi:pnlBuscador>
+                  <p:selectOneMenu  id="selectPlan" required="true" value="#{lineaBean.idPlan}" requiredMessage="Por favor seleccione un plan">
+                  <f:selectItems value="#{selectorPlan.items}"/>
+                  <p:ajax process="@this" update="@this" event="change"></p:ajax>
+                  </p:selectOneMenu>
+                  <p:message for="selectPlan"></p:message>
 
 					 <h:outputLabel value="SimCard"/>
                    <bsi:buscar codValue="#{lineaBean.objeto.simcard.idSimcard}" displayValue="#{lineaBean.objeto.simcard.simIccid}" buscarListener="#{lineaBean.buscadorSimCard.mostrar}" ></bsi:buscar>
                    <bsi:pnlBuscador buscador="#{lineaBean.buscadorSimCard}"></bsi:pnlBuscador>
 					
+					 <h:outputLabel value="Sucursal" rendered="#{lineaBean.edit}"/>
+					<p:selectOneMenu disabled="true" rendered="#{lineaBean.edit}" value="#{lineaBean.idSucursal}" id="idSucursal" required="true" requiredMessage="Selecciona una sucursal" >
+					<f:selectItems value="#{selectorSucursal.items}"/>
+					</p:selectOneMenu>
+					<p:message for="idSucursal" rendered="#{lineaBean.edit}"></p:message>
              
 
                  

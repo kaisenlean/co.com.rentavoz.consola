@@ -102,7 +102,6 @@ public abstract class Buscador<T> {
 		item = (T) t;
 		System.out.println(t);
 		asignar(item);
-		
 
 		cerrar();
 		RequestContext.getCurrentInstance().execute("dlg.hide()");

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+	<ui:define name="content">
+		<h:form id="formTraslado" style="width:100%">
+			<p:outputLabel value="Traslado de lineas" styleClass="h1" />
+			<p:panel header="Sucursales">
+				<h:panelGrid columns="4">
+					<p:outputLabel value="Sucursal de Origen"></p:outputLabel>
+					<p:selectOneMenu  value="#{trasladoLineaBean.autocompleteLinea.idSucursal}">
+					<p:ajax event="change" update="@this"></p:ajax>
+						<f:selectItems value="#{selectorSucursal.items}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Sucursal de Destino"></p:outputLabel>
+					<p:selectOneMenu value="#{trasladoLineaBean.lineaDestino}">
+						<p:ajax event="change" update="@this"></p:ajax>
+						<f:selectItems value="#{selectorSucursal.items}"></f:selectItems>
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+			</p:panel>
+			<h:panelGrid columns="2">
+				<h:outputText value="Linea" />
+				<p:autoComplete size="100" style="width:400px"
+					completeMethod="#{trasladoLineaBean.autocompleteLinea.completarBusqueda}">
+					<p:ajax event="itemSelect"  update="tablaLineas" process="@this"
+						listener="#{trasladoLineaBean.autocompleteLinea.seleccionar}">
+					</p:ajax>
+				</p:autoComplete>
+
+
+			</h:panelGrid>
+				
+				<p:dataTable id="tablaLineas" widgetVar="tablaLineas" value="#{trasladoLineaBean.seleccionadas}" var="linea">
+				<p:column headerText="Linea">
+				<h:outputText value="#{linea.linNumero}" />
+				</p:column>
+				<p:column headerText="Acciones">
+				<p:commandButton value="Eliminar" actionListener="#{trasladoLineaBean.eliminarLinea(linea)}" process="@this" update="tablaLineas"></p:commandButton>
+				</p:column>
+				</p:dataTable>
+				
+				
+				<h:panelGrid columns="2">
+				<p:commandButton value="Trasladar" process="@this" actionListener="#{trasladoLineaBean.trasladarLineas}" ></p:commandButton>
+				<p:commandButton value="Cancelar" action="/paginas/almacen/traslado/linea/index.jsf" process="@this" ></p:commandButton>
+				</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -23,11 +23,11 @@ import com.invte.rentavoz.vista.StandardAbm;
 
 /**
  * 
-* @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-* @project co.com.rentavoz.consola
-* @class BeanCiudad
-* @date 14/07/2013
-*
+ * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+ * @project co.com.rentavoz.consola
+ * @class BeanCiudad
+ * @date 14/07/2013
+ * 
  */
 @ManagedBean
 @ViewScoped
@@ -94,7 +94,7 @@ public class BeanCiudad extends StandardAbm<Ciudad> implements Serializable {
 
 	@Override
 	public boolean preAction() {
-	return true;
+		return true;
 	}
 
 	@Override
@@ -123,7 +123,5 @@ public class BeanCiudad extends StandardAbm<Ciudad> implements Serializable {
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}
-
-	
 
 }

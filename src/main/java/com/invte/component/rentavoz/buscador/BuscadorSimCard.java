@@ -13,17 +13,15 @@ import co.com.rentavoz.logica.jpa.fachadas.SimcardFacade;
 
 /**
  * 
-* @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-* @project co.com.rentavoz.consola
-* @class BuscadorSimCard
-* @date 22/07/2013
-*
+ * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+ * @project co.com.rentavoz.consola
+ * @class BuscadorSimCard
+ * @date 22/07/2013
+ * 
  */
 public abstract class BuscadorSimCard extends Buscador<Simcard> {
 
 	public abstract SimcardFacade getFacade();
-
-	
 
 	public abstract void selCentrope(Simcard centrope);
 
@@ -35,7 +33,8 @@ public abstract class BuscadorSimCard extends Buscador<Simcard> {
 
 		for (Simcard centrope : result) {
 			getItems().add(
-					new BuscadorItem<Simcard>(centrope.getSimIccid() + "", centrope.getSimIccid()+"", centrope));
+					new BuscadorItem<Simcard>(centrope.getSimIccid() + "",
+							centrope.getSimIccid() + "", centrope));
 		}
 		return null;
 	}
@@ -57,8 +56,8 @@ public abstract class BuscadorSimCard extends Buscador<Simcard> {
 
 		for (Simcard centrope : result) {
 			getItems().add(
-					new BuscadorItem<Simcard>(centrope.getSimIccid() + "", centrope
-							.getSimIccid()+"", centrope));
+					new BuscadorItem<Simcard>(centrope.getSimIccid() + "",
+							centrope.getSimIccid() + "", centrope));
 		}
 		super.mostrar(evt);
 	}

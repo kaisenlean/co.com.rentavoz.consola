@@ -84,7 +84,7 @@ public class BeanSucursal extends StandardAbm<Sucursal> implements Serializable 
 
 	@Override
 	public boolean preAction() {
-	return true;
+		return true;
 
 	}
 

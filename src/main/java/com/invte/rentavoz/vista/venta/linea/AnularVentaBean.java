@@ -20,28 +20,27 @@ import co.com.rentavoz.logica.jpa.fachadas.VentaFacade;
  * @project co.com.rentavoz.consola
  * @class AnularVentaBean
  * @date 15/07/2013
- *
+ * 
  */
 @ManagedBean
 @ViewScoped
-public class AnularVentaBean implements Serializable{
+public class AnularVentaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@EJB
 	private VentaFacade ventaFacade;
 	private List<Venta> lista;
-	
-	
+
 	/**
 	 * 
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 15/07/2013
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/07/2013
 	 */
 	@PostConstruct
-	public void init(){
-		lista=ventaFacade.findAll();
-		
+	public void init() {
+		lista = ventaFacade.findAll();
+
 	}
 
 	/**
@@ -56,7 +55,8 @@ public class AnularVentaBean implements Serializable{
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param ventaFacade the ventaFacade to set
+	 * @param ventaFacade
+	 *            the ventaFacade to set
 	 */
 	public void setVentaFacade(VentaFacade ventaFacade) {
 		this.ventaFacade = ventaFacade;
@@ -74,19 +74,19 @@ public class AnularVentaBean implements Serializable{
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/07/2013
-	 * @param lista the lista to set
+	 * @param lista
+	 *            the lista to set
 	 */
 	public void setLista(List<Venta> lista) {
 		this.lista = lista;
 	}
-	
-	
+
 	/**
 	 * 
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 15/07/2013
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/07/2013
 	 */
-	public void anularVentaSeleccionadas(){
+	public void anularVentaSeleccionadas() {
 		for (Venta venta : lista) {
 			if (venta.isSeleccionado()) {
 				venta.setEstadoVenta(EstadoVentaEnum.ANULADA);
@@ -94,8 +94,7 @@ public class AnularVentaBean implements Serializable{
 			}
 		}
 		init();
-		
+
 	}
-	
-	
+
 }

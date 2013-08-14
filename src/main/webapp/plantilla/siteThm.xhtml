@@ -22,49 +22,53 @@
 	<p:layout fullPage="true" collapseTitle="Modulos">
 
 
-		<p:layoutUnit position="north" size="60">
+<!-- 		<p:layoutUnit position="north" size="60"> -->
 
-			<h:form>
-				<h:graphicImage url="/imagenes/logo.png"
-					style="width: 20%;height: 100%;float: left" />
-				<p:menubar style="float: right;height: 60%" >
-					<p:menuitem value="Volver" title="Volver" action="/dashboard.jsf"></p:menuitem>
-					<p:menuitem title="#{login.user != null ? login.user.usuario : ''}" value="#{login.user != null ? login.user.usuario : ''}" />
-					<p:menuitem title="Salir" value="Salir" actionListener="#{login.logOut}" />
-				</p:menubar>
-			</h:form>
-		</p:layoutUnit>
+
+<!-- 		</p:layoutUnit> -->
 
 
 
 		<p:layoutUnit header="Menu Principal" position="west" size="200"
 			collapsible="true" footer="@Copyright Grupo Innovate">
+<h:panelGrid>
 
-
+			<h:graphicImage url="/imagenes/logo.png"
+				style="width: 100%;height: 15%;float: left" />
 			<ui:insert name="left">
 
 				<ui:include src="/menu/menuPrincipal.xhtml" />
 			</ui:insert>
+</h:panelGrid>
 		</p:layoutUnit>
 
 
 		<h:form>
 			<p:layoutUnit position="center">
+<!-- 				<h:form> -->
 
-<p:dialog rendered="#{!login.session}" visible="#{!login.session}"
+					<p:menubar style="float: right;height: 5%">
+						<p:menuitem value="Volver" title="Volver" action="/dashboard.jsf" immediate="true"></p:menuitem>
+						<p:menuitem
+							title="#{login.user != null ? login.user.usuario : ''}"
+							value="#{login.user != null ? login.user.usuario : ''}" />
+						<p:menuitem title="Salir" value="Salir"
+							actionListener="#{login.logOut}" />
+					</p:menubar>
+<!-- 				</h:form> -->
+				<p:dialog rendered="#{!login.session}" visible="#{!login.session}"
 					header="Lo sentimos , no hemos detectado una sesion activa recientemente"
-					
-					modal="true"
-					closable="false" appendToBody="true" >
+					modal="true" closable="false" appendToBody="true">
 					<h:form>
-					
-					<div align="center">
 
-						<h:panelGrid>
-						<h:graphicImage value="/imagenes/innovateLogo.png" />
-					<a href="#{request.contextPath}/" type="button">Volver al inicio</a> 
-						</h:panelGrid>
-					</div>
+						<div align="center">
+
+							<h:panelGrid>
+								<h:graphicImage value="/imagenes/innovateLogo.png" />
+								<a href="#{request.contextPath}/" type="button">Volver al
+									inicio</a>
+							</h:panelGrid>
+						</div>
 					</h:form>
 				</p:dialog>
 
@@ -77,10 +81,15 @@
 						<h:outputText value="" />
 					</f:facet>
 				</p:ajaxStatus>
-				<p:growl autoUpdate="true" showDetail="true" sticky="true"  severity="info" life="300" />
+				<div style="float:bottom">
 				
-				
-				<p:messages severity="warn" autoUpdate="true" showDetail="true" globalOnly="true"></p:messages>
+				<p:growl autoUpdate="true" showDetail="true" sticky="true"
+					severity="info" life="200"  />
+				</div>
+
+
+				<p:messages severity="warn" autoUpdate="true" showDetail="true"
+					globalOnly="true"></p:messages>
 				<ui:insert name="content"> Pagina principal</ui:insert>
 			</p:layoutUnit>
 		</h:form>

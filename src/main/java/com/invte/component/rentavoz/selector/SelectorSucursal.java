@@ -28,7 +28,7 @@ public class SelectorSucursal implements SelectorBase<Sucursal> {
 	public void init() {
 		List<Sucursal> findAll = facade.findAll();
 		items = new ArrayList<SelectItem>();
-//		items.add(new SelectItem(" ", "-- Seleccione una sucursal --"));
+		// items.add(new SelectItem(" ", "-- Seleccione una sucursal --"));
 		for (Sucursal empresa : findAll) {
 			items.add(new SelectItem(empresa.getIdSucursal(), empresa
 					.getSucNombre()));

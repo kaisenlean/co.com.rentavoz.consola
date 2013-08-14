@@ -29,8 +29,8 @@ public abstract class BuscadorTercero extends Buscador<Tercero> {
 
 		for (Tercero centrope : result) {
 			getItems().add(
-					new BuscadorItem<Tercero>(centrope.getIdTecero() + "", centrope
-							.toString(), centrope));
+					new BuscadorItem<Tercero>(centrope.getIdTecero() + "",
+							centrope.toString(), centrope));
 		}
 		return null;
 	}
@@ -56,8 +56,8 @@ public abstract class BuscadorTercero extends Buscador<Tercero> {
 
 		for (Tercero centrope : result) {
 			getItems().add(
-					new BuscadorItem<Tercero>(centrope.getIdTecero() + "", centrope
-							.toString(), centrope));
+					new BuscadorItem<Tercero>(centrope.getIdTecero() + "",
+							centrope.toString(), centrope));
 		}
 		super.mostrar(evt);
 	}

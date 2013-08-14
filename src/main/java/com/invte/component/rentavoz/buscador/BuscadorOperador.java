@@ -29,8 +29,8 @@ public abstract class BuscadorOperador extends Buscador<Operador> {
 
 		for (Operador centrope : result) {
 			getItems().add(
-					new BuscadorItem<Operador>(centrope.getIdOperador() + "", centrope
-							.getOpeNombre(), centrope));
+					new BuscadorItem<Operador>(centrope.getIdOperador() + "",
+							centrope.getOpeNombre(), centrope));
 		}
 		return null;
 	}
@@ -52,8 +52,8 @@ public abstract class BuscadorOperador extends Buscador<Operador> {
 
 		for (Operador centrope : result) {
 			getItems().add(
-					new BuscadorItem<Operador>(centrope.getIdOperador() + "", centrope
-							.getOpeNombre(), centrope));
+					new BuscadorItem<Operador>(centrope.getIdOperador() + "",
+							centrope.getOpeNombre(), centrope));
 		}
 		super.mostrar(evt);
 	}

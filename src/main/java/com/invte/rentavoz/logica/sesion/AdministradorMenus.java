@@ -31,8 +31,9 @@ public class AdministradorMenus implements Serializable {
 
 	/**
 	 * 23/07/2013
+	 * 
 	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	 * serialVersionUID
+	 *         serialVersionUID
 	 */
 	private static final long serialVersionUID = 988905964589622257L;
 	private List<Menu> menus;

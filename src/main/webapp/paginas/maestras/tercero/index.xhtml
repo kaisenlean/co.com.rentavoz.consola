@@ -55,9 +55,14 @@
             </p:panel>
 
             <p:dataTable rendered="${!beanTercero.form}" style="width: 100%" value="#{beanTercero.listado}" var="item" emptyMessage="No hay registros">
-                <p:column style="width: 10%" headerText="Codigo" filterBy="${item.idTecero}" filterMatchMode="contains" styleClass="styleColumn">
-                    <p:outputLabel value="${item.idTecero}"/>
+<!--                 <p:column style="width: 10%" headerText="Codigo" filterBy="${item.idTecero}" filterMatchMode="contains" styleClass="styleColumn"> -->
+<!--                     <p:outputLabel value="${item.idTecero}"/> -->
+<!--                 </p:column> -->
+                
+                 <p:column headerText="Documento" styleClass="styleColumn" filterBy="${item.terDocumento}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.terDocumento}"/>
                 </p:column>
+                
                 <p:column headerText="Nombres" styleClass="styleColumn" filterBy="${item.terNombre}" filterMatchMode="contains">
                     <p:outputLabel value="${item.terNombre}"/>
                 </p:column>
@@ -66,8 +71,8 @@
                     <p:outputLabel value="${item.terApellidos}"/>
                 </p:column>
                 
-                <p:column headerText="Documento" styleClass="styleColumn" filterBy="${item.terDocumento}" filterMatchMode="contains">
-                    <p:outputLabel value="${item.terDocumento}"/>
+                <p:column headerText="Tipo de tercero" styleClass="styleColumn" filterBy="${item.tipoAsString}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.tipoAsString}"/>
                 </p:column>
                 
                 <p:column headerText="Direccion" styleClass="styleColumn" filterBy="${item.terDireccion}" filterMatchMode="contains">
