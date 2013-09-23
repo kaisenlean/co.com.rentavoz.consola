@@ -31,6 +31,8 @@
                 </h:panelGrid>
             </p:panel>
 
+
+<h:commandButton  rendered="${!beanOperador.form}" value="Descargar en pdf" image="imagenes/pdf.png" actionListener="#{printerBean.exportXls('operadores','informe_operadores','xls')}"></h:commandButton>
             <p:dataTable rendered="${!beanOperador.form}" style="width: 100%" value="#{beanOperador.listado}" var="item" emptyMessage="No hay registros">
                 <p:column style="width: 10%" headerText="Codigo" filterBy="${item.idOperador}" filterMatchMode="contains" styleClass="styleColumn">
                     <p:outputLabel value="${item.idOperador}"/>

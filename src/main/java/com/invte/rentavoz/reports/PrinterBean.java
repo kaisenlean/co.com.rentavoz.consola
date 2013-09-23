@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -15,13 +15,19 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
 /**
  * 
- * @author ramki
+* @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+* @project co.com.rentavoz.consola
+* @class PrinterBean
+* @date 14/08/2013
+*
  */
 @ManagedBean
-@SessionScoped
+@ApplicationScoped
 public class PrinterBean {
 
 	/**
@@ -38,8 +44,16 @@ public class PrinterBean {
 	 *         JASPER_EXTENSION
 	 */
 	private static final String JASPER_EXTENSION = ".jasper";
-	JasperPrint jasperPrint;
+	protected JasperPrint jasperPrint;
 
+	
+	/**
+	 * 
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 14/08/2013
+	* @param reportName
+	* @throws JRException
+	 */
 	public void init(String reportName) throws JRException {
 
 		String reportPath = FacesContext.getCurrentInstance()
@@ -52,7 +66,14 @@ public class PrinterBean {
 	e.printStackTrace();
 		}
 	}
-
+/**
+ * 
+* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+* @date 14/08/2013
+* @param reportName
+* @param outputName
+* @param outputExtension
+ */
 	public void exportPdf(String reportName, String outputName,
 			String outputExtension)  {
 		try {
@@ -63,24 +84,72 @@ public class PrinterBean {
 
 		httpServletResponse.addHeader("Content-disposition",
 				"attachment; filename=" + outputName + ".pdf");
+                
 		ServletOutputStream servletOutputStream = httpServletResponse
 				.getOutputStream();
+                
+                
+                
 		JasperExportManager.exportReportToPdfStream(jasperPrint,
 				servletOutputStream);
+
 		FacesContext.getCurrentInstance().responseComplete();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 * 
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 26/08/2013
+	* @param reportName
+	* @param outputName
+	* @param outputExtension
+	 */
+	public void exportXls(String reportName, String outputName,
+			String outputExtension)  {
+		try {
+			init(reportName);
+	
+		HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext
+				.getCurrentInstance().getExternalContext().getResponse();
 
+		httpServletResponse.addHeader("Content-disposition",
+				"attachment; filename=" + outputName + ".xls");
+		ServletOutputStream servletOutputStream = httpServletResponse
+				.getOutputStream();
+		JRXlsExporter exporterXLS = new JRXlsExporter(); 
+		exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint); 
+		exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, servletOutputStream); 
+		exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.TRUE); 
+		exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE); 
+		exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE); 
+		exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE); 
+		exporterXLS.exportReport(); 
+		
+		FacesContext.getCurrentInstance().responseComplete();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+/**
+ * 
+* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+* @date 14/08/2013
+* @return
+* @throws ClassNotFoundException
+ */
 	public static Connection establishConnection() throws ClassNotFoundException {
 		Connection connection = null;
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
-			String oracleURL = "jdbc:mysql://127.0.0.1:3306/Minutos";
+			String oracleURL = "jdbc:mysql://127.0.0.1:3306/minutos";
 			connection = DriverManager.getConnection(oracleURL, "root",
-					"jsepee1855");
+					"innovate2013");
 			connection.setAutoCommit(false);
 		} catch (SQLException exception) {
 			exception.printStackTrace();

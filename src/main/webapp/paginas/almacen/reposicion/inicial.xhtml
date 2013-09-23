@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+	<ui:define name="content">
+		<h:form id="form" style="width:100%">
+			<h:outputLabel value="Reposicion de Sim Card" class="h1" />
+			<h:panelGrid columns="3">
+
+				<p:outputLabel value="Cliente : "></p:outputLabel>
+				<p:autoComplete size="100" style="width:800px"
+				required="true"
+				id="clienteAu"
+				requiredMessage="Campo requerido"
+					value="#{beanReposicion.autocompleteTercero.query}"
+					completeMethod="#{beanReposicion.autocompleteTercero.completarBusqueda}">
+					<p:ajax event="itemSelect" update="@this"
+						listener="#{beanReposicion.autocompleteTercero.seleccionar}">
+
+					</p:ajax>
+				</p:autoComplete>
+				<p:message for="clienteAu"></p:message>
+
+				<p:outputLabel value="Linea : "></p:outputLabel>
+				<p:autoComplete size="100" style="width:800px"
+				id="lineaAu"
+				required="true"
+				requiredMessage="Campo requerido"
+					value="#{beanReposicion.autocompleteLinea.query}"
+					completeMethod="#{beanReposicion.autocompleteLinea.completarBusqueda}">
+					<p:ajax event="itemSelect" update="@this"
+						listener="#{beanReposicion.autocompleteLinea.seleccionar}">
+
+					</p:ajax>
+				</p:autoComplete>
+				<p:message for="lineaAu"></p:message>
+
+
+
+
+				<p:outputLabel value="Sim card : "></p:outputLabel>
+				<p:autoComplete size="100" style="width:800px"
+				required="true"
+				requiredMessage="Campo requerido"
+				id="simAu"
+					value="#{beanReposicion.autocompleteSimcard.query}"
+					completeMethod="#{beanReposicion.autocompleteSimcard.completarBusqueda}">
+					<p:ajax event="itemSelect" update="@this"
+						listener="#{beanReposicion.autocompleteSimcard.seleccionar}">
+
+					</p:ajax>
+				</p:autoComplete>
+				<p:message for="simAu"></p:message>
+				
+				
+				<p:outputLabel value="Valor de reposición"></p:outputLabel>
+				<p:inputText id="valorRepo" value="#{beanReposicion.valorRepo}"></p:inputText>
+				<p:message for="valorRepo"></p:message>
+				
+				<p:outputLabel value="Motivo de reposición"></p:outputLabel>
+				<p:selectOneMenu value="#{beanReposicion.motivoRepoVal}">
+				<f:selectItems value="#{selectorMotivoReposicion.items}"></f:selectItems>
+				</p:selectOneMenu>
+				
+				
+				
+
+
+			</h:panelGrid>
+
+<p:commandButton value="Guardar Reposición" onclick="confirmation.show();"></p:commandButton>
+
+			
+			<p:dialog appendToBody="true" modal="true" closable="false"
+				resizable="false" visible="false" header="Confirmar Pago"
+				widgetVar="confirmation" id="confirmation">
+				<h:panelGrid>
+				
+				<b><h:outputText
+						value="El sistema registrará la siguiente reposición" /></b>
+						<p:watermark value="Digita una observación" for="txt" ></p:watermark>
+						<p:inputTextarea value="#{beanReposicion.observacion}" cols="30" rows="10" id="txt"></p:inputTextarea>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Continuar"
+						action="#{beanReposicion.registrarReposicion}" process="@this"
+						update="@all"></p:commandButton>
+					<p:commandButton value="Cancelar" onclick="confirmation.hide();"></p:commandButton>
+				</h:panelGrid>
+				</h:panelGrid>
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

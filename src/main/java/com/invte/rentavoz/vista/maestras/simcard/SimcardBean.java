@@ -86,7 +86,7 @@ public class SimcardBean extends StandardAbm<Simcard> {
 	@Override
 	public void postFormNuevo() {
 		getObjeto().setFecha(new Date());
-		getObjeto().setSimEstado(EstadosSimcardEnum.DISPONIBLE);
+		getObjeto().setSimEstado(EstadosSimcardEnum.EN_BLANCO);
 		estadoSim = getObjeto().getEstadoAsString();
 	}
 

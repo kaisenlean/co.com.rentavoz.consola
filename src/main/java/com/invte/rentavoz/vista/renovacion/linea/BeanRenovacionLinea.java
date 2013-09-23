@@ -29,19 +29,11 @@ import com.invte.rentavoz.vista.BaseBean;
 @ViewScoped
 public class BeanRenovacionLinea extends BaseBean implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final String RENOVACION = "renovacion";
 
-	/**
-	 * 
-	 */
 	private static final String DEVOLUCION = "devolucion";
 
-	/**
-	 * 
-	 */
 	private static final String ID_VENTA_LINEA = "idVentaLinea";
 
 	private static final long serialVersionUID = -1678986432638785613L;

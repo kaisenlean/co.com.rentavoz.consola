@@ -13,10 +13,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
-import com.invte.rentavoz.vista.traslado.linea.TipoTrasladoEnum;
-
 import co.com.rentavoz.logica.jpa.entidades.TipoTerceroEnum;
 import co.com.rentavoz.logica.jpa.fachadas.CuentasFacade;
+
+import com.invte.rentavoz.vista.traslado.linea.TipoTrasladoEnum;
 
 @ManagedBean
 @ViewScoped

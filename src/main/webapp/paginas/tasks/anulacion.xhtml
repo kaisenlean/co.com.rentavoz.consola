@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet name="default.css" library="css" />
+	<h:outputStylesheet name="tableLayout.css" library="css" />
+
+	<title>Rentavoz 2.0</title>
+</h:head>
+
+<h:body style="font-size: 11px">
+
+	<p:layout fullPage="true" collapseTitle="Modulos">
+
+		<h:form>
+
+			<p:layoutUnit position="center" size="190">
+				<p:dialog rendered="#{!login.session}" visible="#{!login.session}"
+					header="Lo sentimos , no hemos detectado una sesion activa recientemente"
+					modal="true" closable="false" appendToBody="true">
+					<h:form>
+
+						<div align="center">
+
+							<h:panelGrid>
+								<h:graphicImage value="/imagenes/innovateLogo.png" />
+								<a href="#{request.contextPath}/" type="button">Volver al
+									inicio</a>
+							</h:panelGrid>
+						</div>
+					</h:form>
+				</p:dialog>
+				<div style="float: right;">
+
+					<p:menuButton value="Sesión activa ( #{login.user.usuario} )">
+						<p:menuitem value="Salir" actionListener="#{login.logOut}" />
+					</p:menuButton>
+				</div>
+				<p:graphicImage url="/imagenes/logo.png"></p:graphicImage>
+				<h:outputLabel value="Información de la venta"  styleClass="h1"/>
+				<h:panelGrid columns="6">
+				<h:outputText value="Fecha de venta : " />
+				<h:inputText  disabled="true" value="#{detalleAnulacionVenta.venta.fecha}" >
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:inputText>
+				
+				<h:outputText value="Saldo : " />
+				<h:inputText  disabled="true" value="#{detalleAnulacionVenta.venta.venSaldo}" />
+				
+				<h:outputText value="Modalidad de Venta : " />
+				<h:inputText  disabled="true" value="#{detalleAnulacionVenta.venta.modalidadVenta}" />
+				
+				
+				<h:outputText value="Lineas : " />
+				<p:dataTable value="#{detalleAnulacionVenta.venta.ventaLineaList}" var="linea">
+				<p:column headerText="Numero">
+				<h:outputLabel value="#{linea.lineaidLinea.linNumero}" />
+				</p:column>
+				<p:column headerText="Precio">
+				<h:outputLabel value="#{linea.ventLinPrecio}" >
+				<f:convertNumber type="currency"/>
+				</h:outputLabel>
+				
+				</p:column>
+				</p:dataTable>
+				
+				
+				
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+				
+				<p:commandButton value="Anular Venta" action="#{detalleAnulacionVenta.anularVenta()}"></p:commandButton>
+				<p:commandButton value="Cancelar" action="/dashboard.jsf"></p:commandButton>
+				</h:panelGrid>
+			</p:layoutUnit>
+		</h:form>
+
+	</p:layout>
+
+
+</h:body>
+
+</html>

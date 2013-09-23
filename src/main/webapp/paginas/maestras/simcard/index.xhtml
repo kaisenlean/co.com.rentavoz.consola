@@ -51,12 +51,16 @@
 
             </p:panel>
  
+<h:commandButton  rendered="${!simcardBean.form}" value="Descargar en pdf" image="imagenes/pdf.png" actionListener="#{printerBean.exportXls('simcard','informe_simcards','xls')}"></h:commandButton> 
             <p:dataTable rendered="${!simcardBean.form}" style="width: 100%" value="#{simcardBean.listado}" var="item" emptyMessage="No hay registros">
                 <p:column style="width: 10%" headerText="Codigo" filterBy="${item.idSimcard}" filterMatchMode="contains" styleClass="styleColumn">
                     <p:outputLabel value="${item.idSimcard}"/>
                 </p:column>
                  <p:column headerText="ICC" styleClass="styleColumn" filterBy="${item.simIccid}" filterMatchMode="contains">
                     <p:outputLabel value="${item.simIccid}"/>
+                </p:column>
+                  <p:column headerText="Sucursal" styleClass="styleColumn" filterBy="${item.sucursal.sucNombre}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.sucursal.sucNombre}"/>
                 </p:column>
                 <p:column headerText="Estado" styleClass="styleColumn" filterBy="${item.estadoAsString}" filterMatchMode="contains">
                     <p:outputLabel value="${item.estadoAsString}"/>

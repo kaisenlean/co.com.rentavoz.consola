@@ -63,6 +63,7 @@ public abstract class AutocompleteLinea extends Autocompletar<Linea> {
 		}
 		String valor = evt.getObject().toString();
 		seleccionado = getFacade().findBNumeroObjeto(valor);
+		query=seleccionado.getLinNumero();
 		postSelect();
 	}
 	

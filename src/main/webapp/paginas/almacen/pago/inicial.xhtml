@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+	<ui:define name="content">
+		<h:form id="form" style="width:100%">
+			<h:outputLabel value="Consulta de planes de pagos de clientes"
+				class="h1" />
+			<h:panelGrid columns="2">
+
+				<p:outputLabel value="Cliente : "></p:outputLabel>
+				<p:autoComplete size="100" style="width:800px"
+					value="#{consultaPagosBean.autocompleteTercero.query}"
+					completeMethod="#{consultaPagosBean.autocompleteTercero.completarBusqueda}">
+					<p:ajax event="itemSelect" update="@all"
+						listener="#{consultaPagosBean.autocompleteTercero.seleccionar}">
+
+					</p:ajax>
+				</p:autoComplete>
+			</h:panelGrid>
+			
+			
+			<p:dataTable paginator="true" rows="25" value="#{consultaPagosBean.lista}" var="cuota" widgetVar="tableCuota" id="tableCuota">
+			<p:column style="background-color:${cuota.pagada?'':'orange'}" headerText="Código venta" sortBy="#{cuota.venta.idVenta}">
+				<p:outputLabel value="#{cuota.venta.idVenta}"></p:outputLabel>
+			</p:column>
+			
+			<p:column style="background-color:${cuota.pagada?'':'orange'}" headerText="Estado de la cuota">
+				<p:outputLabel value="#{cuota.estadoCuotaAsString()}"></p:outputLabel>
+			</p:column>
+			
+			
+			<p:column style="background-color:${cuota.pagada?'':'orange'}" headerText="Valor de la cuota">
+				<p:outputLabel value="#{cuota.valorCuota}"></p:outputLabel>
+			</p:column>
+			
+			
+			
+			<p:column style="background-color:${cuota.pagada?'':'orange'}" headerText="Fecha estimada de pago">
+				<h:outputLabel value="#{cuota.fechaPago}">
+				<f:convertDateTime pattern="dd/MM/yyyy" dateStyle="medium"/>
+				</h:outputLabel>
+			</p:column>
+			
+			<p:column style="background-color:${cuota.pagada?'':'orange'}" >
+			<p:selectBooleanCheckbox rendered="#{!cuota.pagada}" value="#{cuota.seleccionada}"></p:selectBooleanCheckbox>
+			</p:column>
+			
+			
+			</p:dataTable>
+
+			<p:commandButton value="Pagar Cuotas" onclick="confirmation.show();">
+			
+			</p:commandButton>
+
+	<p:dialog appendToBody="true" modal="true" closable="false" resizable="false"  visible="false" header="Confirmar Pago" widgetVar="confirmation" id="confirmation">
+		<b><h:outputText value="El sistema registrará el pago de las cuotas seleccionadas" /></b>
+		<h:panelGrid columns="2">
+			<p:commandButton value="Continuar" action="#{consultaPagosBean.realizarPago}" process="@this" update="@all"></p:commandButton>
+			<p:commandButton value="Cancelar" onclick="confirmation.hide();"></p:commandButton>
+		</h:panelGrid>
+	</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

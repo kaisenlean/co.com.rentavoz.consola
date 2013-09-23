@@ -52,13 +52,13 @@
 
                     <h:outputLabel value="Costo maximo"/>
                     <h:inputText  id="costoMax" value="${planBean.objeto.plaCostoMax}" required="true" requiredMessage="Por favor digita un costo maximo">
-                    <f:convertNumber  type="currency"/>  
+<!--                     <f:convertNumber  type="currency"/>   -->
                     </h:inputText>
                     <p:message for="costoMax"/>
 
                     <h:outputLabel value="Costo minimo"/>
                     <h:inputText  id="costoMinimo" value="${planBean.objeto.plaCostoMin}" required="true" requiredMessage="Por favor digita un costo minimo">
-                    <f:convertNumber  type="currency"/>  
+<!--                     <f:convertNumber  type="currency"/>   -->
                     </h:inputText>
                     <p:message for="costoMinimo"/>
 
@@ -83,6 +83,8 @@
             <bsi:pnlBuscador buscador="${planBean.buscadorTercero}"/>
             
 <!--  tercero que lo crea / Que aparezcan los datos del plan (Cantidad y los 3 costos) -->
+
+<h:commandButton  rendered="${!planBean.form}" value="Descargar en pdf" image="imagenes/pdf.png" actionListener="#{printerBean.exportXls('plan','informe_plan','xls')}"></h:commandButton>
             <p:dataTable rendered="${!planBean.form}" style="width: 70%" value="#{planBean.listado}" var="item" emptyMessage="No hay registros">
 <!--                 <p:column style="width: 2%" headerText="Codigo" filterBy="${item.idPlan}" filterMatchMode="contains" styleClass="styleColumn"> -->
 <!--                     <p:outputLabel value="${item.idPlan}"/> -->

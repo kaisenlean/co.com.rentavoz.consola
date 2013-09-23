@@ -141,7 +141,7 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 		};
 		if (getAttribute(SessionParams.ENTITY_BACK)!=null) {
 			dto.setTercero((Tercero) getAttribute(SessionParams.ENTITY_BACK));
-			query=dto.getTercero().toString();
+			queryTercero=dto.getTercero().toString();
 		}
 	}
 
@@ -193,6 +193,8 @@ public class BeanVentaLinea extends BaseBean implements Serializable {
 	 * @return
 	 */
 	public String registrarVenta() {
+		
+		
 		ArrayList<VentaLinea> ventaLineaTemp = new ArrayList<VentaLinea>();
 		for (Linea linea : lineasSeleccionadas) {
 			VentaLinea vl = new VentaLinea();

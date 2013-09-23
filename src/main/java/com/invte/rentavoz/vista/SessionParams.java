@@ -15,4 +15,6 @@ public interface SessionParams {
 	String CREATE_TERCERO_ON_LOAD = "createTerceroOnLoad";
 	String MODULE_URI ="moduleURI";
 	String ENTITY_BACK ="entityBack";
+	String TASK_CODE="taskCode";
+	String TASK_CODE_ENTITY="taskCodeEntity";
 }

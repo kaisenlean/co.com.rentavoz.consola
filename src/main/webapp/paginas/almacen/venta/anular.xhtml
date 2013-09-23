@@ -9,7 +9,7 @@
 
     <ui:define name="content">
         <h:form id="form" style="width:100%">
-            <h:outputLabel value="Anular Venta" class="h1" />
+            <h:outputLabel value="Solicitud de anulación de  Venta" class="h1" />
 
                 
                 <p:dataTable paginator="true" rows="20"
@@ -38,7 +38,7 @@
                    
                 </p:dataTable>
 				<h:panelGrid columns="2">
-					<p:commandButton value="Anular Ventas" actionListener="#{anularVentaBean.anularVentaSeleccionadas()}" update="tableVenta" ></p:commandButton>
+					<p:commandButton value=" Enviar solicitudes " actionListener="#{anularVentaBean.anularVentaSeleccionadas()}" update="tableVenta" ></p:commandButton>
 				</h:panelGrid>
 
          

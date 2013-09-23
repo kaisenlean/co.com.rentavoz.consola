@@ -4,6 +4,7 @@
 package com.invte.rentavoz.vista;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
@@ -68,32 +69,62 @@ public class BaseBean {
 				.getExternalContext().getSessionMap().get(codigo);
 		return atributo;
 	}
-	
+
 	/**
 	 * 
-	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 9/08/2013
-	* @param key
-	* @param value
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 9/08/2013
+	 * @param key
+	 * @param value
 	 */
-	public void addAttribute(String key,Object value) {
-		FacesContext.getCurrentInstance()
-				.getExternalContext().getSessionMap().put(key, value);
-	
+	public void addAttribute(String key, Object value) {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.put(key, value);
+
 	}
 
+	/**
+	 * 
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 9/08/2013
+	 * @param key
+	 */
+	public void removeAttribute(String key) {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.remove(key);
+
+	}
+
+	/**
+	 * 
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 4/09/2013
+	 * @param c
+	 */
+	public void killBean(String beanName) {
+		ExternalContext ctx = FacesContext.getCurrentInstance()
+				.getExternalContext();
+
+		try {
+			
+			ctx.getSessionMap().put(beanName, null);
+			
+		} catch (Exception ex) {
+			mensaje("Error", ex.toString());
+		}
+
+	}
+	
 	
 	/**
 	 * 
 	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
-	* @date 9/08/2013
-	* @param key
+	* @date 6/09/2013
+	* @param script
 	 */
-	public void removeAttribute(String key) {
-		FacesContext.getCurrentInstance()
-				.getExternalContext().getSessionMap().remove(key);
-	
+	public void runJavascript(String script){
+		RequestContext.getCurrentInstance().execute(script);
+		
 	}
-	
 
 }

@@ -14,7 +14,6 @@ import javax.faces.bean.ViewScoped;
 
 import co.com.rentavoz.logica.jpa.entidades.Plan;
 import co.com.rentavoz.logica.jpa.entidades.PlanLinea;
-import co.com.rentavoz.logica.jpa.entidades.Sucursal;
 import co.com.rentavoz.logica.jpa.entidades.almacen.EstadosSimcardEnum;
 import co.com.rentavoz.logica.jpa.entidades.almacen.Linea;
 import co.com.rentavoz.logica.jpa.entidades.almacen.Simcard;
@@ -235,6 +234,12 @@ public class LineaBean extends StandardAbm<Linea> {
 //			mensajeError(e.toString());
 //			return false;
 //		}
+		
+		if (getObjeto().getLinCorte()==0) {
+			mensajeError("El corte de la linea no debe ser cero(0)");
+			return false;
+		}
+		
 		getObjeto().setSucursal(getObjeto().getSimcard().getSucursal());
 		
 		Plan plan=null;

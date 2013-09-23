@@ -37,7 +37,7 @@
                 </h:panelGrid>
             </p:panel>
 
-<h:commandButton  rendered="${!beanCiudad.form}" value="Descargar en pdf" image="imagenes/pdf.png" actionListener="#{printerBean.exportPdf('ciudades','informe_ciudades','pdf')}"></h:commandButton>
+<h:commandButton  rendered="${!beanCiudad.form}" value="Descargar en pdf" image="imagenes/pdf.png" actionListener="#{printerBean.exportXls('ciudades','informe_ciudades','xls')}"></h:commandButton>
             <p:dataTable rendered="#{!beanCiudad.form}" style="width: 100%" value="#{beanCiudad.listado}" var="item" emptyMessage="No hay registros">
                 <p:column style="width: 10%" headerText="Codigo" filterBy="#{item.idCiudad}" filterMatchMode="contains" styleClass="styleColumn">
                     <p:outputLabel value="#{item.idCiudad}"/>

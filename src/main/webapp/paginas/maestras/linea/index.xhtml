@@ -75,6 +75,7 @@
 
             </p:panel>
          
+         <h:commandButton  rendered="${!lineaBean.form}" value="Descargar en pdf" image="imagenes/pdf.png" actionListener="#{printerBean.exportXls('lineas','informe_lineas','xls')}"></h:commandButton>
             <p:dataTable rendered="${!lineaBean.form}" style="width: 100%" value="#{lineaBean.listado}" var="item" emptyMessage="No hay registros">
                 <p:column style="width: 10%" headerText="Codigo" filterBy="${item.idLinea}" filterMatchMode="contains" styleClass="styleColumn">
                     <p:outputLabel value="${item.idLinea}"/>
@@ -99,6 +100,11 @@
                  <p:column headerText="SimCard" sortBy="${item.simcard.simIccid}"  styleClass="styleColumn" filterBy="${item.simcard.simIccid}" filterMatchMode="contains">
                     <p:outputLabel value="${item.simcard.simIccid}"/>
                 </p:column>
+                
+                 <p:column headerText="Sucursal" sortBy="${item.sucursal.idSucursal}"  styleClass="styleColumn" filterBy="${item.simcard.simIccid}" filterMatchMode="contains">
+                    <p:outputLabel value="${item.simcard.sucursal.sucNombre}"/>
+                </p:column>
+                
                 
                 
                  <p:column headerText="Empresa" sortBy="${item.empresaidEmpresa.empNombre}"  styleClass="styleColumn" filterBy="${item.empresaidEmpresa.empNombre}" filterMatchMode="contains">

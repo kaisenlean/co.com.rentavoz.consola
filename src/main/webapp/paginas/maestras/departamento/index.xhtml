@@ -30,7 +30,7 @@
                     <h:commandButton value="Cancelar" immediate="true" action="${departamentoBean.reglaNavegacion()}"/>
                 </h:panelGrid>
             </p:panel>
-			<h:commandButton  rendered="${!departamentoBean.form}" value="Descargar en pdf" image="imagenes/pdf.png" actionListener="#{printerBean.exportPdf('departamentos','informe_departamentos','pdf')}"></h:commandButton>
+			<h:commandButton  rendered="${!departamentoBean.form}" value="Descargar en pdf" image="imagenes/pdf.png" actionListener="#{printerBean.exportXls('departamentos','informe_departamentos','pdf')}"></h:commandButton>
             <p:dataTable rendered="${!departamentoBean.form}" style="width: 100%" value="#{departamentoBean.listado}" var="item" emptyMessage="No hay registros">
                 <p:column style="width: 10%" headerText="Codigo" filterBy="${item.idDepartamento}" filterMatchMode="contains" styleClass="styleColumn">
                     <p:outputLabel value="${item.idDepartamento}"/>

@@ -19,6 +19,8 @@ import com.invte.rentavoz.vista.BaseBean;
 public abstract class Autocompletar<T> extends BaseBean implements Autocompletable<T> {
 
 	protected T seleccionado;
+	protected String query;
+	protected org.apache.log4j.Logger logger= org.apache.log4j.Logger.getLogger(Autocompletar.class);
 
 	/**
 	 * 
@@ -56,4 +58,24 @@ public abstract class Autocompletar<T> extends BaseBean implements Autocompletab
 	public void setSeleccionado(T seleccionado) {
 		this.seleccionado = seleccionado;
 	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 6/09/2013
+	 * @return the query
+	 */
+	public String getQuery() {
+		return query;
+	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 6/09/2013
+	 * @param query the query to set
+	 */
+	public void setQuery(String query) {
+		this.query = query;
+	}
+	
+	
 }

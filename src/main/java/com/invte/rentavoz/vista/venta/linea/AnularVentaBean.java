@@ -9,11 +9,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import co.com.rentavoz.logica.jpa.entidades.almacen.EstadoVentaEnum;
 import co.com.rentavoz.logica.jpa.entidades.almacen.Venta;
 import co.com.rentavoz.logica.jpa.fachadas.VentaFacade;
+
+import com.invte.rentavoz.logica.tarea.TareaBean;
 
 /**
  * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
@@ -31,7 +33,10 @@ public class AnularVentaBean implements Serializable {
 	@EJB
 	private VentaFacade ventaFacade;
 	private List<Venta> lista;
-
+	
+	
+	@ManagedProperty(value="#{tareaBean}")
+	private TareaBean tareaBean;
 	/**
 	 * 
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
@@ -89,12 +94,23 @@ public class AnularVentaBean implements Serializable {
 	public void anularVentaSeleccionadas() {
 		for (Venta venta : lista) {
 			if (venta.isSeleccionado()) {
-				venta.setEstadoVenta(EstadoVentaEnum.ANULADA);
-				ventaFacade.edit(venta);
+				tareaBean.enviarSolicitudAnulacionVenta(venta);
 			}
 		}
 		init();
 
 	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 2/09/2013
+	 * @param tareaBean the tareaBean to set
+	 */
+	public void setTareaBean(TareaBean tareaBean) {
+		this.tareaBean = tareaBean;
+	}
+	
+	
+	
 
 }
