@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+	<ui:define name="content">
+		<h:form id="form" style="width:100%">
+			<h:outputLabel value="Actualizacion de consumo de lineas"
+				class="h1" />
+			
+			
+			<p:fileUpload update="@all" process="@all" fileUploadListener="#{beanLineaConsumo.uploadHandler}" ></p:fileUpload>
+			<p:inputTextarea value="#{beanLineaConsumo.salida}" cols="100" rows="30"></p:inputTextarea>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

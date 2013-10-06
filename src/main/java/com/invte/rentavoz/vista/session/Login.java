@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+import co.com.rentavoz.logica.jpa.entidades.Sucursal;
 import co.com.rentavoz.logica.jpa.entidades.Tercero;
 import co.com.rentavoz.logica.jpa.entidades.profile.Usuario;
 import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
@@ -47,6 +48,7 @@ public class Login extends BaseBean implements Serializable {
 	private String usuario;
 	private String contrasena;
 	private Tercero tercero;
+	private Sucursal sucursal;
 
 	@PostConstruct
 	public void init() {
@@ -80,6 +82,12 @@ public class Login extends BaseBean implements Serializable {
 	 */
 	private void buscarTercero() {
 		tercero = terceroFacade.findByUsuario(user);
+		if (tercero!=null) {
+			if (!tercero.getSucursalTerceroList().isEmpty()) {
+				sucursal=tercero.getSucursalTerceroList().get(0).getSucursalidSucursal();
+				
+			}
+		}
 
 	}
 
@@ -214,4 +222,21 @@ public class Login extends BaseBean implements Serializable {
 		this.tercero = tercero;
 	}
 
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/10/2013
+	 * @return the sucursal
+	 */
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 15/10/2013
+	 * @param sucursal the sucursal to set
+	 */
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
+	}
 }

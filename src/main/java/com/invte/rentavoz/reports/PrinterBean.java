@@ -11,6 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import com.invte.rentavoz.vista.BaseBean;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -28,7 +30,7 @@ import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
  */
 @ManagedBean
 @ApplicationScoped
-public class PrinterBean {
+public class PrinterBean  extends BaseBean{
 
 	/**
 	 * 9/08/2013
@@ -131,7 +133,7 @@ public class PrinterBean {
 		
 		FacesContext.getCurrentInstance().responseComplete();
 		} catch (Exception e) {
-			e.printStackTrace();
+		
 		}
 	}
 	

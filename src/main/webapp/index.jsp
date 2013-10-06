@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Iniciando Rentavoz</title>
-        <jsp:forward page="dashboard.jsf"></jsp:forward>
+        <jsp:forward page="index.jsf"></jsp:forward>
     </head>
     <body>
         <h1>Bienvenid@ a Togashersa online</h1>

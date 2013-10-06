@@ -33,10 +33,12 @@
 
 						<div align="center">
 
-							<h:panelGrid>
+							<h:panelGrid columns="2">
 								<h:graphicImage value="/imagenes/innovateLogo.png" />
 								<a href="#{request.contextPath}/" type="button">Volver al
 									inicio</a>
+									
+								
 							</h:panelGrid>
 						</div>
 					</h:form>
@@ -76,7 +78,7 @@
 							<h:commandLink action="/inicio.jsf">
 								<h:graphicImage style="margin-left:10%"
 									url="/imagenes/dashboard/inventario.png"></h:graphicImage>
-								<f:setPropertyActionListener value="almacen"
+								<f:setPropertyActionListener value="bodega"
 									target="${administradorMenus.padre}" />
 								<f:actionListener binding="#{administradorMenus.listener}" />
 							</h:commandLink>
@@ -130,7 +132,10 @@
 	
 			
 	</h:panelGrid>
+
+	
 				<h:panelGrid style="float: right;margin-top: -10%">
+					<p:graphicImage url="/imagenes/coinv.png"></p:graphicImage>
 	<h:outputLabel value="Mi bandeja de tareas" styleClass="h1" />
 			<div >
 					<p:dataTable value="#{tareaBean.tareas}" var="tarea">

@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:bsi="http://java.sun.com/jsf/composite/bsi">
+
+
+	<ui:define name="content">
+		<h:form>
+			<h:outputLabel value="Gestion de Items de Bodega" class="h1" />
+			<h:panelGrid columns="2" rendered="#{!beanBodegaItem.form}">
+				<h:commandButton value="Nuevo Item de Bodega "
+					actionListener="${beanBodegaItem.verFormNuevo(true)}" />
+			</h:panelGrid>
+
+
+			<p:panel rendered="#{beanBodegaItem.form}"
+				header="Informacion del Item de bodega" style="width: 100%">
+
+				<p:graphicImage width="50px" height="50px"
+					rendered="#{beanBodegaItem.edit}"
+					url="/foto_item/#{beanBodegaItem.objeto.foto}"></p:graphicImage>
+				<h:panelGrid columns="3">
+					<h:outputLabel rendered="#{beanBodegaItem.edit}" value="Codigo :" />
+					<h:inputText rendered="#{beanBodegaItem.edit}" id="codDept"
+						disabled="#{beanBodegaItem.edit}"
+						value="#{beanBodegaItem.objeto.id}" required="true"
+						requiredMessage="Por favor digita un codigo valido" />
+					<p:message rendered="#{beanBodegaItem.edit}" for="codDept" />
+
+
+					<h:outputLabel value="Referencia(*) :" />
+					<h:inputText id="refItem" required="true"
+						requiredMessage="Por favor digita una referencia válida"
+						value="#{beanBodegaItem.objeto.referencia}" />
+					<p:message for="refItem" />
+					
+					<h:outputLabel value="Nombre(*) : " />
+					<h:inputText id="nomDept" value="#{beanBodegaItem.objeto.nombre}"
+						required="true"
+						requiredMessage="Por favor digita un nombre válido" />
+					<p:message for="nomDept" />
+
+
+					<h:outputLabel value="Descripcion :" />
+					<h:inputTextarea rows="5" cols="70" id="descItem"
+						value="#{beanBodegaItem.objeto.descripcion}" />
+					<p:message for="descItem" />
+
+
+
+
+
+					<h:outputText value="Foto" />
+					<p:fileUpload id="fotoLoad"
+						fileUploadListener="#{beanBodegaItem.uploadHandler}"
+						process="@this" uploadLabel="Cargar Foto"></p:fileUpload>
+					<p:message for="fotoLoad"></p:message>
+					<h:commandButton value="Aceptar"
+						action="#{beanBodegaItem.aceptar()}" />
+					<h:commandButton value="Cancelar" immediate="true"
+						action="#{beanBodegaItem.reglaNavegacion()}" />
+				</h:panelGrid>
+			</p:panel>
+
+			<p:dataTable rendered="#{!beanBodegaItem.form}" style="width: 100%"
+				value="#{beanBodegaItem.listado}" var="item"
+				emptyMessage="No hay registros">
+				<p:column style="width: 10%" headerText="Codigo"
+					filterBy="#{item.id}" filterMatchMode="contains"
+					styleClass="styleColumn">
+					<p:outputLabel value="#{item.id}" />
+				</p:column>
+				<p:column headerText="Nombre" styleClass="styleColumn"
+					filterBy="#{item.nombre}" filterMatchMode="contains">
+					<p:outputLabel value="#{item.nombre}" />
+				</p:column>
+				<p:column headerText="Descripcion" styleClass="styleColumn"
+					filterBy="#{item.descripcion}" filterMatchMode="contains">
+					<p:outputLabel value="#{item.descripcion}" />
+				</p:column>
+				<p:column width="7%">
+					<h:commandButton image="/imagenes/edit.png"
+						actionListener="${beanBodegaItem.renderizarItem(item, true)}" />
+					<h:commandLink onclick="pnl#{item.id}.show();">
+						<h:graphicImage url="/imagenes/delete.png" />
+
+					</h:commandLink>
+					<p:dialog widgetVar="pnl#{item.id}" closable="false"
+						header="Desea eliminar este Item ?" visible="false"
+						resizable="false">
+
+						<h:panelGrid columns="2">
+							<p:commandButton value="Eliminar" partialSubmit="true"
+								actionListener="#{beanBodegaItem.eliminarItem(item)}" />
+							<p:commandButton value="Cancelar" onclick="pnl#{item.id}.hide();" />
+						</h:panelGrid>
+
+					</p:dialog>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

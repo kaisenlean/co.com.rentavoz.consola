@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:bsi="http://java.sun.com/jsf/composite/bsi">
+
+
+	<ui:define name="content">
+		<h:form>
+			<h:outputLabel value="Ingresos de items a bodega" class="h1" />
+
+			<h:panelGrid columns="2" rendered="#{!beanIngresoBodega.form}">
+				<p:commandButton process="@this" update="@all"
+					value="Registrar Ingreso"
+					actionListener="#{beanIngresoBodega.verFormNuevo(true)}"></p:commandButton>
+			</h:panelGrid>
+
+
+			<p:panel rendered="#{beanIngresoBodega.form}"
+				header="Informacion del ${!beanIngresoBodega.edit?'Nuevo':''} Ingreso">
+
+				<h:panelGrid columns="3">
+
+					<h:outputText rendered="#{beanIngresoBodega.edit}"
+						value="Nro Factura" />
+					<h:inputText id="nroFacturaIngreso" disabled="true"
+						rendered="#{beanIngresoBodega.edit}"
+						value="#{beanIngresoBodega.objeto.nroFactura}"></h:inputText>
+					<p:message rendered="#{beanIngresoBodega.edit}"
+						for="nroFacturaIngreso"></p:message>
+
+					<h:outputText value="Fecha de Ingreso" />
+					<p:calendar id="fechaIngreso"
+						value="#{beanIngresoBodega.objeto.fechaIngreso}"
+						pattern="MM/dd/yyyy HH:mm"></p:calendar>
+					<p:message for="fechaIngreso"></p:message>
+					
+					<h:outputLabel value="Item a registrar :" />
+					<p:selectOneMenu  id="selItemReg" 
+						value="#{beanIngresoBodega.selItem}">
+						<p:ajax event="change" process="@this" listener="#{beanIngresoBodega.cambioItem}"></p:ajax>
+						<f:selectItems value="#{selectorItem.items}"></f:selectItems>
+					</p:selectOneMenu>
+					<p:message for="selItemReg" />
+					
+					<h:outputLabel value="Bodega de registro :" />
+					<p:selectOneMenu id="selSuc"
+						value="#{beanIngresoBodega.selSucursal}">
+						<p:ajax event="change" process="@this"></p:ajax>
+						<f:selectItems value="#{selectorSucursal.items}"></f:selectItems>
+					</p:selectOneMenu>
+					<p:message for="selSuc" />
+
+
+					<h:outputText value="Proveedor" />
+					<p:autoComplete size="100" style="width:800px"
+						id="proveedorIngreso"
+						value="#{beanIngresoBodega.autocompleteProveedor.query}"
+						completeMethod="#{beanIngresoBodega.autocompleteProveedor.completarBusqueda}">
+						<p:ajax event="itemSelect" update="@form" process="@this"
+							listener="#{beanIngresoBodega.autocompleteProveedor.seleccionar}">
+
+						</p:ajax>
+					</p:autoComplete>
+					<p:message for="proveedorIngreso"></p:message>
+
+
+					<h:outputText value="Comprador" />
+					<h:inputText id="compradorIngreso"
+						value="#{beanIngresoBodega.objeto.personaCompra}"></h:inputText>
+					<p:message for="compradorIngreso"></p:message>
+
+
+					<h:outputText value="Precio de compra" />
+					<h:inputText id="precioCompra"
+						value="#{beanIngresoBodega.objeto.precioCompra}"></h:inputText>
+					<p:message for="precioCompra"></p:message>
+
+
+
+					<h:outputLabel value="Observación :" />
+					<h:inputTextarea rows="5" cols="70" id="descItem"
+						value="#{beanIngresoBodega.objeto.descripcion}" />
+					<p:message for="descItem" />
+
+					
+
+
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="4" id="pnl1" >
+					
+						<h:outputText value="Producto ID :" />
+						<p:inputText value="#{beanIngresoBodega.productoId}"
+							onkeypress="if (event.keyCode == 13) { btnnnnnnn.jq.click();  return false; }"></p:inputText>
+						<p:commandButton id="btnnnnnnn" widgetVar="btnnnnnnn"
+							value="Añadir"
+							actionListener="#{beanIngresoBodega.addExistencia()}"
+							process="@all" update="@all"></p:commandButton>
+							<p:focus context="pnl1" ></p:focus>
+					</h:panelGrid>
+					<h:outputText value="Cantidad de existencias #{beanIngresoBodega.objeto.bodegaExistencias.size()}" />
+					<p:dataTable rows="20" paginator="true" id="taablata"
+						value="#{beanIngresoBodega.objeto.bodegaExistencias}"
+						var="existencia">
+						<p:column headerText="Imagen">
+							<p:graphicImage width="50px" height="50px"
+								url="/foto_item/#{existencia.bodegaItemBean.foto}"></p:graphicImage>
+						</p:column>
+						<p:column headerText="Item">
+							<h:outputText value="#{existencia.bodegaItemBean.nombre}" />
+						</p:column>
+						<p:column headerText="PID"  filterBy="#{existencia.barCode}" filterMatchMode="contains">
+							<h:outputText value="#{existencia.barCode}" />
+						</p:column>
+						<p:column>
+							<p:commandButton disabled="#{beanIngresoBodega.edit}" value="Delete" process="@this" update="@all"
+								actionListener="#{beanIngresoBodega.objeto.removeBodegaExistencia(existencia)}"></p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:commandButton disabled="#{beanIngresoBodega.edit}" action="#{beanIngresoBodega.aceptar()}"
+						value="Guardar"></h:commandButton>
+					<h:commandButton value="Cancelar" immediate="true"
+						action="#{beanIngresoBodega.reglaNavegacion()}"></h:commandButton>
+				</h:panelGrid>
+
+
+			</p:panel>
+
+			<p:dataTable rendered="#{!beanIngresoBodega.form}"
+				value="#{beanIngresoBodega.listado}" var="ingreso" rows="25"
+				paginator="true">
+				<p:column headerText="Codigo" filterBy="#{ingreso.id}"
+					filterMatchMode="contains">
+					<h:outputText value="#{ingreso.id}" />
+				</p:column>
+
+				<p:column headerText="Numero de factura"
+					filterBy="#{ingreso.nroFactura}" filterMatchMode="contains">
+					<h:outputText value="#{ingreso.nroFactura}" />
+				</p:column>
+
+
+				<p:column headerText="Numero de items"
+					 >
+					<h:outputText value="#{ingreso.bodegaExistencias.size()}" />
+				</p:column>
+				
+				<p:column headerText="Fecha de Ingreso"
+					filterBy="#{ingreso.fechaIngreso}" filterMatchMode="contains">
+					<h:outputText value="#{ingreso.fechaIngreso}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+
+				</p:column>
+
+
+				<p:column headerText="Comprador" filterBy="#{ingreso.personaCompra}"
+					filterMatchMode="contains">
+					<h:outputText value="#{ingreso.personaCompra}" />
+				</p:column>
+
+
+
+				<p:column headerText="Proveedor" filterBy="#{ingreso.proveedor}"
+					filterMatchMode="contains">
+					<h:outputText value="#{ingreso.proveedor}" />
+				</p:column>
+
+
+				<p:column headerText="Observación" filterBy="#{ingreso.descripcion}"
+					filterMatchMode="contains">
+					<h:outputText value="#{ingreso.descripcion}" />
+				</p:column>
+
+				<p:column>
+					<h:commandButton image="/imagenes/edit.png" value="Editar"
+						actionListener="#{beanIngresoBodega.renderizarItem(ingreso,true)}"></h:commandButton>
+					<h:commandLink onclick="pnl#{ingreso.id}.show();">
+						<h:graphicImage url="/imagenes/delete.png" />
+
+					</h:commandLink>
+					<p:dialog widgetVar="pnl#{ingreso.id}" closable="false"
+						header="Desea eliminar este Item ?" visible="false"
+						resizable="false">
+
+						<h:panelGrid columns="2">
+							<p:commandButton value="Eliminar" partialSubmit="true"
+								actionListener="#{beanIngresoBodega.eliminarItem(ingreso)}" />
+							<p:commandButton value="Cancelar"
+								onclick="pnl#{ingreso.id}.hide();" />
+
+						</h:panelGrid>
+
+					</p:dialog>
+
+				</p:column>
+			</p:dataTable>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

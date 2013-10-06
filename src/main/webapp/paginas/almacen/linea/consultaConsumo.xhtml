@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+	<ui:define name="content">
+		<h:form id="form" style="width:100%">
+			<h:outputLabel value="Actualizacion de consumo de lineas" class="h1" />
+			<p:autoComplete size="100" style="width:800px" id="autocomp"
+				widgetVar="autocomp"
+				value="#{consultaLineaConsumo.autocompleteLinea.query}"
+				completeMethod="#{consultaLineaConsumo.autocompleteLinea.completarBusqueda}">
+				<p:ajax event="itemSelect" update="@all"
+					listener="#{consultaLineaConsumo.autocompleteLinea.seleccionar}">
+				</p:ajax>
+			</p:autoComplete>
+
+
+			<p:dataTable value="#{consultaLineaConsumo.consumos}" var="consumo">
+				<p:column headerText="Fecha">
+					<h:outputText value="#{consumo.fecha}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+
+				</p:column>
+
+				<p:column headerText="Claro">
+					<h:outputText value="#{consumo.claro}">
+					</h:outputText>
+
+				</p:column>
+
+				<p:column headerText="Fijo">
+					<h:outputText value="#{consumo.fijo}">
+					</h:outputText>
+
+				</p:column>
+
+				<p:column headerText="Otros operadores">
+					<h:outputText value="#{consumo.otros}">
+					</h:outputText>
+
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

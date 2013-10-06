@@ -45,10 +45,13 @@
                 <p:column headerText="Nombre" styleClass="styleColumn" filterBy="#{item.ciuNombre}" filterMatchMode="contains">
                     <p:outputLabel value="#{item.ciuNombre}"/>
                 </p:column>
-                <p:column headerText="Departamento" styleClass="styleColumn" sortBy="#{item.departamentoidDepartamento.depNombre}" filterBy="#{item.departamentoidDepartamento.depNombre}" filterMatchMode="contains">
-                    <p:outputLabel value="#{item.departamentoidDepartamento.depNombre}"/>
-                </p:column>
-                <p:column width="7%">
+				<p:column headerText="Departamento" styleClass="styleColumn"
+					sortBy="#{item.departamentoidDepartamento.depNombre}"
+					filterBy="#{item.departamentoidDepartamento.depNombre}"
+					filterMatchMode="contains">
+					<p:outputLabel value="#{item.departamentoidDepartamento.depNombre}" />
+				</p:column>
+				<p:column width="7%">
                     <h:commandButton image="/imagenes/edit.png" actionListener="${beanCiudad.renderizarItem(item, true)}"/>
                     <h:commandLink  onclick="pnl#{item.ciuNombre}.show();"  >
                         <h:graphicImage url="/imagenes/delete.png"/>

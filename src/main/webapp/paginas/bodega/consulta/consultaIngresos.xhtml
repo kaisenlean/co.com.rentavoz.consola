@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+	<ui:define name="content">
+		<h:form id="form" style="width:100%">
+			<h:outputLabel value="Consulta de Ingreso de Existencias" class="h1" />
+			<h:panelGrid columns="4">
+				<h:outputText value="Fecha inicio : " />
+				<p:calendar value="#{beanConsultaIngresos.start}"
+					pattern="dd/MM/yyyy"></p:calendar>
+
+				<h:outputText value="Fecha Fin : " />
+				<p:calendar value="#{beanConsultaIngresos.end}" pattern="dd/MM/yyyy"></p:calendar>
+			</h:panelGrid>
+
+			<p:commandButton value="Buscar"
+				actionListener="#{beanConsultaIngresos.buscar()}" process="@all"
+				update="@all"></p:commandButton>
+
+			<p:dataTable paginator="true" rows="50"
+				value="#{beanConsultaIngresos.existencias}" var="existencia">
+				<p:column headerText="Fecha">
+					<h:outputText value="#{existencia.bodegaIngreso.fechaIngreso}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+
+				</p:column>
+
+				<p:column headerText="Item" sortBy="#{existencia.bodegaItemBean.nombre}" filterBy="#{existencia.bodegaItemBean.nombre}"
+					filterMatchMode="contains">
+					<h:outputText value="#{existencia.bodegaItemBean.nombre}">
+					</h:outputText>
+
+				</p:column>
+				
+					<p:column headerText="Referencia" sortBy="#{existencia.bodegaItemBean.referencia}" filterBy="#{existencia.bodegaItemBean.referencia}"
+					filterMatchMode="contains">
+					<h:outputText value="#{existencia.bodegaItemBean.referencia}">
+					</h:outputText>
+
+				</p:column>
+				
+				<p:column headerText="Precio compra"  sortBy="#{existencia.bodegaIngreso.precioCompra}">
+					<h:outputText value="#{existencia.bodegaIngreso.precioCompra}">
+					<f:convertNumber type="currency"/>
+					</h:outputText>
+
+				</p:column>
+
+
+				<p:column headerText="PID" filterBy="#{existencia.barCode}"
+					filterMatchMode="contains">
+					<h:outputText value="#{existencia.barCode}">
+					</h:outputText>
+
+				</p:column>
+				<p:column headerText="Sucursal" filterBy="#{existencia.sucursal}"
+					filterMatchMode="contains">
+					<h:outputText value="#{existencia.sucursal}">
+					</h:outputText>
+
+				</p:column>
+
+
+
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
