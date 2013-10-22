@@ -25,7 +25,7 @@
 				<h:panelGrid columns="3">
 
 					<h:outputText rendered="#{beanIngresoBodega.edit}"
-						value="Nro Factura" />
+						value="Consecutivo" />
 					<h:inputText id="nroFacturaIngreso" disabled="true"
 						rendered="#{beanIngresoBodega.edit}"
 						value="#{beanIngresoBodega.objeto.nroFactura}"></h:inputText>
@@ -67,11 +67,17 @@
 					</p:autoComplete>
 					<p:message for="proveedorIngreso"></p:message>
 
+		<h:outputText value="Numero de factura" />
+					<h:inputText id="consecFactura"
+						value="#{beanIngresoBodega.objeto.consecutivoFactura}"></h:inputText>
+					<p:message for="consecFactura"></p:message>
 
 					<h:outputText value="Comprador" />
 					<h:inputText id="compradorIngreso"
 						value="#{beanIngresoBodega.objeto.personaCompra}"></h:inputText>
 					<p:message for="compradorIngreso"></p:message>
+					
+					
 
 
 					<h:outputText value="Precio de compra" />
@@ -106,13 +112,13 @@
 					<p:dataTable rows="20" paginator="true" id="taablata"
 						value="#{beanIngresoBodega.objeto.bodegaExistencias}"
 						var="existencia">
-						<p:column headerText="Imagen">
-							<p:graphicImage width="50px" height="50px"
-								url="/foto_item/#{existencia.bodegaItemBean.foto}"></p:graphicImage>
-						</p:column>
-						<p:column headerText="Item">
-							<h:outputText value="#{existencia.bodegaItemBean.nombre}" />
-						</p:column>
+<!-- 						<p:column headerText="Imagen"> -->
+<!-- 							<p:graphicImage width="50px" height="50px" -->
+<!-- 								url="/foto_item/#{existencia.bodegaItemBean.foto}"></p:graphicImage> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column headerText="Item"> -->
+<!-- 							<h:outputText value="#{existencia.bodegaItemBean.nombre}" /> -->
+<!-- 						</p:column> -->
 						<p:column headerText="PID"  filterBy="#{existencia.barCode}" filterMatchMode="contains">
 							<h:outputText value="#{existencia.barCode}" />
 						</p:column>
@@ -133,7 +139,7 @@
 			</p:panel>
 
 			<p:dataTable rendered="#{!beanIngresoBodega.form}"
-				value="#{beanIngresoBodega.listado}" var="ingreso" rows="25"
+				value="#{beanIngresoBodega.listado}" var="ingreso" rows="30"
 				paginator="true">
 				<p:column headerText="Codigo" filterBy="#{ingreso.id}"
 					filterMatchMode="contains">

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:bsi="http://java.sun.com/jsf/composite/bsi">
+
+
+	<ui:define name="content">
+		<h:form>
+			<h:outputLabel value="Consulta General de existencias" class="h1" />
+<br/>
+
+<h:panelGrid columns="2">
+			<p:commandButton process="@this"
+				actionListener="#{beanReporteExistencias.consultar()}" update="@all"
+				value="Realizar Consulta"></p:commandButton>
+	<p:commandButton disabled="#{beanReporteExistencias.bodegaItems.size() == 0}" ajax="false" process="@this" actionListener="#{beanReporteExistencias.imprimirReporteGeneral()}" value="Imprimir"></p:commandButton>
+</h:panelGrid>
+			<p:dataTable paginator="true" rows="30"
+				value="#{beanReporteExistencias.bodegaItems}" var="bi">
+				<p:column>
+							
+				<p:rowToggler ></p:rowToggler>
+				</p:column>
+				
+				<p:column headerText="Nombre">
+					<h:outputText value="#{bi.nombre}" />
+				</p:column>
+
+				<p:column headerText="Referencia">
+					<h:outputText value="#{bi.referencia}">
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Descripcion">
+					<h:outputText value="#{bi.descripcion}" />
+				</p:column>
+
+				<p:column headerText="Precio de venta">
+					<h:outputText value="#{bi.precioVenta}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+				</p:column>
+				
+				
+				<p:column headerText="Cantidad disponible">
+					<h:outputText value="#{bi.existenciasPorSucursal.size()} Unidad(es)">
+					</h:outputText>
+				</p:column>
+				
+
+<p:rowExpansion>
+<p:dataTable value="#{bi.existenciasPorSucursal}" var="eps" style="width:30%;">
+<p:column headerText="PID" style="background-color: white;">
+<h:outputLabel value="#{eps.barCode}" />
+</p:column>
+</p:dataTable>
+
+</p:rowExpansion>				
+
+
+
+
+
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

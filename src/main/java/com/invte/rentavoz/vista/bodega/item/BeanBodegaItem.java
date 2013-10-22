@@ -37,6 +37,13 @@ public class BeanBodegaItem extends StandardAbm<BodegaItem> implements
 		Serializable {
 
 	/**
+	 * 21/10/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * DIAS_GARANTIA_DEFAULT
+	 */
+	private static final int DIAS_GARANTIA_DEFAULT = 30;
+
+	/**
 	 * 6/10/2013
 	 * 
 	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
@@ -64,6 +71,8 @@ public class BeanBodegaItem extends StandardAbm<BodegaItem> implements
 	private InputStream in1;
 
 	private String nombreArchivo;
+
+	private OutputStream out;
 
 	/*
 	 * (non-Javadoc)
@@ -130,7 +139,7 @@ public class BeanBodegaItem extends StandardAbm<BodegaItem> implements
 
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see com.invte.rentavoz.vista.StandardAbm#postAction()
@@ -148,7 +157,15 @@ public class BeanBodegaItem extends StandardAbm<BodegaItem> implements
 		}
 	}
 
-	/*
+	/* (non-Javadoc)
+	 * @see com.invte.rentavoz.vista.StandardAbm#postFormNuevo()
+	 */
+	@Override
+	public void postFormNuevo() {
+		getObjeto().setDiasGarantia(DIAS_GARANTIA_DEFAULT);
+	}
+	
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see com.invte.rentavoz.vista.StandardAbm#preAction()
@@ -200,7 +217,7 @@ public class BeanBodegaItem extends StandardAbm<BodegaItem> implements
 
 		String path = request.getRealPath("/");
 
-		OutputStream out = new FileOutputStream(path + "foto_item" + "/"
+		out = new FileOutputStream(path + "foto_item" + "/"
 				+ getObjeto().getId() + nombreArchivo);
 		getObjeto().setFoto(getObjeto().getId() + nombreArchivo);
 		if (in1 != null) {

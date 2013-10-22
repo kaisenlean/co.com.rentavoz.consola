@@ -126,7 +126,7 @@ public class BeanSalidaItem extends StandardAbm<BodegaSalida> implements
 	 */
 	@Override
 	public void initialize() {
-sucursalDestino=login.getSucursal()==null?0:login.getSucursal().getIdSucursal();
+		sucursalOrigen=login.getSucursal()==null?0:login.getSucursal().getIdSucursal();
 	}
 	
 	/* (non-Javadoc)

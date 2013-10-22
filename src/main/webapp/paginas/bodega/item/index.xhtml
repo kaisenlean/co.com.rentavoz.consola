@@ -39,11 +39,39 @@
 					<p:message for="refItem" />
 					
 					<h:outputLabel value="Nombre(*) : " />
-					<h:inputText id="nomDept" value="#{beanBodegaItem.objeto.nombre}"
+					<h:inputText id="colItem" value="#{beanBodegaItem.objeto.nombre}"
+						required="false"
+						requiredMessage="Por favor digita un nombre válido" />
+					<p:message for="colItem" />
+
+						<h:outputLabel value="Color : " />
+					<h:inputText id="nomDept" value="#{beanBodegaItem.objeto.color}"
 						required="true"
 						requiredMessage="Por favor digita un nombre válido" />
 					<p:message for="nomDept" />
+					
+					
+					
+						<h:outputLabel value="Precio de  Venta : " />
+					<h:inputText id="prcVenta" value="#{beanBodegaItem.objeto.precioVenta}"
+						required="false"
+						requiredMessage="Por favor digita un precio de venta válido" />
+					<p:message for="prcVenta" />
+					
+						<h:outputLabel value="Días de Garantía : " />
+					<h:inputText id="diasGarantia" value="#{beanBodegaItem.objeto.diasGarantia}"
+						required="false"
+						requiredMessage="Por favor digita unos dias de garantia válido" />
+					<p:message for="diasGarantia" />
 
+
+		
+						<h:outputLabel value="Numero de Imei's : " />
+					<h:inputText id="cantidadImei" value="#{beanBodegaItem.objeto.cantidadImei}"
+						required="false"
+						requiredMessage="Por favor digita unos dias de garantia válido" />
+					<p:message for="cantidadImei" />
+										
 
 					<h:outputLabel value="Descripcion :" />
 					<h:inputTextarea rows="5" cols="70" id="descItem"
@@ -68,6 +96,7 @@
 
 			<p:dataTable rendered="#{!beanBodegaItem.form}" style="width: 100%"
 				value="#{beanBodegaItem.listado}" var="item"
+				paginator="true" rows="30"
 				emptyMessage="No hay registros">
 				<p:column style="width: 10%" headerText="Codigo"
 					filterBy="#{item.id}" filterMatchMode="contains"

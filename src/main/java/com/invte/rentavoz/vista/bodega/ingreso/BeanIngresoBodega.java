@@ -88,6 +88,7 @@ public class BeanIngresoBodega extends StandardAbm<BodegaIngreso> implements
 	private int selSucursal=0;
 
 	private BodegaItem item;
+	private BodegaExistencia existemp=new BodegaExistencia();
 	/**
 	 * (non-Javadoc)
 	 * 
@@ -250,6 +251,7 @@ public boolean preAction() {
  */
 public void cambioItem(){
 	 item=bodegaItemFacade.find(selItem);
+	 existemp=new BodegaExistencia();
 	
 }
 
@@ -259,6 +261,7 @@ public void cambioItem(){
 * @date 6/10/2013
  */
 public void addExistencia(){
+
 	if (item==null) {
 		mensajeError("Selecciona un item");
 		return;
@@ -267,7 +270,13 @@ public void addExistencia(){
 		mensajeError("Digita un PID válido");
 		return;
 	}
-	BodegaExistencia existemp=new BodegaExistencia();
+	
+	item.setContadorImei(item.getContadorImei()+1);
+	
+	if (item.getCantidadImei()==item.getContadorImei()) {
+
+	
+
 	existemp.setBarCode(productoId);
 	existemp.setBodegaItemBean(item);
 	existemp.setSucursal(login.getSucursal());
@@ -276,8 +285,53 @@ public void addExistencia(){
 		return;
 	}
 	getObjeto().addBodegaExistencia(existemp);
+	existemp=new BodegaExistencia();
 	productoId="";
+	item.setContadorImei(0);
+	return;
+	}else{
+		
+		if (item.getContadorImei()==2) {
+			existemp.setBarCode2(productoId);
+			if (item.getCantidadImei()==2) {
 
+				existemp.setBarCode(productoId);
+				existemp.setBodegaItemBean(item);
+				existemp.setSucursal(login.getSucursal());
+				if (getObjeto().getBodegaExistencias().contains(existemp)) {
+					mensajeError("Este PID ya está en la lista");
+					return;
+				}
+				getObjeto().addBodegaExistencia(existemp);
+				existemp=new BodegaExistencia();
+				productoId="";
+				item.setContadorImei(0);
+				return;
+			}
+		}
+	
+
+		if (item.getContadorImei()==3) {
+			existemp.setBarCode2(productoId);
+			if (item.getCantidadImei()==3) {
+
+				existemp.setBarCode(productoId);
+				existemp.setBodegaItemBean(item);
+				existemp.setSucursal(login.getSucursal());
+				if (getObjeto().getBodegaExistencias().contains(existemp)) {
+					mensajeError("Este PID ya está en la lista");
+					return;
+				}
+				getObjeto().addBodegaExistencia(existemp);
+				existemp=new BodegaExistencia();
+				productoId="";
+				item.setContadorImei(0);
+				return;
+			}
+		}
+		productoId="";	
+	}
+	
 }
 
 	/**

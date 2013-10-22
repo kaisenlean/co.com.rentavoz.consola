@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:bsi="http://java.sun.com/jsf/composite/bsi">
+
+
+	<ui:define name="content">
+		<h:form>
+			<h:outputLabel value="Consulta de existencias" class="h1" />
+			<h:panelGrid columns="3">
+			
+			<h:outputText value="Item :" />
+					<p:autoComplete size="100" style="width:400px"
+						id="buscadorItemExistencia"
+						value="#{beanReporteExistencias.autocompleteItem.query}"
+						completeMethod="#{beanReporteExistencias.autocompleteItem.completarBusqueda}">
+						<p:ajax event="itemSelect" update="@all" process="@this"
+							listener="#{beanReporteExistencias.autocompleteItem.seleccionar}">
+
+						</p:ajax>
+					</p:autoComplete>
+					<p:message for="buscadorItemExistencia"></p:message>
+			</h:panelGrid>
+			<p:commandButton disabled="#{beanReporteExistencias.bodegaItem == null}" ajax="false" process="@this" actionListener="#{beanReporteExistencias.imprimirReporte()}" value="Imprimir"></p:commandButton>
+			<p:dataTable style="width:50%" paginator="true" rows="30" value="#{beanReporteExistencias.existencias}" var="existencia">
+			<p:column headerText="Referencia">
+			<h:outputText value="#{existencia.barCode}" />
+			</p:column>
+			<p:column headerText="Estado">
+			<h:outputText value="#{existencia.estadoAsString}" />
+			</p:column>
+			
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
