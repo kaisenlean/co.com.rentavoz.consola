@@ -9,6 +9,6 @@
         <jsp:forward page="index.jsf"></jsp:forward>
     </head>
     <body>
-        <h1>Bienvenid@ a Togashersa online</h1>
+        <h1>Bienvenid@ a Rentavoz</h1>
     </body>
 </html>

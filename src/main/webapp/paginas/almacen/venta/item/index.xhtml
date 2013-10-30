@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/plantilla/siteThm.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:bsi="http://java.sun.com/jsf/composite/bsi">
+
+
+	<ui:define name="content">
+		<h:form>
+			<h:outputLabel value="Venta de Items de Bodega" class="h1" />
+
+			<h:panelGrid columns="2" cellspacing="5" cellpadding="5">
+				<h:outputText value="Vendedor" />
+
+				<h:outputLabel style="font-weight: bolder;"
+					value="#{beanVentaItem.venta.vendedor}" />
+
+
+				<h:outputText value="Fecha de venta" />
+				<h:outputLabel style="font-weight: bolder;"
+					value="#{beanVentaItem.venta.fecha}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputLabel>
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+				<h:outputText value="Cliente" />
+				<p:autoComplete size="50" style="width:400px" id="proveedorIngreso"
+					value="#{beanVentaItem.autocompleteTercero.query}"
+					completeMethod="#{beanVentaItem.autocompleteTercero.completarBusqueda}">
+					<p:ajax event="itemSelect" update="@all" process="@this"
+						listener="#{beanVentaItem.autocompleteTercero.seleccionar}">
+
+					</p:ajax>
+				</p:autoComplete>
+				<p:commandButton value="Nuevo Cliente"
+					onclick="dlgNewCliente.show();"></p:commandButton>
+
+			</h:panelGrid>
+			<p:dialog appendToBody="true" widgetVar="dlgNewCliente"
+				visible="false" closable="false" draggable="false"
+				header="Nuevo Cliente" resizable="false">
+				<h:form>
+
+					<h:panelGrid columns="3">
+						<h:outputText value="Nombres (*)" />
+						<h:inputText id="txtNameTercero"
+							value="#{beanVentaItem.tercero.terNombre}" required="true"
+							requiredMessage="Por favor digita un nombre válido" />
+						<p:messages for="txtNameTercero"></p:messages>
+
+						<h:outputText value="Apellidos (*)" />
+						<h:inputText id="txtApellidos"
+							value="#{beanVentaItem.tercero.terApellidos}" required="true"
+							requiredMessage="Por favor digita un apellido válido" />
+						<p:messages for="txtApellidos"></p:messages>
+
+
+
+						<h:outputText value="Documento " />
+						<p:inputText id="txtDoc"
+							value="#{beanVentaItem.tercero.terDocumento}" />
+						<p:messages for="txtDoc"></p:messages>
+
+						<h:outputText value="Direccion " />
+						<h:inputText id="txtDireccion"
+							value="#{beanVentaItem.tercero.terDireccion}" />
+						<p:messages for="txtDireccion"></p:messages>
+
+
+
+						<h:outputText value="Teléfono " />
+						<h:inputText id="txtTelefono"
+							value="#{beanVentaItem.tercero.terTelefono}" />
+						<p:messages for="txtTelefono"></p:messages>
+
+
+						<p:commandButton value="Guardar" partialSubmit="true"
+							process="txtTelefono,txtDireccion,txtDoc,txtApellidos,txtNameTercero,@this"
+							update="@all"
+							actionListener="#{beanVentaItem.crearNuevoTercero()}"></p:commandButton>
+						<p:commandButton value="Cancelar" immediate="true"
+							onclick="dlgNewCliente.hide();"></p:commandButton>
+
+
+
+					</h:panelGrid>
+
+				</h:form>
+			</p:dialog>
+
+			<p:panel header="Existencias">
+
+				<h:panelGrid columns="4">
+					<h:outputText value="Producto ID :" />
+					<p:inputText id="txtpid" value="#{beanVentaItem.productoId}"
+						onkeypress="if (event.keyCode == 13) { aceptBtn.jq.click();  return false; }"></p:inputText>
+					<p:commandButton id="aceptBtn" widgetVar="aceptBtn" value="Añadir"
+						actionListener="#{beanVentaItem.addExistencia()}" process="@all"
+						update="@all"></p:commandButton>
+					<p:focus for="txtpid"></p:focus>
+				</h:panelGrid>
+
+
+				<p:dataTable value="#{beanVentaItem.venta.existencias}"
+					var="detalle" style="width:50%">
+
+					<p:column headerText="Referencia">
+						<h:outputText value="#{detalle.existencia.bodegaItemBean.nombre}" />
+					</p:column>
+
+					<p:column headerText="Producto ID">
+						<h:outputText value="#{detalle.existencia.barCode}" />
+					</p:column>
+
+					<p:column headerText="Precio de Venta">
+						<h:outputText
+							value="#{detalle.existencia.bodegaItemBean.precioVenta}">
+							<f:convertNumber type="currency" />
+						</h:outputText>
+
+					</p:column>
+					<p:column>
+						<p:commandButton value="Eliminar"
+							actionListener="#{beanVentaItem.eliminarExistencia(detalle)}"
+							process="@this" update="@all"></p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+
+			<h:panelGrid columns="2">
+			<h:outputText value="Cuenta" />
+			<p:selectOneMenu value="#{beanVentaItem.idCuenta}" >
+			<f:selectItems value="#{selectorCuentas.items}"/>
+			<p:ajax event="change" process="@this"></p:ajax>
+			</p:selectOneMenu>
+			
+			</h:panelGrid>
+
+			<p:panel header="Modalidad de pago">
+				<p:selectOneMenu value="#{beanVentaItem.modoPago}">
+				<f:selectItems value="#{selectorModoPago.items}"></f:selectItems>
+				<p:ajax event="change" process="@this" update="@all"></p:ajax>
+				</p:selectOneMenu>
+				
+				<p:panel header="Cuotas" rendered="#{beanVentaItem.modoPago eq 'CUOTA'}">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Valor cuota"></p:outputLabel>
+						<p:inputText value="#{beanVentaItem.cuota.valor}"></p:inputText>
+						
+						<p:outputLabel value="Fecha de cierre"></p:outputLabel>
+						<p:calendar pattern="dd/MM/yyyy" value="#{beanVentaItem.cuota.fechaCierre}"></p:calendar>
+						
+						<p:outputLabel value="Estado"></p:outputLabel>
+						<p:selectOneMenu value="#{beanVentaItem.estadoCuota}">
+						<f:selectItems value="#{selectorEstadoCuota.items}"/>
+						<p:ajax event="change" process="@this"></p:ajax>
+						</p:selectOneMenu>
+						
+						<p:commandButton process="@all" update="@all" value="Agregar" actionListener="#{beanVentaItem.agregarCuota()}"></p:commandButton>
+						
+					</h:panelGrid>		
+					
+					<p:dataTable value="#{beanVentaItem.venta.cuotas}" var="cuota" style="width:50%">
+					<p:column headerText="Valor">
+					<h:outputLabel value="#{cuota.valor}" >
+					<f:convertNumber type="currency"/>
+					</h:outputLabel>
+					
+					</p:column>
+					<p:column headerText="Fecha de cierre">
+						<h:outputLabel value="#{cuota.fechaCierre}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputLabel>
+					</p:column>
+					
+					<p:column>
+					<p:commandButton value="Eliminar" actionListener="#{beanVentaItem.eliminarCuota(cuota)}" process="@this" update="@all"></p:commandButton>
+					</p:column>
+					</p:dataTable>		
+				
+				</p:panel>
+			</p:panel>
+
+
+			<h:panelGrid columns="2">
+				<h:outputText style="font-weight: bolder;;font-size: 18px;"
+					value="Valor a Pagar" />
+				<h:outputLabel
+					style="font-weight: bolder;color:red;font-size: 18px;"
+					value="#{beanVentaItem.venta.valorPagar}">
+					<f:convertNumber type="currency" />
+				</h:outputLabel>
+
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+			<h:outputText style="font-weight: bolder" value="Descuento" />
+			<h:inputText value="#{beanVentaItem.venta.descuento}" id="txtDescuento" />
+			</h:panelGrid>
+			<h:panelGrid>
+			<h:outputLabel value="Observación" style="font-weight: bolder" />
+			<p:inputTextarea value="#{beanVentaItem.venta.observacion}" cols="40" rows="7">
+			
+			</p:inputTextarea>
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2">
+			<p:commandButton ajax="false" value="Guardar Venta" actionListener="#{beanVentaItem.guardarVenta()}" process="@this,txtDescuento"  update="@all"></p:commandButton>
+			</h:panelGrid>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -60,8 +60,6 @@ public abstract class AutocompleteItem extends Autocompletar<BodegaItem> {
 			return ;
 		}
 		String valor = evt.getObject().toString();
-//		String id = obtenerId(valor);
-//		Integer val = Integer.parseInt(id);
 		seleccionado= getFacade().findByNombre(valor);
 		query = seleccionado!=null?seleccionado.toString():null;
 		postSelect();
@@ -75,6 +73,7 @@ public abstract class AutocompleteItem extends Autocompletar<BodegaItem> {
 	 * @param valor
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private String obtenerId(String valor) {
 
 		String id = "";

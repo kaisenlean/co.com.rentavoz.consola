@@ -28,31 +28,33 @@
 					<h:inputText id="nroFacturaIngreso" disabled="true"
 						rendered="#{beanSalidaItem.edit}"
 						value="#{beanSalidaItem.objeto.nroFactura}"></h:inputText>
-					<p:message rendered="#{beanSalidaItem.edit}"  for="nroFacturaIngreso"></p:message>
+					<p:message rendered="#{beanSalidaItem.edit}"
+						for="nroFacturaIngreso"></p:message>
 
 					<h:outputText value="Fecha de Salida" />
 					<p:calendar id="fechaIngreso"
-						value="#{beanSalidaItem.objeto.fechaSalida}"
-						pattern="dd/MM/yyyy"></p:calendar>
+						value="#{beanSalidaItem.objeto.fechaSalida}" pattern="dd/MM/yyyy"></p:calendar>
 					<p:message for="fechaIngreso"></p:message>
 
 
 					<h:outputText value="Sucursal de Origen" />
-					<p:selectOneMenu disabled="true"  id="sucOrigen" value="#{beanSalidaItem.sucursalOrigen}">
-					<p:ajax event="change" process="@this"></p:ajax>
-					<f:selectItems value="#{selectorSucursal.items}"/>
+					<p:selectOneMenu disabled="true" id="sucOrigen"
+						value="#{beanSalidaItem.sucursalOrigen}">
+						<p:ajax event="change" process="@this"></p:ajax>
+						<f:selectItems value="#{selectorSucursal.items}" />
 					</p:selectOneMenu>
 					<p:message for="sucOrigen"></p:message>
 
 
 
 					<h:outputText value="Sucursal Destino" />
-					<p:selectOneMenu  id="sucDestino" value="#{beanSalidaItem.sucursalDestino}">
-					<p:ajax event="change" process="@this"></p:ajax>
-					<f:selectItems value="#{selectorSucursal.items}"/>
+					<p:selectOneMenu id="sucDestino"
+						value="#{beanSalidaItem.sucursalDestino}">
+						<p:ajax event="change" process="@this"></p:ajax>
+						<f:selectItems value="#{selectorSucursal.items}" />
 					</p:selectOneMenu>
 					<p:message for="sucDestino"></p:message>
-			
+
 
 					<h:outputLabel value="Recibe :" />
 					<h:inputText id="recibePersona"
@@ -64,42 +66,55 @@
 						value="#{beanSalidaItem.objeto.observacion}" />
 					<p:message for="descItem" />
 
-			
 
 
-					
-					
+
+
+
 				</h:panelGrid>
-				
+
 				<h:panelGrid columns="1">
+					<h:panelGrid columns="3">
+						<h:outputText value="Producto ID :" />
+						<p:inputText value="#{beanSalidaItem.productoId}"
+							onkeypress="if (event.keyCode == 13) { btnnnnnnn.jq.click();  return false; }"></p:inputText>
+						<p:commandButton id="btnnnnnnn" widgetVar="btnnnnnnn"
+							value="Añadir" actionListener="#{beanSalidaItem.addExistencia()}"
+							process="@all" update="@all"></p:commandButton>
+					</h:panelGrid>
+
+					<p:dataTable id="taablata"
+						value="#{beanSalidaItem.objeto.bodegaSalidaReferencias}"
+						var="existencia">
+						<p:column headerText="Item">
+							<h:outputText
+								value="#{existencia.bodegaExistencia.bodegaItemBean.nombre}" />
+						</p:column>
+						<p:column headerText="PID">
+							<h:outputText value="#{existencia.bodegaExistencia.barCode}" />
+						</p:column>
+						<p:column>
+							<p:commandButton disabled="#{beanSalidaItem.edit}" value="Delete"
+								process="@this" update="@all"
+								actionListener="#{beanSalidaItem.objeto.removeBodegaSalidaReferencia(existencia)}"></p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
 				<h:panelGrid columns="3">
-				<h:outputText value="Producto ID :" />
-				<p:inputText   value="#{beanSalidaItem.productoId}" onkeypress="if (event.keyCode == 13) { btnnnnnnn.jq.click();  return false; }" ></p:inputText>
-				<p:commandButton  id="btnnnnnnn" widgetVar="btnnnnnnn" value="Añadir" actionListener="#{beanSalidaItem.addExistencia()}" process="@all" update="@all"></p:commandButton>
-				</h:panelGrid>
-				
-				<p:dataTable id="taablata" value="#{beanSalidaItem.objeto.bodegaSalidaReferencias}" var="existencia">
-				<p:column headerText="Item">
-				<h:outputText value="#{existencia.bodegaExistencia.bodegaItemBean.nombre}" />
-				</p:column>
-				<p:column headerText="PID">
-				<h:outputText value="#{existencia.bodegaExistencia.barCode}" />
-				</p:column>
-				<p:column>
-				<p:commandButton disabled="#{beanSalidaItem.edit}" value="Delete" process="@this" update="@all" actionListener="#{beanSalidaItem.objeto.removeBodegaSalidaReferencia(existencia)}"></p:commandButton>
-				</p:column>
-				</p:dataTable>
-				</h:panelGrid>
-				<h:panelGrid columns="2">
-				<h:commandButton disabled="#{beanSalidaItem.edit}" action="#{beanSalidaItem.aceptar()}"  value="Guardar"></h:commandButton>
-				<h:commandButton value="Cancelar" immediate="true"  action="#{beanSalidaItem.reglaNavegacion()}"></h:commandButton>
+					<h:commandButton disabled="#{beanSalidaItem.edit}"
+						action="#{beanSalidaItem.aceptar()}" value="Guardar"></h:commandButton>
+					<h:commandButton value="Cancelar" immediate="true"
+						action="#{beanSalidaItem.reglaNavegacion()}"></h:commandButton>
+					<p:commandButton ajax="false" value="Imprimir"
+						actionListener="#{beanSalidaItem.imprimir()}"></p:commandButton>
 				</h:panelGrid>
 
 
 			</p:panel>
 
-			<p:dataTable rendered="#{!beanSalidaItem.form}" value="#{beanSalidaItem.listado}" var="ingreso"
-				rows="25" paginator="true">
+			<p:dataTable rendered="#{!beanSalidaItem.form}"
+				value="#{beanSalidaItem.listado}" var="ingreso" rows="25"
+				paginator="true">
 				<p:column headerText="Codigo" filterBy="#{ingreso.id}"
 					filterMatchMode="contains">
 					<h:outputText value="#{ingreso.id}" />
@@ -119,15 +134,15 @@
 				</p:column>
 
 
-				<p:column headerText="Sucursal Origen" filterBy="#{ingreso.sucursalOrigen}"
-					filterMatchMode="contains">
+				<p:column headerText="Sucursal Origen"
+					filterBy="#{ingreso.sucursalOrigen}" filterMatchMode="contains">
 					<h:outputText value="#{ingreso.sucursalOrigen}" />
 				</p:column>
 
 
 
-				<p:column headerText="Sucursal Destino" filterBy="#{ingreso.sucursalDestino}"
-					filterMatchMode="contains">
+				<p:column headerText="Sucursal Destino"
+					filterBy="#{ingreso.sucursalDestino}" filterMatchMode="contains">
 					<h:outputText value="#{ingreso.sucursalDestino}" />
 				</p:column>
 
@@ -136,23 +151,28 @@
 					filterMatchMode="contains">
 					<h:outputText value="#{ingreso.observacion}" />
 				</p:column>
-				
+
 				<p:column>
-				<h:commandButton image="/imagenes/edit.png" value="Editar" actionListener="#{beanSalidaItem.renderizarItem(ingreso,true)}"></h:commandButton>
-			 <h:commandLink  onclick="pnl#{ingreso.id}.show();"  >
-                        <h:graphicImage url="/imagenes/delete.png"/>
-                      
-                    </h:commandLink>
-                    <p:dialog widgetVar="pnl#{ingreso.id}" closable="false"  header="Desea eliminar este Item ?" visible="false"  resizable="false">
+					<h:commandButton image="/imagenes/edit.png" value="Editar"
+						actionListener="#{beanSalidaItem.renderizarItem(ingreso,true)}"></h:commandButton>
+					<h:commandLink onclick="pnl#{ingreso.id}.show();">
+						<h:graphicImage url="/imagenes/delete.png" />
 
-                            <h:panelGrid columns="2" >
-                                <p:commandButton value="Eliminar"  partialSubmit="true"  actionListener="#{beanSalidaItem.eliminarItem(ingreso)}"/>
-                                <p:commandButton value="Cancelar" onclick="pnl#{ingreso.id}.hide();"/>
-                                
-                            </h:panelGrid>
+					</h:commandLink>
+					<p:dialog widgetVar="pnl#{ingreso.id}" closable="false"
+						header="Desea eliminar este Item ?" visible="false"
+						resizable="false">
 
-                    </p:dialog>
-				
+						<h:panelGrid columns="2">
+							<p:commandButton value="Eliminar" partialSubmit="true"
+								actionListener="#{beanSalidaItem.eliminarItem(ingreso)}" />
+							<p:commandButton value="Cancelar"
+								onclick="pnl#{ingreso.id}.hide();" />
+
+						</h:panelGrid>
+
+					</p:dialog>
+
 				</p:column>
 			</p:dataTable>
 

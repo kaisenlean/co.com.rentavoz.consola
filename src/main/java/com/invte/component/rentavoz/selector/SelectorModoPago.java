@@ -8,30 +8,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
-import co.com.rentavoz.logica.jpa.entidades.Cuentas;
-import co.com.rentavoz.logica.jpa.fachadas.CuentasFacade;
+import co.com.rentavoz.logica.jpa.entidades.venta.existencia.ModoPagoEnum;
 
 @ManagedBean
 @ViewScoped
-public class SelectorCuentas implements SelectorBase<Cuentas> {
+public class SelectorModoPago {
 
-	@EJB
-	private CuentasFacade facade;
 	private ArrayList<SelectItem> items;
 
 	@PostConstruct
 	public void init() {
-		List<Cuentas> findAll = facade.findAll();
+		ModoPagoEnum[] findAll = ModoPagoEnum.values();
 		items = new ArrayList<SelectItem>();
-//		items.add(new SelectItem(" ", "-- Seleccione una cuenta --"));
-		for (Cuentas empresa : findAll) {
-			items.add(new SelectItem(empresa.getIdCuentas(), empresa
-					.getCueNombre()));
+//		items.add(new SelectItem(" ", "-- Seleccione un estado --"));
+		for (int i = 0; i < findAll.length; i++) {
+
+			items.add(new SelectItem(findAll[i].name(), findAll[i].name()));
 		}
 	}
 

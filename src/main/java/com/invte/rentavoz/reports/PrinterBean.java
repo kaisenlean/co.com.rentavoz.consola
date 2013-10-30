@@ -16,7 +16,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
@@ -71,12 +70,12 @@ public class PrinterBean  extends BaseBean{
                     if (secondDatasource==null) {
                         jasperPrint = JasperFillManager.fillReport(reportPath, parameters,
 					establishConnection());
-                      JasperPrintManager.printReport(jasperPrint, false);
+//                      JasperPrintManager.printReport(jasperPrint, false);
                         return;
                     }
                     JRBeanCollectionDataSource dts=new JRBeanCollectionDataSource(secondDatasource);
                     jasperPrint=JasperFillManager.fillReport(reportPath, parameters, dts);
-                    JasperPrintManager.printReport(jasperPrint, false);
+//                    JasperPrintManager.printReport(jasperPrint, false);
                     
 			
 		} catch (Exception e) {

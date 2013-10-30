@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facturaIndividual" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9df5d9b2-2dea-44f2-a19a-30e574e85332">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="bodegaSalidaReferencias" class="java.util.List">
+		<fieldDescription><![CDATA[bodegaSalidaReferencias]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="fechaSalida" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaSalida]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="nroFactura" class="java.lang.String">
+		<fieldDescription><![CDATA[nroFactura]]></fieldDescription>
+	</field>
+	<field name="observacion" class="java.lang.String">
+		<fieldDescription><![CDATA[observacion]]></fieldDescription>
+	</field>
+	<field name="recibe" class="java.lang.String">
+		<fieldDescription><![CDATA[recibe]]></fieldDescription>
+	</field>
+	<field name="sucursalDestino" class="co.com.rentavoz.logica.jpa.entidades.Sucursal">
+		<fieldDescription><![CDATA[sucursalDestino]]></fieldDescription>
+	</field>
+	<field name="sucursalOrigen" class="co.com.rentavoz.logica.jpa.entidades.Sucursal">
+		<fieldDescription><![CDATA[sucursalOrigen]]></fieldDescription>
+	</field>
+	<title>
+		<band height="154" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c63d0e25-b366-4ee0-a44c-5e283e4e6cb2" x="188" y="32" width="328" height="14"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Despacho de Existencias]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="3819e308-7e66-4120-b102-e89159d18e10" x="0" y="0" width="243" height="32"/>
+				<imageExpression><![CDATA["/coinvercol.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="ffb7021c-1966-4d38-937c-7787eed1f793" x="455" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3622081a-022c-4166-9e9e-52f4ebd7564e" x="50" y="58" width="128" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechaSalida}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="28c744a6-d635-4e22-a2fa-4c99b7337426" x="0" y="58" width="50" height="20"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="7ac5c0af-6235-4bed-94d6-e00ade7b8ad8" x="436" y="58" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nroFactura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8af072ec-d68e-4e43-ad98-a2460d9bdcda" x="310" y="58" width="126" height="20"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero de Factura]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1b928d0e-6ca3-49d1-8111-f8aa7d2f88ab" x="78" y="120" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3c0183c0-2154-4ceb-a793-0769cfc0a7c9" x="0" y="120" width="78" height="20"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observacion ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="51f8e401-8229-43af-9313-8e0b27ba246a" x="0" y="89" width="50" height="20"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Origen ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="42a7fdb7-9a6e-4ddb-8cb6-f78e4b4227fd" x="50" y="89" width="128" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{sucursalOrigen}.getSucNombre()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d6fcde71-6952-43c1-82ae-1e7804e5bfe1" x="310" y="89" width="66" height="20"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destino ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="e443fc54-d8f3-4369-9d66-96fa7090719e" x="376" y="89" width="160" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{sucursalDestino}.getSucNombre()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="62" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="2368fb55-9c2f-4b34-bdfd-937f8676311c" x="0" y="0" width="574" height="62"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{bodegaSalidaReferencias})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["/reporteSalidas_existencias.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement uuid="0b73d34f-e0bc-4dc7-8839-28081856c777" x="436" y="6" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="16ac01fb-c977-4bdc-a90c-fcac64f7111e" x="516" y="6" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="36">
+			<staticText>
+				<reportElement uuid="d43005ed-4477-4c72-897a-051bd72d8617" x="335" y="0" width="62" height="20"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recibe ]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="dfa776a0-dee7-4e80-9475-b0d6632f7ad0" x="416" y="30" width="129" height="1"/>
+			</line>
+			<image>
+				<reportElement uuid="29474421-5e8d-4d09-bc2f-d506cfe6a162" x="0" y="12" width="280" height="24"/>
+				<imageExpression><![CDATA["/logo.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="7ba91636-3543-4d34-b8d5-9a2dcf23346d" x="436" y="0" width="119" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{recibe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

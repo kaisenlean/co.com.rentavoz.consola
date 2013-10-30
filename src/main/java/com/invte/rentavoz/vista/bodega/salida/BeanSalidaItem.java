@@ -6,6 +6,7 @@ package com.invte.rentavoz.vista.bodega.salida;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import co.com.rentavoz.logica.jpa.fachadas.SucursalFacade;
 import co.com.rentavoz.logica.jpa.fachadas.bodega.BodegaExistenciaFacade;
 import co.com.rentavoz.logica.jpa.fachadas.bodega.BodegaSalidaFacade;
 
+import com.invte.rentavoz.reports.PrinterBean;
 import com.invte.rentavoz.vista.StandardAbm;
 import com.invte.rentavoz.vista.session.Login;
 
@@ -59,6 +61,8 @@ public class BeanSalidaItem extends StandardAbm<BodegaSalida> implements
 	@EJB
 	private BodegaExistenciaFacade bodegaExistenciaFacade;
 
+	@ManagedProperty(value="#{printerBean}")
+	private PrinterBean printerBean;
 	@EJB
 	private SucursalFacade sucursalFacade;
 	private int sucursalOrigen = 0;
@@ -197,6 +201,8 @@ getObjeto().setFechaSalida(new Date());
 
 	}
 	
+	
+	
 	/**
 	 * @see com.invte.rentavoz.vista.StandardAbm#postAction()
 	 */
@@ -294,6 +300,13 @@ getObjeto().setFechaSalida(new Date());
 		
 	}
 	
+	public void imprimir(){
+		ArrayList<BodegaSalida> salidas = new ArrayList<BodegaSalida>();
+		salidas.add(getObjeto());
+		printerBean.exportPdf("reporteSalidas", "reporte_salida_existencias",null,salidas);
+		
+	}
+	
 	/**
 	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 * @date 15/10/2013
@@ -302,4 +315,15 @@ getObjeto().setFechaSalida(new Date());
 	public void setLogin(Login login) {
 		this.login = login;
 	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 22/10/2013
+	 * @param printerBean the printerBean to set
+	 */
+	public void setPrinterBean(PrinterBean printerBean) {
+		this.printerBean = printerBean;
+	}
+	
+	
 }
