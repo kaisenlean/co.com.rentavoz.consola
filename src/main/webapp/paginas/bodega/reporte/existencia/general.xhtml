@@ -50,6 +50,22 @@
 					</h:outputText>
 				</p:column>
 				
+				<p:column headerText="Valor existencias" >
+				
+				<f:facet name="footer">
+					<h:outputText value="#{beanReporteExistencias.granTotal}" style="color:red">
+					<f:convertNumber type="currency"/>
+					</h:outputText>
+				</f:facet>
+				
+					<h:outputText value="#{bi.valorTotalEstimado}">
+					<f:convertNumber type="currency"/>
+					</h:outputText>
+				</p:column>
+				
+				
+				
+				
 
 <p:rowExpansion>
 <p:dataTable value="#{bi.existenciasPorSucursal}" var="eps" style="width:30%;">

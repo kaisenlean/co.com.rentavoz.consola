@@ -75,6 +75,9 @@ public class BeanReporteExistencias implements Serializable {
 	
 	private List<BodegaExistencia> existencias = new ArrayList<BodegaExistencia>();
 
+
+	private double granTotal;
+
 	/**
 	 * 
 	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
@@ -112,6 +115,8 @@ public class BeanReporteExistencias implements Serializable {
 				.hasNext();) {
 			BodegaItem bi = iterator.next();
 			bi.setExistenciasPorSucursal(bodegaExistenciaFacade.findByItemAndSucursal(login.getSucursal(), bi));
+			bi.setValorTotalEstimado(bi.getPrecioVenta().doubleValue()*Double.valueOf(String.valueOf(bi.getExistenciasPorSucursal().size())));
+			granTotal+=bi.getValorTotalEstimado();
 		}
 	}
 	/**
@@ -221,5 +226,23 @@ public class BeanReporteExistencias implements Serializable {
 	 */
 	public void setBodegaItems(List<BodegaItem> bodegaItems) {
 		this.bodegaItems = bodegaItems;
+	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 29/10/2013
+	 * @return the granTotal
+	 */
+	public double getGranTotal() {
+		return granTotal;
+	}
+	
+	/**
+	 * @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * @date 29/10/2013
+	 * @param granTotal the granTotal to set
+	 */
+	public void setGranTotal(double granTotal) {
+		this.granTotal = granTotal;
 	}
 }
