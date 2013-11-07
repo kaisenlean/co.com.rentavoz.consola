@@ -85,18 +85,53 @@ public class BeanVentaItem extends BaseBean implements Serializable {
 	@ManagedProperty(value="#{printerBean}")
 	private PrinterBean  printerBean;
 
+	/**
+	 * 30/10/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * productoId
+	 */
 	private String productoId;
 
+	/**
+	 * 30/10/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * tercero
+	 */
 	private Tercero tercero;
 
+	/**
+	 * 30/10/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * autocompleteTercero
+	 */
 	private AutocompleteTercero autocompleteTercero;
 
+	/**
+	 * 30/10/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * idCuenta
+	 */
 	private int idCuenta;
 
+	/**
+	 * 30/10/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * modoPago
+	 */
 	private String modoPago;
 
+	/**
+	 * 30/10/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * cuota
+	 */
 	private VentaItemCuota cuota;
 
+	/**
+	 * 30/10/2013
+	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	 * estadoCuota
+	 */
 	private String estadoCuota;
 	
 	@EJB
@@ -157,6 +192,7 @@ public class BeanVentaItem extends BaseBean implements Serializable {
 		if (estadoCuota.equals(EstadoCuotaEnum.PAGADA.name())) {
 			cuota.setFechaPago(new Date());
 		}
+		
 		venta.getCuotas().add(cuota);
 		cuota = new VentaItemCuota();
 
@@ -169,8 +205,9 @@ public class BeanVentaItem extends BaseBean implements Serializable {
 	 * @param cuota
 	 */
 	public void eliminarCuota(VentaItemCuota cuota) {
-		venta.getCuotas().remove(cuota);
 		venta.setValorPagar(venta.getValorPagar()-cuota.getValor());
+		venta.getCuotas().remove(cuota);
+		
 
 	}
 /**
@@ -183,6 +220,18 @@ public class BeanVentaItem extends BaseBean implements Serializable {
 		venta.setCuenta(cuentasFacade.find(idCuenta));
 		venta.setCliente(tercero);
 		venta.setModoPago(ModoPagoEnum.valueOf(modoPago));
+		
+	
+		if (venta.getModoPago().equals(ModoPagoEnum.CONTADO)) {
+			VentaItemCuota cuota= new VentaItemCuota();
+			cuota.setEstado(EstadoVentaItemCuotaEnum.PAGADA);
+			cuota.setFechaCierre(new Date());
+			cuota.setFechaPago(new Date());
+			cuota.setValor(venta.getValorPagar());
+			cuota.setIdVenta(venta);
+			venta.getCuotas().add(cuota);
+		}
+		
 		try {
 			ventaItemEjb.registrarVenta(venta);
 		

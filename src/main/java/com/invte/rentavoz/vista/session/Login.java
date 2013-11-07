@@ -23,6 +23,7 @@ import co.com.rentavoz.logica.jpa.entidades.profile.Usuario;
 import co.com.rentavoz.logica.jpa.fachadas.TerceroFacade;
 import co.com.rentavoz.logica.jpa.fachadas.UsuarioFacade;
 
+import com.invte.rentavoz.logica.caja.CajaEjb;
 import com.invte.rentavoz.vista.BaseBean;
 
 /**
@@ -43,6 +44,9 @@ public class Login extends BaseBean implements Serializable {
 
 	@EJB
 	private TerceroFacade terceroFacade;
+	
+	@EJB
+	private CajaEjb cajaEjb;
 
 	private Usuario user;
 	private String usuario;
@@ -66,6 +70,7 @@ public class Login extends BaseBean implements Serializable {
 			loggedIn = true;
 			context.addCallbackParam("loggedIn", loggedIn);
 			buscarTercero();
+			cajaEjb.abrirCaja(user);
 			return "/dashboard.jsf";
 		} catch (Exception e) {
 			loggedIn = false;

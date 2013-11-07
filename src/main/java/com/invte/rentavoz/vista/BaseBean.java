@@ -3,9 +3,12 @@
  */
 package com.invte.rentavoz.vista;
 
+import java.io.IOException;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
 import org.primefaces.context.RequestContext;
 
@@ -127,4 +130,22 @@ public class BaseBean {
 		
 	}
 
+	
+	public void goTo(String dir){
+		ExternalContext ctx = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		String ctxPath = ((ServletContext) ctx.getContext()).getContextPath();
+
+		try {
+
+			// Redirección de nuevo con el contexto de JSF,
+			// si se usa una HttpServletResponse fallará.
+			// Sin embargo, como ya está fuera del ciclo de vida
+			// de JSF se debe usar la ruta completa -_-U
+			ctx.redirect(ctxPath + "/");
+		} catch (IOException ex) {
+			mensaje("Error", ex.toString());
+		}
+		
+	}
 }
