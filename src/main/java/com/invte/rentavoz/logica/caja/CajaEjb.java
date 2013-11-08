@@ -38,5 +38,11 @@ public class CajaEjb implements Serializable{
 		
 	}
 	
+	
+	public double valorCaja(){
+		
+		return facade.valorCaja();
+	}
+	
 
 }

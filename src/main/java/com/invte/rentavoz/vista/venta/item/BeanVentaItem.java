@@ -235,7 +235,7 @@ public class BeanVentaItem extends BaseBean implements Serializable {
 		try {
 			ventaItemEjb.registrarVenta(venta);
 		
-			
+			login.updateValorCaja();
 			runJavascript("Se ha registrado una nueva venta");
 			List<VentaItem> ventas= new ArrayList<VentaItem>();
 			ventas.add(venta);

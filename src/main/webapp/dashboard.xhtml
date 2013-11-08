@@ -21,10 +21,10 @@
 		<h:form>
 
 			<p:layoutUnit position="center" size="190">
-			<div style="float:bottom">
-				
-				<p:growl autoUpdate="true" showDetail="true" sticky="true"
-					severity="info" life="200"  />
+				<div style="float: bottom">
+
+					<p:growl autoUpdate="true" showDetail="true" sticky="true"
+						severity="info" life="200" />
 				</div>
 				<p:dialog rendered="#{!login.session}" visible="#{!login.session}"
 					header="Lo sentimos , no hemos detectado una sesion activa recientemente"
@@ -37,9 +37,11 @@
 								<h:graphicImage value="/imagenes/innovateLogo.png" />
 								<a href="#{request.contextPath}/" type="button">Volver al
 									inicio</a>
-									
-								
+
+
 							</h:panelGrid>
+					
+							
 						</div>
 					</h:form>
 				</p:dialog>
@@ -48,6 +50,12 @@
 					<p:menuButton value="Sesión activa ( #{login.user.usuario} )">
 						<p:menuitem value="Salir" actionListener="#{login.logOut}" />
 					</p:menuButton>
+							<br />
+							<h:outputLabel value="Dinero en caja : " style="font-weight: bolder;font-size:16px" />
+							<h:outputLabel value="#{login.valorCaja}"  style="font-weight: bolder;font-size:16px;color:red">
+							<f:convertNumber  type="currency"/>
+							</h:outputLabel>
+					
 				</div>
 				<p:graphicImage url="/imagenes/logo.png"></p:graphicImage>
 				<h:panelGrid columns="2">
@@ -129,24 +137,25 @@
 
 
 					</h:panelGrid>
-	
-			
-	</h:panelGrid>
 
-	
+
+				</h:panelGrid>
+
+
 				<h:panelGrid style="float: right;margin-top: -10%">
 					<p:graphicImage url="/imagenes/coinv.png"></p:graphicImage>
-	<h:outputLabel value="Mi bandeja de tareas" styleClass="h1" />
-			<div >
-					<p:dataTable value="#{tareaBean.tareas}" var="tarea">
-						<p:column headerText="Tarea">
-							<h:outputText value="#{tarea.descripcion}" />
-						</p:column>
-						<p:column>
-						<h:commandButton action="#{tareaBean.loadTask(tarea)}" image="/imagenes/detail.png"  />
-						</p:column>
-					</p:dataTable>
-			</div>
+					<h:outputLabel value="Mi bandeja de tareas" styleClass="h1" />
+					<div>
+						<p:dataTable value="#{tareaBean.tareas}" var="tarea">
+							<p:column headerText="Tarea">
+								<h:outputText value="#{tarea.descripcion}" />
+							</p:column>
+							<p:column>
+								<h:commandButton action="#{tareaBean.loadTask(tarea)}"
+									image="/imagenes/detail.png" />
+							</p:column>
+						</p:dataTable>
+					</div>
 				</h:panelGrid>
 			</p:layoutUnit>
 			<p:layoutUnit position="south" size="40" resizable="false">
