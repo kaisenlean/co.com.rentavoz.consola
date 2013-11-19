@@ -56,19 +56,34 @@ public class Login extends BaseBean implements Serializable {
 
 	private double valorCaja;
 	
-	
+	/**
+	 * 
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 12/11/2013
+	 */
 	@PostConstruct
 	public void init() {
 
 		user = null;
 	}
 	
+	/**
+	 * 
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 12/11/2013
+	 */
 	public void updateValorCaja(){
 		
 		valorCaja=cajaEjb.valorCaja();
 		
 	}
 
+	/**
+	 * 
+	* @author <a href="elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
+	* @date 12/11/2013
+	* @return
+	 */
 	public String login() {
 		RequestContext context = RequestContext.getCurrentInstance();
 

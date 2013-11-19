@@ -68,7 +68,7 @@ public class BeanLineaConsumo extends BaseBean implements Serializable {
 			String path = request.getRealPath("/");
 			OutputStream out = new FileOutputStream(path
 					+ event.getFile().getFileName().replace(" ", "").trim());
-			File f = new File(request.getRealPath(path
+			 new File(request.getRealPath(path
 					+ event.getFile().getFileName().replace(" ", "").trim()));
 
 			if (in != null) {
@@ -157,4 +157,5 @@ public class BeanLineaConsumo extends BaseBean implements Serializable {
 	public void setSalida(String salida) {
 		this.salida = salida;
 	}
+	
 }
