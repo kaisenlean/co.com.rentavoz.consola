@@ -13,19 +13,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import co.com.rentavoz.logica.jpa.entidades.profile.Usuario;
@@ -43,15 +41,7 @@ import co.com.rentavoz.logica.jpa.entidades.profile.Usuario;
 */
 @Entity
 @Table(name = "tercero")
-@XmlRootElement
-@NamedQueries({
-		@NamedQuery(name = "Tercero.findAll", query = "SELECT t FROM Tercero t"),
-		@NamedQuery(name = "Tercero.findByIdTecero", query = "SELECT t FROM Tercero t WHERE t.idTecero = :idTecero"),
-		@NamedQuery(name = "Tercero.findByTerNombre", query = "SELECT t FROM Tercero t WHERE t.terNombre = :terNombre"),
-		@NamedQuery(name = "Tercero.findByTerApellidos", query = "SELECT t FROM Tercero t WHERE t.terApellidos = :terApellidos"),
-		@NamedQuery(name = "Tercero.findByTerTelefono", query = "SELECT t FROM Tercero t WHERE t.terTelefono = :terTelefono"),
-		@NamedQuery(name = "Tercero.findByTerDireccion", query = "SELECT t FROM Tercero t WHERE t.terDireccion = :terDireccion"),
-		@NamedQuery(name = "Tercero.findByTerDocumento", query = "SELECT t FROM Tercero t WHERE t.terDocumento = :terDocumento") })
+
 public class Tercero implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
@@ -133,7 +123,7 @@ public class Tercero implements Serializable {
 	 * co.com.rentavoz.model.jpa
 	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 */
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "terceroidTecero")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "terceroidTecero" ,fetch=FetchType.EAGER)
 	private List<SucursalTercero> sucursalTerceroList;
 	/**
 	 * co.com.rentavoz.logica.jpa.entidades
@@ -156,12 +146,12 @@ public class Tercero implements Serializable {
 	 * co.com.rentavoz.model.jpa
 	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 */
-	@JoinColumn(name = "usuario", referencedColumnName = "usuario")
+	@JoinColumn(name = "usuario", referencedColumnName = "usuar")
 	@ManyToOne
 	private Usuario usuario;
 
 	
-	
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="centrope" , referencedColumnName="id")
 	private Centrope centrope;
 	
@@ -352,7 +342,7 @@ public class Tercero implements Serializable {
 	* @date 4/09/2013
 	* @return
 	*/
-	@XmlTransient
+//	@XmlTransient
 	public List<SucursalTercero> getSucursalTerceroList() {
 		return sucursalTerceroList;
 	}

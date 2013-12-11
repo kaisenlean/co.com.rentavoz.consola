@@ -4,7 +4,6 @@
  */
 package co.com.rentavoz.logica.jpa.fachadas;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -25,12 +24,7 @@ import co.com.rentavoz.logica.jpa.entidades.profile.Usuario;
 *
  */
 @Stateless
-public class TerceroFacade extends AbstractFacade<Tercero> implements
-		Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3830935209390129416L;
+public class TerceroFacade extends AbstractFacade<Tercero> {
 	@PersistenceContext(unitName = "com.innovate.rentavozPU")
 	private EntityManager em;
 

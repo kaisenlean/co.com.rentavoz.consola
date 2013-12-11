@@ -7,6 +7,7 @@ package co.com.rentavoz.logica.jpa.entidades;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class SucursalTercero implements Serializable {
 	@Column(name = "sucTerEstado")
 	private int sucTerEstado;
 	@JoinColumn(name = "Tercero_idTecero", referencedColumnName = "idTecero")
-	@ManyToOne(optional = false)
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Tercero terceroidTecero;
 	@JoinColumn(name = "Sucursal_idSucursal", referencedColumnName = "idSucursal")
 	@ManyToOne(optional = false)

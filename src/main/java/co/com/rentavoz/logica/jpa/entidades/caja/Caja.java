@@ -31,6 +31,7 @@ public class Caja implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="usuario")
 	private Usuario usuario;
 

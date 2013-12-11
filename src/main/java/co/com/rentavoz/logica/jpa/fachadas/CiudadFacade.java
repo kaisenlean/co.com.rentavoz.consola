@@ -4,6 +4,7 @@
  */
 package co.com.rentavoz.logica.jpa.fachadas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -38,11 +39,11 @@ public class CiudadFacade extends AbstractFacade<Ciudad> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Ciudad> findAll() {
+	public ArrayList<Ciudad> findAll() {
 		Query q = getEntityManager()
 				.createQuery(
 						"SELECT c FROM Ciudad c ORDER BY c.departamentoidDepartamento.depNombre ASC");
-		return q.getResultList();
+		return new ArrayList<Ciudad>(q.getResultList());
 	}
 
 	/**

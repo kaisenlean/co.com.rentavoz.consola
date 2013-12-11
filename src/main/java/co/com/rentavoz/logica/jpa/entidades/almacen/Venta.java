@@ -20,6 +20,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -111,7 +112,7 @@ public class Venta implements Serializable {
 	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "venta")
 	private List<Cuota> cuotas = new ArrayList<Cuota>();
 
-	
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="tercero", referencedColumnName="idTecero")
 	private Tercero tercero;
 	

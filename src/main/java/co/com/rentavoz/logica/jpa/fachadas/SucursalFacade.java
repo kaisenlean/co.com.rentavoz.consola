@@ -30,10 +30,6 @@ public class SucursalFacade extends AbstractFacade<Sucursal> {
 		super(Sucursal.class);
 	}
 
-	@Override
-	public List<Sucursal> findAll() {
-		return super.findAll(); // To change body of generated methods, choose
-								// Tools | Templates.
-	}
+
 
 }
