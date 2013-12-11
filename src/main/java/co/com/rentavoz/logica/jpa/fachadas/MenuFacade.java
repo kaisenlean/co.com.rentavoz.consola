@@ -4,6 +4,7 @@
  */
 package co.com.rentavoz.logica.jpa.fachadas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -37,9 +38,11 @@ public class MenuFacade extends AbstractFacade<Menu> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Menu> findTodosByPadre(String padre) {
-		return getEntityManager()
+	public ArrayList<Menu> findTodosByPadre(String padre) {
+		   List<Menu> lista= getEntityManager()
 				.createQuery("SELECT m FROM Menu m  WHERE m.padre = :padre")
 				.setParameter("padre", padre).getResultList();
+		   
+		   return new ArrayList<Menu>(lista);
 	}
 }

@@ -37,9 +37,7 @@ public class Usuario implements Serializable {
 	
 	@Id
 	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 50)
-	@Column(name = "usuario")
+	@Column(name = "usuar")
 	private String usuario;
 	@Column(name = "administrador")
 	private Character administrador;

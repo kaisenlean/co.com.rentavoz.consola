@@ -4,6 +4,7 @@
  */
 package co.com.rentavoz.logica.jpa.fachadas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -44,13 +45,13 @@ public abstract class AbstractFacade<T> {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List<T> findAll() {
+	public ArrayList<T> findAll() {
 		CriteriaQuery cq = getEntityManager().getCriteriaBuilder()
 				.createQuery();
 
 		cq.select(cq.from(entityClass));
 
-		return getEntityManager().createQuery(cq).getResultList();
+		return new ArrayList<T>( getEntityManager().createQuery(cq).getResultList());
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

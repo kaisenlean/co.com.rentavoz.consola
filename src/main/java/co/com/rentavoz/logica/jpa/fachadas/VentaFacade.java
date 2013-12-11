@@ -4,6 +4,7 @@
  */
 package co.com.rentavoz.logica.jpa.fachadas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -61,10 +62,10 @@ public class VentaFacade extends AbstractFacade<Venta> {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Venta> findAll() {
+	public ArrayList<Venta> findAll() {
 		Query query = getEntityManager().createQuery(
 				"SELECT v FROM Venta v WHERE v.estadoVenta = :estado");
 		query.setParameter(FIELD_ESTADO, ESTADO_VENTA_ACTIVA);
-		return query.getResultList();
+		return new ArrayList<Venta>( query.getResultList());
 	}
 }

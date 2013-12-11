@@ -43,6 +43,7 @@ public class VentaItemDetalleItem implements Serializable {
 	 * co.com.rentavoz.model.jpa
 	 * @author <a href="mailto:elmerdiazlazo@gmail.com">Elmer Jose Diaz Lazo</a>
 	 */
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idVenta")
 	private VentaItem idVenta;
 
